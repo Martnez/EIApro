@@ -1,0 +1,177 @@
+<%- include ('./includes/header.ejs') %>
+  <body>
+    <div class="dash-container">
+      <div class="hover-hamburger" id="hover_hamburger">
+        <div class="inner-hamburger">
+          <div class="bar"></div>
+          <div class="bar"></div>
+          <div class="bar"></div>
+        </div>
+      </div>
+      <div class="nav-overlay" id="overlay"></div>
+      <div class="side-bar" id="side_bar">
+        <div class="other-hover-hamburger show" id="other_hover_hamburger">
+          <div class="inner-hamburger">
+            <div class="bar"></div>
+            <div class="bar"></div>
+            <div class="bar"></div>
+          </div>
+        </div>
+        <div class="side-bar-content">
+          <div class="top-image-holder dash-img">
+            <img src="/images/eia_logo.png" alt="" />
+          </div>
+          <ul class="links">
+            <li class="list">
+              <a href="/dashboard" class="link">Home</a>
+            </li>
+            <li class="list">
+              <a href="/clients" class="link">Clients</a>
+            </li>
+            <li class="list">
+              <a href="/underwriting" class="link">Underwriting</a>
+            </li>
+            <li class="list">
+              <a href="/claims" class="link">Claims</a>
+            </li>
+            <li class="list">
+              <a href="/vehicles" class="link active">Vehicles</a>
+            </li>
+            <li class="list">
+              <a href="" class="link">Credit</a>
+            </li>
+            <li class="list">
+              <a href="" class="link">Reports</a>
+            </li>
+          </ul>
+          <ul class="links lower">
+            <li class="list">
+              <a href="/admin" class="link">Admin</a>
+            </li>
+            <li class="list">
+              <a href="/logout" class="link logout">Logout</a>
+            </li>
+          </ul>
+        </div>
+      </div>
+      <div class="top-bar">
+        <div class="user-name-space">
+          <div class="user-icon">
+            <div class="image-holder">
+              <img src="./images/user-img.png" alt="" />
+            </div>
+            <h3 class="username-dash">Hello <%= userN.firstName %> </h3>
+          </div>
+        </div>
+      </div>
+      <div class="time-bar">
+        <h3 id="date_value"></h3>
+      </div>
+      <div class="dash-main">
+        <div class="dash-content">
+          <div class="data-input-content">
+            <h2 class="data-input-title">New Vehicle Registration</h2>
+            <form action="" method="post" class="form-action">
+              <div class="form-contents">
+                <div class="rows">
+                  <div class="data-col">
+                    <div class="input-holder inside">
+                      <input
+                        type="text"
+                        placeholder="Registration Number"
+                        required
+                        name="regN"
+                        class="input-space"
+                      />
+                    </div>
+                    <div class="input-holder inside">
+                      <input
+                        type="text"
+                        placeholder="Chassis Number"
+                        required
+                        name="chassisN"
+                        class="input-space"
+                      />
+                    </div>
+                    <div class="input-holder inside">
+                      <input
+                        type="text"
+                        placeholder="Logbook Number"
+                        required
+                        name="logbookN"
+                        class="input-space"
+                      />
+                    </div>
+                    <div class="input-holder inside">
+                      <input
+                        type="text"
+                        placeholder="Make"
+                        required
+                        name="make"
+                        class="input-space"
+                      />
+                    </div> 
+                    <div class="input-holder inside">
+                      <input
+                        type="text"
+                        placeholder="Year of Manufacture"
+                        onblur="(this.type='text')"
+                        onfocus="(this. type='date')"
+                        required
+                        name="yom"
+                        class="input-space"
+                      />
+                    </div>
+                  </div>
+                  <div class="data-col">
+                    <div class="input-holder inside">
+                      <input
+                        type="text"
+                        placeholder="Engine Number"
+                        required
+                        name="engineN"
+                        class="input-space"
+                      />
+                    </div>
+                    <div class="input-holder inside">
+                      <input
+                        type="text"
+                        placeholder="Color"
+                        required
+                        name="color"
+                        class="input-space"
+                      />
+                    </div>
+                    <div class="input-holder inside">
+                      <input
+                        type="text"
+                        placeholder="Loading Capacity"
+                        required
+                        name="loadingCapacity"
+                        class="input-space"
+                      />
+                    </div>
+                    <div class="input-holder inside">
+                      <input
+                        type="tel"
+                        placeholder="Owner's Full Name"
+                        required
+                        name="owner"
+                        class="input-space"
+                      />
+                    </div>
+                  </div>
+                  <div class="button-holder" style="margin-left: 1rem">
+                    <button name="" class="btn add-new">Register</button>
+                  </div>
+                </div>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+    <script src="./js/time.js"></script>
+    <script src="./js/nav.js"></script>
+  </body>
+</html>

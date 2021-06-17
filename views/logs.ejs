@@ -1,0 +1,83 @@
+<%- include ('./includes/header.ejs') %>
+  <body>
+    <div class="dash-container">
+      <div class="hover-hamburger" id="hover_hamburger">
+        <div class="inner-hamburger">
+          <div class="bar"></div>
+          <div class="bar"></div>
+          <div class="bar"></div>
+        </div>
+      </div>
+      <div class="nav-overlay" id="overlay"></div>
+      <div class="side-bar" id="side_bar">
+        <div class="other-hover-hamburger show" id="other_hover_hamburger">
+          <div class="inner-hamburger">
+            <div class="bar"></div>
+            <div class="bar"></div>
+            <div class="bar"></div>
+          </div>
+        </div>
+        <%- include ('./includes/sidePane.ejs') %>
+      <div class="top-bar">
+        <div class="user-name-space">
+          <div class="user-icon">
+            <div class="image-holder">
+              <img src="./images/user-img.png" alt="" />
+            </div>
+            <h3 class="username-dash">Hello <%= user.firstName %></h3>
+          </div>
+        </div>
+      </div>
+      <div class="time-bar">
+        <h3 id="date_value"></h3>
+      </div>
+      <div class="dash-main">
+        <div class="dash-content">
+          <div class="client-content">
+            <div class="top-search-bar">
+              <div class="search-input-holder" style="margin: 1rem 0">
+                <input
+                  type="text"
+                  id="search_table"
+                  placeholder="Search"
+                  class="search-input"
+                  onkeyup="myFunction()"
+                />
+              </div>
+            </div>
+
+            <div class="dash-table-display">
+              <table class="info-list-table">
+                <thead>
+                  <tr>
+                    <th>Task Performed</th>
+                    <th>Date Performed</th>
+                    <th>Time</th>
+                    <th>User Account</th>
+                  </tr>
+                </thead>
+                <tbody id="myTable">
+                  <% if(logs.length > 0) { %> 
+                    <% for(let log of logs) { %>
+                    <tr onclick="document.location=''">
+                      <td><%=log.task %></td>
+                      <td><%=log.date %></td>
+                      <td><%=log.time %></td>
+                      <td><%=log.user.firstName%>  <%=log.user.lastName%></td>
+                    </tr>
+                    <% } %>
+                    <% } else { %>
+                      <h2>nothing to display</h2>
+                  <% } %> 
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <script src="./js/search.js"></script>
+    <script src="./js/time.js"></script>
+    <script src="./js/nav.js"></script>
+  </body>
+</html>

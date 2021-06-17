@@ -1,0 +1,130 @@
+<%- include ('./includes/header.ejs') %>
+  <body>
+    <div class="dash-container">
+      <div class="hover-hamburger" id="hover_hamburger">
+        <div class="inner-hamburger">
+          <div class="bar"></div>
+          <div class="bar"></div>
+          <div class="bar"></div>
+        </div>
+      </div>
+      <div class="nav-overlay" id="overlay"></div>
+      <div class="side-bar" id="side_bar">
+        <div class="other-hover-hamburger show" id="other_hover_hamburger">
+          <div class="inner-hamburger">
+            <div class="bar"></div>
+            <div class="bar"></div>
+            <div class="bar"></div>
+          </div>
+        </div>
+        <%- include ('./includes/sidePane.ejs') %>
+      <div class="top-bar">
+        <div class="user-name-space">
+          <div class="user-icon">
+            <div class="image-holder">
+              <img src="/images/user-img.png" alt="" />
+            </div>
+            <h3 class="username-dash">Hello <%= user.firstName %> </h3>
+          </div>
+        </div>
+      </div>
+      <div class="time-bar">
+        <h3 id="date_value"></h3>
+      </div>
+      <div class="dash-main">
+        <div class="dash-content">
+          <div class="top-inputs">
+            <h2>New User Account</h2>
+            <p>Enter new user details in the below spaces</p>
+            <div class="new-user-dash">
+              <form action="" method="post" class="form-action">
+                <div class="form-contents">
+                  <div class="split-diplay">
+                    <div class="input-holder split">
+                      <input
+                        type="text"
+                        placeholder="First name"
+                        required
+                        name="firstName"
+                        class="input-space"
+                      />
+                    </div>
+                    <div class="input-holder split">
+                      <input
+                        type="text"
+                        placeholder="Last name"
+                        required
+                        name="lastName"
+                        class="input-space"
+                      />
+                    </div>
+                  </div>
+                  <div class="input-holder inside">
+                    <input
+                      type="email"
+                      placeholder="Email"
+                      required
+                      name="email"
+                      class="input-space"
+                    />
+                  </div>
+                  <div class="input-holder inside">
+                    <input
+                      type="tel"
+                      placeholder="Phone"
+                      required
+                      name="phone"
+                      class="input-space"
+                    />
+                  </div>
+                  <div class="input-holder inside">
+                    <select name="level" class="input-space" required id="">
+                      <option value="" selected>Select User Level</option>
+                      <option value="Admin">Admin</option>
+                      <option value="Staff">Staff</option>
+                    </select>
+                  </div>
+                  <% if (errorMessage) {%>
+                    <h3> <%= errorMessage%></h3> 
+                <%}%>
+                  <div class="button-holder" style="margin-left: 2rem">
+                    <button name="" class="btn login">Create</button>
+                  </div>
+                  
+                </div>
+              </form>
+            </div>
+          </div>
+          <div class="users-list">
+            <h3>Other Users</h3>
+            <div class="user-list-content">
+              <% if(users.length > 0) { %> 
+                <% for(let user of users) { %>
+              <div class="user-list-card">
+                <div class="user-info-holder">
+                  <h4 class="tag">Name:</h4>
+                  <h4 class="detail"><%= user.firstName %> <%= user.lastName %>  </h4>
+                </div>
+                <div class="user-info-holder">
+                  <h4 class="tag">Email:</h4>
+                  <h4 class="detail"><%= user.email %> </h4>
+                </div>
+                <div class="user-info-holder">
+                  <h4 class="tag">Phone:</h4>
+                  <h4 class="detail">0<%= user.phoneNumber %> </h4>
+                </div>
+                <div class="user-info-holder options">
+                  <input type="hidden" value="<%= user.id %>" name="userId">
+                  <a href="/user-profile/<%= user.id %> " class="user-options">Edit</a>
+                  <a href="/delete-user/<%= user.id %>" class="user-options delete">Delete</a>
+                </div>
+              </div>
+              <% } %>
+              <% } else { %>
+              <% } %>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <%- include ('./includes/footer.ejs') %>

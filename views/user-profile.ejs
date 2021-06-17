@@ -1,0 +1,121 @@
+<%- include ('./includes/header.ejs') %>
+  <body>
+    <div class="dash-container">
+      <div class="hover-hamburger" id="hover_hamburger">
+        <div class="inner-hamburger">
+          <div class="bar"></div>
+          <div class="bar"></div>
+          <div class="bar"></div>
+        </div>
+      </div>
+      <div class="nav-overlay" id="overlay"></div>
+      <div class="side-bar" id="side_bar">
+        <div class="other-hover-hamburger show" id="other_hover_hamburger">
+          <div class="inner-hamburger">
+            <div class="bar"></div>
+            <div class="bar"></div>
+            <div class="bar"></div>
+          </div>
+        </div>
+        <%- include ('./includes/sidePane.ejs') %>
+      <div class="top-bar">
+        <div class="user-name-space">
+          <div class="user-icon">
+            <div class="image-holder">
+              <img src="./images/user-img.png" alt="" />
+            </div>
+            <h3 class="username-dash">Hello <%= userN.firstName %> </h3>
+          </div>
+        </div>
+      </div>
+      <div class="time-bar">
+        <h3 id="date_value"></h3>
+      </div>
+      <div class="dash-main">
+        <div class="dash-content">
+          <div class="rows">
+            <div class="data-col">
+              <div class="top-inputs">
+                <h2>Change User Account</h2>
+                <p>You can change the details in the below spaces</p>
+                <div class="new-user-dash">
+                  <form action="" method="post" class="form-action">
+                    <div class="form-contents">
+                      <div class="split-diplay">
+                        <div class="input-holder split">
+                          <input
+                            type="text"
+                            placeholder="First name"
+                            required
+                            name="firstName"
+                            class="input-space"
+                            value="<%= user.firstName %> "
+                          />
+                        </div>
+                        <div class="input-holder split">
+                          <input
+                            type="text"
+                            placeholder="Last name"
+                            required
+                            name="lastName"
+                            class="input-space"
+                            value="<%= user.lastName %> "
+                          />
+                        </div>
+                      </div>
+                      <div class="input-holder inside">
+                        <input
+                          type="email"
+                          placeholder="Email"
+                          required
+                          name="email"
+                          class="input-space"
+                          value="<%= user.email %> "
+                        />
+                      </div>
+                      <div class="input-holder inside">
+                        <input
+                          type="tel"
+                          placeholder="Phone"
+                          required
+                          name="phoneNumber"
+                          class="input-space"
+                          value="<%= user.phoneNumber %> "
+                        />
+                      </div>
+                      <div class="input-holder inside">
+                        <select name="" class="input-space" required id="">
+                          <option value="" selected><%= user.userLevel %> </option>
+                          <option value="Admin">Admin</option>
+                          <option value="Staff">Staff</option>
+                        </select>
+                      </div>
+                      <div class="button-holder" style="margin-left: 2rem">
+                        <button name="" class="btn login">Update</button>
+                      </div>
+                    </div>
+                  </form>
+                </div>
+              </div>
+            </div>
+            <div class="data-col full-screen">
+              <input type="hidden" value="<%= user.id %>" name="userId">
+              <a href="/reset-flag/<%= user.id %>" class="manage-user-btn">Reset Password</a>
+              <a href="/delete-user/<%= user.id %>" class="manage-user-btn del">Delete Account</a>
+              <% if (updateSuccess) {%>
+                <h3> <%= updateSuccess%></h3> 
+                 
+            <%}%>
+            <% if (resetSuccess) {%>
+              <h3> <%= resetSuccess%></h3> 
+               
+          <%}%>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <script src="./js/time.js"></script>
+    <script src="./js/nav.js"></script>
+  </body>
+</html>

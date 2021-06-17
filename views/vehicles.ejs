@@ -1,0 +1,98 @@
+<%- include ('./includes/header.ejs') %>
+  <body>
+    <div class="dash-container">
+      <div class="hover-hamburger" id="hover_hamburger">
+        <div class="inner-hamburger">
+          <div class="bar"></div>
+          <div class="bar"></div>
+          <div class="bar"></div>
+        </div>
+      </div>
+      <div class="nav-overlay" id="overlay"></div>
+      <div class="side-bar" id="side_bar">
+        <div class="other-hover-hamburger show" id="other_hover_hamburger">
+          <div class="inner-hamburger">
+            <div class="bar"></div>
+            <div class="bar"></div>
+            <div class="bar"></div>
+          </div>
+        </div>
+        <%- include ('./includes/sidePane.ejs') %>
+      <div class="top-bar">
+        <div class="user-name-space">
+          <div class="user-icon">
+            <div class="image-holder">
+              <img src="./images/user-img.png" alt="" />
+            </div>
+            <h3 class="username-dash">Hello Stephen</h3>
+          </div>
+        </div>
+      </div>
+      <div class="time-bar">
+        <h3 id="date_value"></h3>
+      </div>
+      <div class="popup-info-display">
+        <div class="popup-overlays" id="popup_overlay"></div>
+        <div class="pop-up-selections" id="popup_selection">
+          <a href="new-motor.html" class="popup-link">Motor Policy</a>
+          <a href="new-non-motor.html" class="popup-link">Non-Motor Policy</a>
+        </div>
+      </div>
+      <div class="dash-main">
+        <div class="dash-content">
+          <div class="client-content">
+            <div class="top-search-bar">
+              <div class="search-input-holder">
+                <input
+                  type="text"
+                  id="search_table"
+                  placeholder="Search"
+                  class="search-input"
+                  onkeyup="myFunction()"
+                />
+              </div>
+              <a
+                href="/new-vehicle"
+                class="btn add-new"
+                style="margin: 1em 0"
+                >Add Vehicle</a
+              >
+            </div>
+
+            <div class="dash-table-display">
+              <table class="info-list-table">
+                <thead>
+                  <tr>
+                    <th>Reg No.</th>
+                    <th>Make</th>
+                    <th>Engine No.</th>
+                    <th>Year of Manufacture</th>
+                    <th>Owner</th>
+                  </tr>
+                </thead>
+                <tbody id="myTable">
+                  <% if(vehicles.length > 0) { %> 
+                    <% for(let vehicle of vehicles) { %>
+                  <tr onclick="document.location=''">
+                    <td><%= vehicle.RegN %> </td>
+                    <td><%= vehicle.Make%> </td>
+                    <td><%= vehicle.EngNo %> </td>
+                    <td><%= vehicle.MOY %> </td>
+                    <td><%= vehicle.Owner %> </td>
+                  </tr>
+                <% } %>
+                <% } else { %>
+                 
+                <% } %>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <script src="./js/search.js"></script>
+    <script src="./js/time.js"></script>
+    <script src="./js/nav.js"></script>
+  </body>
+</html>

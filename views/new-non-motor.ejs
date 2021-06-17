@@ -1,0 +1,441 @@
+<%- include ('./includes/header.ejs') %>
+  <body>
+    <div class="dash-container">
+      <div class="hover-hamburger" id="hover_hamburger">
+        <div class="inner-hamburger">
+          <div class="bar"></div>
+          <div class="bar"></div>
+          <div class="bar"></div>
+        </div>
+      </div>
+      <div class="nav-overlay" id="overlay"></div>
+      <div class="side-bar" id="side_bar">
+        <div class="other-hover-hamburger show" id="other_hover_hamburger">
+          <div class="inner-hamburger">
+            <div class="bar"></div>
+            <div class="bar"></div>
+            <div class="bar"></div>
+          </div>
+        </div>
+        <div class="side-bar-content">
+          <div class="top-image-holder dash-img">
+            <img src="/images/eia_logo.png" alt="" />
+          </div>
+          <ul class="links">
+            <li class="list">
+              <a href="/dashboard" class="link">Home</a>
+            </li>
+            <li class="list">
+              <a href="/clients" class="link">Clients</a>
+            </li>
+            <li class="list">
+              <a href="/underwriting" class="link active">Underwriting</a>
+            </li>
+            <li class="list">
+              <a href="/claims" class="link">Claims</a>
+            </li>
+            <li class="list">
+              <a href="/vehicles" class="link">Vehicles</a>
+            </li>
+            <li class="list">
+              <a href="" class="link">Credit</a>
+            </li>
+            <li class="list">
+              <a href="" class="link">Reports</a>
+            </li>
+          </ul>
+          <ul class="links lower">
+            <li class="list">
+              <a href="/admin" class="link">Admin</a>
+            </li>
+            <li class="list">
+              <a href="/logout" class="link logout">Logout</a>
+            </li>
+          </ul>
+        </div>
+      </div>
+      <div class="top-bar">
+        <div class="user-name-space">
+          <div class="user-icon">
+            <div class="image-holder">
+              <img src="./images/user-img.png" alt="" />
+            </div>
+            <h3 class="username-dash">Hello <%= userN.firstName %> </h3>
+          </div>
+        </div>
+      </div>
+      <div class="time-bar">
+        <h3 id="date_value"></h3>
+      </div>
+      <div class="dash-main">
+        <div class="dash-content">
+          <div class="data-input-content">
+            <h2 class="data-input-title">New Non-Motor Policy</h2>
+            <form action="" method="post" class="form-action">
+              <div class="form-contents">
+                <div class="rows">
+                  <div class="data-col">
+                    <div class="input-holder inside">
+                      <input
+                        list="client_name"
+                        class="input-space"
+                        placeholder="Select or Enter Client name"
+                        name=""
+                        required
+                      />
+                      <datalist id="client_name">
+                        <option value="1 CHINA HENAN INT'L">
+                          CHINA HENAN INT'L
+                        </option>
+                        <option value="2 STECOL INTERNATIONAL">
+                          STECOL INTERNATIONAL
+                        </option>
+                        <option value="3 DHL FINANCE">DHL FINANCE</option>
+                      </datalist>
+                    </div>
+                    <div class="input-holder inside">
+                      <input
+                        type="text"
+                        placeholder="Policy Number"
+                        required
+                        name=""
+                        class="input-space"
+                      />
+                    </div>
+                    <div class="input-holder inside">
+                      <input
+                        type="text"
+                        placeholder="Policy Name/ Project Name"
+                        required
+                        name=""
+                        class="input-space"
+                      />
+                    </div>
+                    <div class="input-holder inside">
+                      <select
+                        name=""
+                        class="input-space"
+                        required
+                        id="class_selection"
+                      >
+                        <option value="" selected>Select Cover Type</option>
+                        <option value="">--INDIVIDUAL--</option>
+                        <option value="Personal Accident">
+                          Personal Accident
+                        </option>
+                        <option value="Professional Indemnity">
+                          Professional Indemnity
+                        </option>
+                        <option value="Others">Others</option>
+                        <option value="">--CORPORATE--</option>
+                        <option value="Contrators all risk">
+                          Contrators all risk
+                        </option>
+                        <option value="Marine Cargo">Marine Cargo</option>
+                        <option value="Fidelity Guarantee">
+                          Fidelity Guarantee
+                        </option>
+                        <option value="Work Injury Benefit">
+                          Work Injury Benefit
+                        </option>
+                        <option value="Employer's Liability">
+                          Employer's Liability
+                        </option>
+                        <option value="Public Liability">
+                          Public Liability
+                        </option>
+                        <option value="Fire and Perils">Fire and Perils</option>
+                        <option value="Bulglary">Bulglary</option>
+                        <option value="Contractor's Plant and Machinery">
+                          Contractor's Plant and Machinery
+                        </option>
+                        <option value="Goods in transit">
+                          Goods in transit
+                        </option>
+                      </select>
+                    </div>
+                    <div
+                      class="input-holder inside"
+                      id="reg_number_holder"
+                      style="display: none"
+                    >
+                      <input
+                        type="text"
+                        placeholder="Registration Number"
+                        required
+                        id="reg_number"
+                        name=""
+                        class="input-space"
+                      />
+                    </div>
+                    <div
+                      class="input-holder inside"
+                      id="chasis_number_holder"
+                      style="display: none"
+                    >
+                      <input
+                        type="text"
+                        id="chasis_number"
+                        placeholder="Chassis Number"
+                        name=""
+                        class="input-space"
+                      />
+                    </div>
+                    <div class="input-holder inside">
+                      <select
+                        name=""
+                        required
+                        class="input-space"
+                        id="class_selection"
+                      >
+                        <option value="" selected>Select Insuarer</option>
+                        <option value="APA Insurance Limited">
+                          APA Insurance Limited
+                        </option>
+                        <option value="Britam General Ins. Co. (K) Ltd">
+                          Britam General Ins. Co. (K) Ltd
+                        </option>
+                        <option value="CIC General Insurance Ltd">
+                          CIC General Insurance Ltd
+                        </option>
+                        <option value="Fidelity Shield  Insurance Co. Ltd">
+                          Fidelity Shield Insurance Co. Ltd
+                        </option>
+                        <option value="Fisrt Assurance Company Ltd">
+                          Fisrt Assurance Company Ltd
+                        </option>
+                        <option value="ICE LION General Insurance Ltd">
+                          ICE LION General Insurance Ltd
+                        </option>
+                        <option value="Mayfair Insurance Company Ltd">
+                          Mayfair Insurance Company Ltd
+                        </option>
+                        <option value="Occidental Insurance Co. Ltd">
+                          Occidental Insurance Co. Ltd
+                        </option>
+                        <option value="MUA Assurance Company">
+                          MUA Assurance Company
+                        </option>
+                        <option value="Sanlam General Insurance Ltd">
+                          Sanlam General Insurance Ltd
+                        </option>
+                        <option value="Resolution Insurance Company Ltd">
+                          Resolution Insurance Company Ltd
+                        </option>
+                      </select>
+                    </div>
+                  </div>
+                  <div class="data-col">
+                    <div class="split-diplay">
+                      <div class="input-holder split">
+                        <input
+                          type="text"
+                          placeholder="Policy Period (From)"
+                          onblur="(this.type='text')"
+                          onfocus="(this. type='date')"
+                          required
+                          name=""
+                          id="start_date"
+                          class="input-space"
+                        />
+                      </div>
+                      <div class="input-holder split">
+                        <input
+                          type="text"
+                          placeholder="Policy Period (to)"
+                          onblur="(this.type='text')"
+                          onfocus="(this. type='date')"
+                          id="end_date"
+                          required
+                          name=""
+                          class="input-space"
+                        />
+                      </div>
+                    </div>
+                    <div class="input-holder inside">
+                      <input
+                        type="text"
+                        placeholder="Sum Insured (Kshs)"
+                        required
+                        onkeyup="cashConcut()"
+                        onblur="cashConcut()"
+                        id="sum_insured_input"
+                        name=""
+                        class="input-space"
+                      />
+                    </div>
+                    <div class="input-holder inside" style="display: none">
+                      <input
+                        type="text"
+                        placeholder="Sum Insured Poa"
+                        required
+                        id="sum_insured_poa"
+                        name=""
+                        class="input-space"
+                      />
+                    </div>
+                    <div class="input-holder inside">
+                      <input
+                        type="number"
+                        placeholder="Stamp Duty (Kshs)"
+                        name=""
+                        required
+                        id="stamp_duty"
+                        class="input-space"
+                      />
+                    </div>
+                    <div class="input-holder">
+                      <textarea
+                        style="
+                          height: auto;
+                          padding: 1rem 0 0 1rem;
+                          max-width: 523px;
+                          max-height: 90px;
+                        "
+                        type="text"
+                        id="policy_remarks"
+                        rows="8"
+                        required
+                        class="input-space"
+                        placeholder="Policy Remarks"
+                        name="remarks"
+                      ></textarea>
+                    </div>
+                  </div>
+                </div>
+                <div class="benefits-list-display" id="benefits_list">
+                  <h2 style="margin: 0 0 0.3rem 1rem">Benefits List</h2>
+                  <div class="rows">
+                    <div class="data-col">
+                      <div class="rows">
+                        <div class="data-col">
+                          <div
+                            class="split-diplay other"
+                            style="align-items: center; display: none"
+                            id="pal_holder"
+                          >
+                            <div class="checkbox-holder">
+                              <label for="pal" class="check-box"
+                                >Personal Accident Loading (P.A.L)</label
+                              >
+                              <input
+                                type="checkbox"
+                                class="check-box"
+                                name=""
+                                id="pal"
+                              />
+                            </div>
+                            <div class="check-box-holder-data">
+                              <input
+                                type="number"
+                                placeholder="Basic Premium(Kshs)"
+                                name=""
+                                disabled
+                                id="pal_basic_premium"
+                                class="input-space"
+                              />
+                            </div>
+                          </div>
+                          <div
+                            class="split-diplay other"
+                            style="align-items: center; display: none"
+                            id="mp_holder"
+                          >
+                            <div class="checkbox-holder">
+                              <label for="mp" class="check-box"
+                                >Maintenance Period (M.P)</label
+                              >
+                              <input
+                                type="checkbox"
+                                class="check-box"
+                                name=""
+                                id="mp"
+                              />
+                            </div>
+                            <div class="check-box-holder-data">
+                              <input
+                                type="number"
+                                placeholder="Basic Premium(Kshs)"
+                                name=""
+                                disabled
+                                id="mp_basic_premium"
+                                class="input-space"
+                              />
+                            </div>
+                          </div>
+                          <div/
+                            class="split-diplay other"
+                            style="align-items: center; display: none"
+                            id="pvt_holder"
+                          >
+                            <div class="checkbox-holder">
+                              <label for="pvt" class="check-box"
+                                >Political Violence &amp; Terrorism
+                                (P.V.T)</label
+                              >
+                              <input
+                                type="checkbox"
+                                class="check-box"
+                                name=""
+                                id="pvt"
+                              />
+                            </div>
+                            <div class="check-box-holder-data">
+                              <input
+                                type="number"
+                                placeholder="Basic Premium(Kshs)"
+                                name=""
+                                disabled
+                                id="pvt_basic_premium"
+                                class="input-space"
+                              />
+                            </div>
+                          </div>
+                          <div
+                            class="split-diplay other"
+                            style="align-items: center; display: none"
+                            id="tpl_holder"
+                          >
+                            <div class="checkbox-holder">
+                              <label for="tpl" class="check-box"
+                                >Third Party Liability</label
+                              >
+                              <input
+                                type="checkbox"
+                                class="check-box"
+                                name=""
+                                id="tpl"
+                              />
+                            </div>
+                            <div class="check-box-holder-data">
+                              <input
+                                type="number"
+                                placeholder="Basic Premium(Kshs)"
+                                name=""
+                                disabled
+                                id="tpl_basic_premium"
+                                class="input-space"
+                              />
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="data-col"></div>
+                  </div>
+                </div>
+                <div class="button-holder" style="margin-left: 1.5rem">
+                  <button name="" class="btn add-new">Create</button>
+                </div>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+    <script src="./js/non-motor-benefits.js"></script>
+    <script src="./js/policy-period.js"></script>
+    <script src="./js/time.js"></script>
+    <script src="./js/nav.js"></script>
+  </body>
+</html>
