@@ -80,17 +80,19 @@
                         list="client_name"
                         class="input-space"
                         placeholder="Select or Enter Client name"
-                        name=""
+                        name="clientName"
                         required
                       />
-                      <datalist id="client_name">
-                        <option value="1 CHINA HENAN INT'L">
-                          CHINA HENAN INT'L
-                        </option>
-                        <option value="2 STECOL INTERNATIONAL">
-                          STECOL INTERNATIONAL
-                        </option>
-                        <option value="3 DHL FINANCE">DHL FINANCE</option>
+                      <datalist id="client_name">                     
+                           <% if(clients.length > 0) { %> 
+                        <% for(let client of clients) { %>
+                          
+                      <option  value="<%= client.id%>">
+                        <%= client.firstName%> <%= client.lastName%>
+                      </option>
+                    <% } %>
+                    <% } else { %>
+                    <% } %>
                       </datalist>
                     </div>
                     <div class="input-holder inside">
@@ -98,7 +100,7 @@
                         type="text"
                         placeholder="Policy Number"
                         required
-                        name=""
+                        name="policyNumber"
                         class="input-space"
                       />
                     </div>
@@ -107,13 +109,13 @@
                         type="text"
                         placeholder="Policy Name/ Project Name"
                         required
-                        name=""
+                        name="policyName"
                         class="input-space"
                       />
                     </div>
                     <div class="input-holder inside">
                       <select
-                        name=""
+                        name="coverType"
                         class="input-space"
                         required
                         id="class_selection"
@@ -164,7 +166,7 @@
                         placeholder="Registration Number"
                         required
                         id="reg_number"
-                        name=""
+                        name="regN"
                         class="input-space"
                       />
                     </div>
@@ -177,13 +179,13 @@
                         type="text"
                         id="chasis_number"
                         placeholder="Chassis Number"
-                        name=""
+                        name="chassisN"
                         class="input-space"
                       />
                     </div>
                     <div class="input-holder inside">
                       <select
-                        name=""
+                        name="insurer"
                         required
                         class="input-space"
                         id="class_selection"
@@ -234,7 +236,7 @@
                           onblur="(this.type='text')"
                           onfocus="(this. type='date')"
                           required
-                          name=""
+                          name="policyStart"
                           id="start_date"
                           class="input-space"
                         />
@@ -247,8 +249,28 @@
                           onfocus="(this. type='date')"
                           id="end_date"
                           required
-                          name=""
+                          name="policyEnd"
                           class="input-space"
+                        />
+                      </div>
+                    </div>
+                    <div class="split-diplay">
+                      <div class="input-holder split">
+                        <input
+                          class="input-space"
+                          type="number"
+                          placeholder="Stamp Duty (Kshs)"
+                          name="stampDuty"
+                          id="stamp_duty"
+                        />
+                      </div>
+                      <div class="input-holder split">
+                        <input
+                        class="input-space"
+                        type=""
+                        placeholder="rate"
+                        name="rate"
+                        id="rate"
                         />
                       </div>
                     </div>
@@ -260,7 +282,7 @@
                         onkeyup="cashConcut()"
                         onblur="cashConcut()"
                         id="sum_insured_input"
-                        name=""
+                        name="sumInsured"
                         class="input-space"
                       />
                     </div>
@@ -270,20 +292,20 @@
                         placeholder="Sum Insured Poa"
                         required
                         id="sum_insured_poa"
-                        name=""
+                        name="sumInsuredPoa"
                         class="input-space"
                       />
                     </div>
-                    <div class="input-holder inside">
+                    <!-- <div class="input-holder inside">
                       <input
                         type="number"
                         placeholder="Stamp Duty (Kshs)"
-                        name=""
+                        name="stampDuty"
                         required
                         id="stamp_duty"
                         class="input-space"
                       />
-                    </div>
+                    </div> -->
                     <div class="input-holder">
                       <textarea
                         style="
@@ -329,7 +351,7 @@
                               <input
                                 type="number"
                                 placeholder="Basic Premium(Kshs)"
-                                name=""
+                                name="PAL"
                                 disabled
                                 id="pal_basic_premium"
                                 class="input-space"
@@ -356,7 +378,7 @@
                               <input
                                 type="number"
                                 placeholder="Basic Premium(Kshs)"
-                                name=""
+                                name="MP"
                                 disabled
                                 id="mp_basic_premium"
                                 class="input-space"
@@ -384,7 +406,7 @@
                               <input
                                 type="number"
                                 placeholder="Basic Premium(Kshs)"
-                                name=""
+                                name="PVT"
                                 disabled
                                 id="pvt_basic_premium"
                                 class="input-space"
@@ -411,7 +433,7 @@
                               <input
                                 type="number"
                                 placeholder="Basic Premium(Kshs)"
-                                name=""
+                                name="TPL"
                                 disabled
                                 id="tpl_basic_premium"
                                 class="input-space"

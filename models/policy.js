@@ -3,7 +3,7 @@ const Sequelize = require('sequelize');
 
 const sequelize = require('../util/database');
 
-const Motor = sequelize.define('motor', {
+const Policy = sequelize.define('policy', {
    id: {
     type: Sequelize.INTEGER,
     autoIncrement: true,
@@ -14,16 +14,7 @@ const Motor = sequelize.define('motor', {
     type: Sequelize.STRING,
     allowNull:true
   },
-  policyName:{
-    type: Sequelize.STRING,
-    allowNull:true
-  },
   coverType:{
-    type:Sequelize.STRING,
-    allowNull:true,
-    
-  },
-  branch:{
     type:Sequelize.STRING,
     allowNull:true,
     
@@ -42,10 +33,6 @@ const Motor = sequelize.define('motor', {
     defaultValue:'0'
   },
   insurer:{
-    type: Sequelize.STRING,
-    allowNull:true
-  },
-  otherName:{
     type: Sequelize.STRING,
     allowNull:true
   },
@@ -81,7 +68,17 @@ const Motor = sequelize.define('motor', {
     allowNull:true,
     defaultValue:'0'
   },
-  otherBe:{
+  lossOfUse:{
+    type: Sequelize.INTEGER,
+    allowNull:true,
+    defaultValue:'0'
+  },
+  pll:{
+    type: Sequelize.INTEGER,
+    allowNull:true,
+    defaultValue:'0'
+  },
+  rescueBenefit:{
     type: Sequelize.INTEGER,
     allowNull:true,
     defaultValue:'0'
@@ -127,18 +124,47 @@ const Motor = sequelize.define('motor', {
   },
   Windscreen:{
     type: Sequelize.STRING,
-    allowNull:true
+    allowNull:true,
+    defaultValue:'0'
   },
-  Passengers:{
+  policyName:{
     type: Sequelize.STRING,
     allowNull:true
   },
-  Rescue:{
+  coverType:{
+    type:Sequelize.STRING,
+    allowNull:true,
+    
+  },
+  policyNumber:{
     type: Sequelize.STRING,
     allowNull:true
   },
+  PVT:{
+    type: Sequelize.INTEGER,
+    allowNull:true,
+    defaultValue:'0'
+  },
+  MP:{
+    type: Sequelize.INTEGER,
+    allowNull:true,
+    defaultValue:'0'
+  },
+ 
+  PAL:{
+    type: Sequelize.INTEGER,
+    allowNull:true,
+    defaultValue:'0'
+  },
+  TPL:{
+    type: Sequelize.INTEGER,
+    allowNull:true,
+    defaultValue:'0'
+  },
+ 
+
   
  
 });
 
-module.exports = Motor;
+module.exports = Policy;

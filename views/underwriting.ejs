@@ -105,30 +105,26 @@
                   </tr>
                 </thead>
                 <tbody id="myTable">
-                  <tr onclick="document.location='/motor-view'">
-                    <td>KBL 084R</td>
-                    <td>CHINA HENAN INT'L</td>
-                    <td>Kshs<br />1,000,000.00</td>
-                    <td>Comprehensive</td>
-                    <td>2021-06-09</td>
-                    <td>2021-06-08</td>
-                  </tr>
-                  <tr onclick="document.location='/non-motor-view'">
-                    <td>KBL 084B</td>
-                    <td>CHINA HENAN INT'L</td>
-                    <td>Kshs<br />1,000,000.00</td>
-                    <td>Comprehensive</td>
-                    <td>2021-06-09</td>
-                    <td>2021-06-08</td>
-                  </tr>
-                  <tr onclick="document.location=''">
-                    <td>KBL 084R</td>
-                    <td>CHINA HENAN INT'L</td>
-                    <td>Kshs<br />1,000,000.00</td>
-                    <td>Comprehensive</td>
-                    <td>2021-06-09</td>
-                    <td>2021-06-08</td>
-                  </tr>
+                  <% if(policies.length > 0) { %> 
+                    <% for(let policy of policies) { %>
+                      <tr onclick="document.location='/policyView/<%=policy.id%>'">
+                          <td>
+                            <% if( policy.policytype =="NonMotor vehicles") { %>
+                                <%= policy.policyName%>
+                            <% } else {%>
+                                <%= policy.regN %>                              
+                            <%}%>
+                         </td>
+                        <td><%= policy.client.firstName %> <%= policy.client.lastName %> </td>
+                        <td>Kshs<br /><%= policy.sumInsured %> </td>
+                        <td><%= policy.coverType %> </td>
+                        <td><%= policy.policyStart %> </td>
+                        <td><%= policy.policyEnd %> </td>
+                        <input type="hidden" name="policyId" value="<%= policy.id %> ">
+                      </tr>
+                <% } %>
+                <% } else { %>
+                <% } %>      
                 </tbody>
               </table>
             </div>

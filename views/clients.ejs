@@ -60,6 +60,7 @@
                 <tbody id="myTable">
                   <% if(clients.length > 0) { %> 
                     <% for(let client of clients) { %>
+                      <input type="hidden" name="clientId" value="client.id">
                 <tr onclick="document.location='/client-profile/<%= client.id%>'">
                     <td><%= client.firstName%> <%= client.lastName%></td>
                     <td><%= client.pin%></td>
@@ -69,7 +70,6 @@
                 </tr>
                 <% } %>
                 <% } else { %>
-                 
                 <% } %>
                 
                 </tbody>

@@ -3,7 +3,7 @@ const Sequelize = require('sequelize');
 
 const sequelize = require('../util/database');
 
-const NonMotor = sequelize.define('nonMotor', {
+const RePolicy = sequelize.define('repolicy', {
    id: {
     type: Sequelize.INTEGER,
     autoIncrement: true,
@@ -14,16 +14,7 @@ const NonMotor = sequelize.define('nonMotor', {
     type: Sequelize.STRING,
     allowNull:true
   },
-  policyName:{
-    type: Sequelize.STRING,
-    allowNull:true
-  },
   coverType:{
-    type:Sequelize.STRING,
-    allowNull:true,
-    
-  },
-  branch:{
     type:Sequelize.STRING,
     allowNull:true,
     
@@ -32,7 +23,7 @@ const NonMotor = sequelize.define('nonMotor', {
     type: Sequelize.STRING,
     allowNull:true
   },
-  policyNo:{
+  regN:{
     type: Sequelize.STRING,
     allowNull:true
   },
@@ -42,23 +33,6 @@ const NonMotor = sequelize.define('nonMotor', {
     defaultValue:'0'
   },
   insurer:{
-    type: Sequelize.STRING,
-    allowNull:true
-  },
- 
-  businessNumber:{
-    type: Sequelize.STRING,
-    allowNull:true
-  },
-  otherName:{
-    type: Sequelize.STRING,
-    allowNull:true
-  },
-  chasis:{
-    type: Sequelize.STRING,
-    allowNull:true
-  },
-  RegN:{
     type: Sequelize.STRING,
     allowNull:true
   },
@@ -84,28 +58,27 @@ const NonMotor = sequelize.define('nonMotor', {
     defaultValue:'0'
     
   },
-  otherBe:{
+  poliTe:{
     type: Sequelize.INTEGER,
     allowNull:true,
     defaultValue:'0'
   },
-  PVL:{
+  perAcc:{
     type: Sequelize.INTEGER,
     allowNull:true,
     defaultValue:'0'
   },
-  MP:{
+  lossOfUse:{
     type: Sequelize.INTEGER,
     allowNull:true,
     defaultValue:'0'
   },
- 
-  PAL:{
+  pll:{
     type: Sequelize.INTEGER,
     allowNull:true,
     defaultValue:'0'
   },
-  TPL:{
+  rescueBenefit:{
     type: Sequelize.INTEGER,
     allowNull:true,
     defaultValue:'0'
@@ -149,9 +122,49 @@ const NonMotor = sequelize.define('nonMotor', {
     type: Sequelize.STRING,
     allowNull:true
   },
-  
+  Windscreen:{
+    type: Sequelize.STRING,
+    allowNull:true,
+    defaultValue:'0'
+  },
+  policyName:{
+    type: Sequelize.STRING,
+    allowNull:true
+  },
+  coverType:{
+    type:Sequelize.STRING,
+    allowNull:true,
+    
+  },
+  policyNumber:{
+    type: Sequelize.STRING,
+    allowNull:true
+  },
+  PVT:{
+    type: Sequelize.INTEGER,
+    allowNull:true,
+    defaultValue:'0'
+  },
+  MP:{
+    type: Sequelize.INTEGER,
+    allowNull:true,
+    defaultValue:'0'
+  },
+ 
+  PAL:{
+    type: Sequelize.INTEGER,
+    allowNull:true,
+    defaultValue:'0'
+  },
+  TPL:{
+    type: Sequelize.INTEGER,
+    allowNull:true,
+    defaultValue:'0'
+  },
+ 
+
   
  
 });
 
-module.exports = NonMotor;
+module.exports = RePolicy;

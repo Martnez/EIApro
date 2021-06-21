@@ -46,7 +46,7 @@
           </ul>
           <ul class="links lower">
             <li class="list">
-              <a href="admin" class="link">Admin</a>
+              <a href="/admin" class="link">Admin</a>
             </li>
             <li class="list">
               <a href="/logout" class="link logout">Logout</a>
@@ -60,7 +60,7 @@
             <div class="image-holder">
               <img src="./images/user-img.png" alt="" />
             </div>
-            <h3 class="username-dash">Hello Stephen</h3>
+            <h3 class="username-dash">Hello <%= userN.firstName %> </h3>
           </div>
         </div>
       </div>
@@ -80,17 +80,19 @@
                         list="client_name"
                         class="input-space"
                         placeholder="Select or Enter Client name"
-                        name=""
+                        name="clientName"
                         required
                       />
                       <datalist id="client_name">
-                        <option value="1 CHINA HENAN INT'L">
-                          CHINA HENAN INT'L
+                        <% if(clients.length > 0) { %> 
+                          <% for(let client of clients) { %>
+                            
+                        <option  value="<%= client.id%> <%= client.firstName%> <%= client.lastName%>">
+                          <%= client.firstName%> <%= client.lastName%>
                         </option>
-                        <option value="2 STECOL INTERNATIONAL">
-                          STECOL INTERNATIONAL
-                        </option>
-                        <option value="3 DHL FINANCE">DHL FINANCE</option>
+                      <% } %>
+                      <% } else { %>
+                      <% } %>
                       </datalist>
                     </div>
                     <div class="input-holder inside">
@@ -98,13 +100,19 @@
                         list="plate_number"
                         class="input-space"
                         placeholder="Select or Enter Vehicle Reistration Number"
-                        name=""
+                        name="regN"
                         required
                       />
                       <datalist id="plate_number">
-                        <option value="1 KBL 084R">KBL 084R</option>
-                        <option value="2 KBL 084T">KBL 084T</option>
-                        <option value="3 KBL 084S">KBL 084S</option>
+                        <% if(clients.length > 0) { %> 
+                          <% for(let client of clients) { %>
+                            <% for(vehicle of client.vehicles) {%>
+                              <option value=" <%= vehicle.RegN %>"><%= vehicle.RegN %> </option>
+                            <% } %> 
+                          <% } %>
+                      <% } else { %>
+                      <% } %>
+                        
                       </datalist>
                     </div>
                     <div class="input-holder inside">
@@ -112,13 +120,13 @@
                         type="text"
                         placeholder="Policy Number"
                         required
-                        name=""
+                        name="policyN"
                         class="input-space"
                       />
                     </div>
                     <div class="input-holder inside">
                       <select
-                        name=""
+                        name="mvClass"
                         class="input-space"
                         required
                         id="class_selection"
@@ -148,7 +156,7 @@
                     </div>
                     <div class="input-holder inside">
                       <select
-                        name=""
+                        name="insurer"
                         class="input-space"
                         required
                         id="class_selection"
@@ -191,7 +199,7 @@
                     </div>
                     <div class="input-holder inside">
                       <select
-                        name=""
+                        name="coverType"
                         class="input-space"
                         required
                         id="cover_type"
@@ -214,7 +222,7 @@
                           onblur="(this.type='text')"
                           onfocus="(this. type='date')"
                           required
-                          name=""
+                          name="policyStart"
                           id="start_date"
                           class="input-space"
                         />
@@ -227,7 +235,7 @@
                           onfocus="(this. type='date')"
                           id="end_date"
                           required
-                          name=""
+                          name="policyEnd"
                           class="input-space"
                         />
                       </div>
@@ -240,7 +248,7 @@
                         onkeyup="cashConcut()"
                         onblur="cashConcut()"
                         id="sum_insured_input"
-                        name=""
+                        name="sumInsured"
                         class="input-space"
                       />
                     </div>
@@ -250,15 +258,15 @@
                         placeholder="Sum Insured Poa"
                         required
                         id="sum_insured_poa"
-                        name=""
+                        name="sumInsuredPoa"
                         class="input-space"
                       />
                     </div>
                     <div class="input-holder inside">
                       <input
-                        type="number"
+                        type=""
                         placeholder="Rate"
-                        name=""
+                        name="rate"
                         id="rate_input"
                         class="input-space"
                       />
@@ -299,16 +307,17 @@
                               <input
                                 type="checkbox"
                                 class="check-box"
-                                name=""
+                                name="excessProtector"
                                 id="excess_protector"
                               />
                             </div>
                             <div class="check-box-holder-data">
                               <input
-                                type="number"
+                                type="hidden"
                                 placeholder="Basic Premium(Kshs)"
-                                name=""
+                                name="excessProtector"
                                 disabled
+                                value="excessProtector"
                                 id="ep_basic_premium"
                                 class="input-space"
                               />
@@ -334,7 +343,7 @@
                               <input
                                 type="number"
                                 placeholder="Basic Premium(Kshs)"
-                                name=""
+                                name="pvt"
                                 disabled
                                 id="pvt_basic_premium"
                                 class="input-space"
@@ -360,7 +369,7 @@
                               <input
                                 type="number"
                                 placeholder="Basic Premium(Kshs)"
-                                name=""
+                                name="windscreenBenefit"
                                 disabled
                                 id="windscreen_benefit_basic_premium"
                                 class="input-space"
@@ -386,7 +395,7 @@
                               <input
                                 type="number"
                                 placeholder="Basic Premium(Kshs)"
-                                name=""
+                                name="lossOfUse"
                                 disabled
                                 id="loss_of_use_basic_premium"
                                 class="input-space"
@@ -416,7 +425,7 @@
                           <input
                             type="number"
                             placeholder="Basic Premium(Kshs)"
-                            name=""
+                            name="passangerLegalLiability"
                             disabled
                             id="pll_benefit_basic_premium"
                             class="input-space"
@@ -442,7 +451,7 @@
                           <input
                             type="number"
                             placeholder="Basic Premium(Kshs)"
-                            name=""
+                            name="rescueBenefit"
                             disabled
                             id="rescue_benefit_basic_premium"
                             class="input-space"
@@ -468,7 +477,7 @@
                           <input
                             type="number"
                             placeholder="Basic Premium(Kshs)"
-                            name=""
+                            name="personalAccident"
                             disabled
                             id="personal_accident_basic_premium"
                             class="input-space"

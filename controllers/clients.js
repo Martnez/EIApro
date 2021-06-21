@@ -1,5 +1,7 @@
 const Clients =require('../models/Client');
 
+const Policy= require('../models/policy');
+
 const Logs = require('../models/Logs')
 
 exports.getClients=(req,res,next)=>{
@@ -108,3 +110,24 @@ exports.getClients=(req,res,next)=>{
   
   
   };
+  exports.getClientProfile=(req,res,next)=>{
+    const user = req.user;
+    
+    const clientId = req.params.clientId;
+    Clients.findOne({where:{id:clientId},include:{model:Policy}})
+    .then(clients=>{
+      
+      const policies =clients.policies;
+      res.render('client-profile',{
+        userN:user,
+          pageTitle: 'client-profile',
+          path:'/client-profile',
+          clientId:clientId,
+          policies: policies,
+          client:clients,
+      });
+    }).catch(err=>{console.log(err);})
+        
+
+
+  }

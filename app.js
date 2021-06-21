@@ -20,23 +20,18 @@ const Clients =require('./models/Client');
 
 const Logs =require('./models/Logs');
 
-const Motor =require('./models/Motor');
+const Policies =require('./models/policy');
 
-const NonMotor =require('./models/NonMotor');
+// const NonMotor =require('./models/NonMotor');
 
 const Vehicle =require('./models/Vehicle');
 
-const ReMotor =require('./models/ReMotor');
+const RePolicies =require('./models/RePolicy');
 
-const ReNonMotor =require('./models/ReNonMotor');
+// const ReNonMotor =require('./models/ReNonMotor');
 
-const homeRoutes = require('./routes/home');
+const homeRoutes = require('./routes/allRoutes');
 
-const clientRoutes = require("./routes/client");
-
-const vehicleRoutes = require("./routes/vehicle");
-
-const UnderwritingRoutes = require("./routes/underwriting");
 
 const app= express();
 
@@ -71,12 +66,6 @@ app.use(
   
   app.use(homeRoutes);
   
-  app.use(clientRoutes);
-  
-  app.use(vehicleRoutes);
-
-  app.use(UnderwritingRoutes);
-  
   app.use(express.static(path.join(__dirname, "public")));
   app.use(express.static(path.join(__dirname, "images")));
   
@@ -96,20 +85,19 @@ app.use(
 
 Logs.belongsTo(User, { constraints: true, onDelete: "CASCADE" });
 User.hasMany(Logs);
-Motor.belongsTo(Clients,{constraints: true, onDelete: "CASCADE"});
-Clients.hasMany(Motor);
-NonMotor.belongsTo(Clients,{constraints: true, onDelete: "CASCADE"});
-Clients.hasMany(NonMotor);
-Claims.belongsTo(Motor,({constraints: true, onDelete:"CASCADE"}));
-Motor.hasMany(Claims);
-Claims.belongsTo(NonMotor,({constraints: true, onDelete:"CASCADE"}));
-NonMotor.hasMany(Claims);
-ReMotor.belongsTo(Motor,({constraints: true, onDelete:"CASCADE"}));
-Motor.hasMany(ReMotor);
-ReNonMotor.belongsTo(NonMotor,({constraints: true, onDelete:"CASCADE"}));
-NonMotor.hasMany(ReNonMotor);
-Vehicle.belongsTo(Motor,({constraints: true, onDelete:"CASCADE"}));
-Motor.hasMany(Vehicle);
+Policies.belongsTo(Clients,{constraints: true, onDelete: "CASCADE"});
+Clients.hasMany(Policies);
+RePolicies.belongsTo(Clients,{constraints: true, onDelete: "CASCADE"});
+Clients.hasMany(RePolicies);
+Claims.belongsTo(Policies,({constraints: true, onDelete:"CASCADE"}));
+Policies.hasMany(Claims);
+Claims.belongsTo(RePolicies,({constraints: true, onDelete:"CASCADE"}));
+RePolicies.hasMany(Claims);
+Policies.belongsTo(Vehicle,({constraints: true, onDelete:"CASCADE"}));
+Vehicle.hasMany(Policies);
+Vehicle.belongsTo(Clients,({constraints: true, onDelete:"CASCADE"}));
+Clients.hasMany(Vehicle);
+
 
 Sequelize
 .sync({alter:true})

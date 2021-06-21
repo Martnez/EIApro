@@ -1,0 +1,177 @@
+<%- include ('./includes/header.ejs') %>
+  <body>
+    <div class="dash-container">
+      <div class="hover-hamburger" id="hover_hamburger">
+        <div class="inner-hamburger">
+          <div class="bar"></div>
+          <div class="bar"></div>
+          <div class="bar"></div>
+        </div>
+      </div>
+      <div class="nav-overlay" id="overlay"></div>
+      <div class="side-bar" id="side_bar">
+        <div class="other-hover-hamburger show" id="other_hover_hamburger">
+          <div class="inner-hamburger">
+            <div class="bar"></div>
+            <div class="bar"></div>
+            <div class="bar"></div>
+          </div>
+        </div>
+        <div class="side-bar-content">
+          <div class="top-image-holder dash-img">
+            <img src="/images/eia_logo.png" alt="" />
+          </div>
+          <ul class="links">
+            <li class="list">
+              <a href="/dashboard" class="link">Home</a>
+            </li>
+            <li class="list">
+              <a href="/clients" class="link">Clients</a>
+            </li>
+            <li class="list">
+              <a href="/underwriting" class="link active">Underwriting</a>
+            </li>
+            <li class="list">
+              <a href="/claims" class="link">Claims</a>
+            </li>
+            <li class="list">
+              <a href="/vehicles" class="link">Vehicles</a>
+            </li>
+            <li class="list">
+              <a href="" class="link">Credit</a>
+            </li>
+            <li class="list">
+              <a href="" class="link">Reports</a>
+            </li>
+          </ul>
+          <ul class="links lower">
+            <li class="list">
+              <a href="/admin" class="link">Admin</a>
+            </li>
+            <li class="list">
+              <a href="/logout" class="link logout">Logout</a>
+            </li>
+          </ul>
+        </div>
+      </div>
+      <div class="top-bar">
+        <div class="user-name-space">
+          <div class="user-icon">
+            <div class="image-holder">
+              <img src="/images/user-img.png" alt="" />
+            </div>
+            <h3 class="username-dash">Hello <%= userN.firstName %> </h3>
+          </div>
+        </div>
+      </div>
+      <div class="time-bar">
+        <h3 id="date_value"></h3>
+      </div>
+      <div class="dash-main">
+        <div class="dash-content">
+          <div class="client-profile-content">
+            <div class="details-display">
+              <div class="top-nav-options">
+                <a href="" class="nav-options-link active">Client Details</a>
+                <a href="" class="nav-options-link">Image Documents</a>
+              </div>
+              <div class="display-panel">
+                <h2 class="data-input-title"><%= policy.client.firstName %> <%= policy.client.lastName %> </h2>
+                <div class="rows">
+                  <div class="data-col">
+                    <div class="client-details-display">
+                      <h4 class="main">Policy Number:</h4>
+                      <h4><%= policy.policyNumber %> </h4>
+                    </div>
+                    <div class="client-details-display">
+                      <h4 class="main">Policy Period:</h4>
+                      <h4><%= policy.policyStart %> to <%= policy.policyEnd%></h4>
+                    </div>
+                    <div class="client-details-display">
+                      <h4 class="main">Insuarer:</h4>
+                      <h4><%= policy.insurer %></h4>
+                    </div>
+                    <div class="client-details-display">
+                      <h4 class="main">Cover Type:</h4>
+                      <h4><%= policy.coverType %></h4>
+                    </div>
+                    <div class="client-details-display">
+                      <h4 class="main">Created by:</h4>
+                      <h4><%= policy.signature %></h4>
+                    </div>
+                  </div>
+                  <div class="data-col premiums">
+                    <div class="client-details-display">
+                      <h3 style="width: 100%">Premiums</h3>
+                    </div>
+                    <div class="client-details-display">
+                      <h4 class="main">Sum Insured:</h4>
+                      <h4>Kshs <%= policy.sumInsured %></h4>
+                    </div>
+                    <div class="client-details-display">
+                      <h4 class="main">PHCF:</h4>
+                      <h4>Kshs <%= policy.PHCF %></h4>
+                    </div>
+                    <div class="client-details-display">
+                      <h4 class="main">Training Levy:</h4>
+                      <h4>Kshs <%= policy.levy %></h4>
+                    </div>
+                    <div class="client-details-display">
+                      <h4 class="main">Stamp Duty:</h4>
+                      <h4>Kshs <%= policy.stampDuty %></h4>
+                    </div>
+                    <div class="client-details-display">
+                      <h4 class="main">Policy Rate:</h4>
+                      <h4><%= policy.rate%></h4>
+                    </div>
+                    <div class="policy-benefits-display">
+                      <div class="client-details-display">
+                        <h3 style="width: 100%">Benefits</h3>
+                      </div>
+                      <% if(policy.MP=="0"){ %> <%}else{ %>
+                        <div class="client-details-display">
+                          <h4 class="main">Maintenance Period:</h4>
+                          <h4>Kshs <%= policy.MP %></h4>
+                        </div>
+                         <% } %> 
+                         <% if(policy.PVT=="0"){ %> <%}else{ %>
+                          <div class="client-details-display">
+                            <h4 class="main">
+                              Political Violence & Terrorism Rate (P.V.T):
+                            </h4>
+                            <h4>Kshs <%= policy.PVT %></h4>
+                          </div>
+                           <% } %>
+                           <% if(policy.TPL=="0"){ %> <%}else{ %>
+                            <div class="client-details-display">
+                              <h4 class="main">Third Party Liability (T.P.L):</h4>
+                              <h4>Kshs <%= policy.TPL%></h4>
+                            </div>
+                             <% } %>
+                             <% if(policy.PAL=="0"){ %> <%}else{ %>
+                              <div class="client-details-display">
+                                <h4 class="main">Personal Accident Loading (P.A.L):</h4>
+                                <h4>Kshs <%= policy.PAL %></h4>
+                              </div>
+                               <% } %>
+                    </div>
+                    <div class="client-details-display">
+                      <h4 class="main">Basic Premium:</h4>
+                      <h4>Kshs <%= policy.basicPremium %></h4>
+                    </div>
+                    <div class="client-details-display">
+                      <h4 class="main">Total Premium:</h4>
+                      <h4>Kshs <%= policy.GrandTotal %></h4>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <script src="./js/time.js"></script>
+    <script src="./js/nav.js"></script>
+  </body>
+</html>
