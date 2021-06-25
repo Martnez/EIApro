@@ -73,12 +73,13 @@
                 <tbody id="myTable">
                   <% if(vehicles.length > 0) { %> 
                     <% for(let vehicle of vehicles) { %>
-                    <tr onclick="document.location=''">
+                    <tr onclick="document.location='/vehicle-view/<%=vehicle.id%>'">
                     <td><%= vehicle.RegN %> </td>
                     <td><%= vehicle.Make%> </td>
                     <td><%= vehicle.EngNo %> </td>
                     <td><%= vehicle.MOY %> </td>
                     <td><%= vehicle.Owner %> </td>
+                   
                   </tr>
                 <% } %>
                 <% } else { %>

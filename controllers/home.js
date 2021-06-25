@@ -143,7 +143,7 @@ exports.getLogs= (req,res,next) =>{
 
   Logs.findAll({include:[{model:User}],limit:10,order: [ [ 'createdAt', 'DESC' ]]})
   .then(logs=>{
-    console.log(logs);
+    // console.log(logs);
     res.render('logs', {
       user:user ,
       logs: logs,

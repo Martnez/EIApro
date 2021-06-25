@@ -39,12 +39,6 @@ var selected = mv_class.options[mv_class.selectedIndex].value;
 
 var benefits_list = document.getElementById("benefits_list");
 
-if (mv_class.options[mv_class.selectedIndex].value == "") {
-  benefits_list.style.display = "none";
-} else {
-  benefits_list.style.display = "flex";
-}
-
 mv_class.addEventListener("change", function () {
   if (mv_class.options[mv_class.selectedIndex].value == "") {
     benefits_list.style.display = "none";
@@ -65,82 +59,6 @@ var tpl_holder = document.getElementById("tpl_holder");
 var rate_holder = document.getElementById("rate_holder");
 var stamp_duty_holder = document.getElementById("stamp_duty_holder");
 var sum_insured_yake = document.getElementById("sum_insured_input");
-
-if (mv_class.options[mv_class.selectedIndex].value == "Work Injury Benefit") {
-  chasis_number_holder.style.display = "none";
-  reg_number_holder.style.display = "none";
-  chasis_number.required = false;
-  reg_number.required = false;
-  policy_remarks.rows = "8";
-  policy_remarks.style.maxHeight = "90px";
-  rate_holder.style.display = "none";
-  rate_holder.style.margin = "0";
-  stamp_duty_holder.classList.remove("split");
-  stamp_duty_holder.classList.add("inside");
-  sum_insured_yake.placeholder = "Basic Premium (Kshs)";
-
-  pal_holder.style.display = "flex";
-  mp_holder.style.display = "none";
-  pvt_holder.style.display = "none";
-  tpl_holder.style.display = "none";
-} else if (
-  mv_class.options[mv_class.selectedIndex].value == "Contrators all risk"
-) {
-  chasis_number_holder.style.display = "none";
-  reg_number_holder.style.display = "none";
-  chasis_number.required = false;
-  reg_number.required = false;
-  policy_remarks.rows = "8";
-  policy_remarks.style.maxHeight = "90px";
-  rate_holder.style.display = "flex";
-  rate_holder.style.margin = "0.1rem 0";
-  stamp_duty_holder.classList.remove("inside");
-  stamp_duty_holder.classList.add("split");
-  sum_insured_yake.placeholder = "Sum Insured (Kshs)";
-
-  pal_holder.style.display = "none";
-  mp_holder.style.display = "flex";
-  pvt_holder.style.display = "flex";
-  tpl_holder.style.display = "none";
-} else if (
-  mv_class.options[mv_class.selectedIndex].value ==
-  "Contractor's Plant and Machinery"
-) {
-  chasis_number_holder.style.display = "flex";
-  reg_number_holder.style.display = "flex";
-  chasis_number.required = true;
-  reg_number.required = true;
-  policy_remarks.rows = "13";
-  policy_remarks.style.maxHeight = "190px";
-  rate_holder.style.display = "flex";
-  rate_holder.style.margin = "0.1rem 0";
-  stamp_duty_holder.classList.remove("inside");
-  stamp_duty_holder.classList.add("split");
-  sum_insured_yake.placeholder = "Sum Insured (Kshs)";
-
-  pal_holder.style.display = "flex";
-  mp_holder.style.display = "none";
-  pvt_holder.style.display = "none";
-  tpl_holder.style.display = "flex";
-} else {
-  chasis_number_holder.style.display = "none";
-  reg_number_holder.style.display = "none";
-  chasis_number.required = false;
-  reg_number.required = false;
-  policy_remarks.rows = "8";
-  policy_remarks.style.maxHeight = "90px";
-  rate_holder.style.display = "flex";
-  rate_holder.style.margin = "0.1rem 0";
-  stamp_duty_holder.classList.remove("inside");
-  stamp_duty_holder.classList.add("split");
-  sum_insured_yake.placeholder = "Sum Insured (Kshs)";
-
-  benefits_list.style.display = "none";
-  pal_holder.style.display = "none";
-  mp_holder.style.display = "none";
-  pvt_holder.style.display = "none";
-  tpl_holder.style.display = "none";
-}
 
 mv_class.addEventListener("change", function () {
   if (mv_class.options[mv_class.selectedIndex].value == "Work Injury Benefit") {
@@ -241,13 +159,6 @@ var mp_benefit_basic_premium = document.getElementById(
   "mp_benefit_basic_premium"
 );
 
-if (tpl.checked) {
-  tpl_basic_premium.disabled = false;
-  tpl_basic_premium.required = true;
-} else {
-  tpl_basic_premium.disabled = true;
-  tpl_basic_premium.required = false;
-}
 tpl.addEventListener("change", function () {
   if (tpl.checked) {
     tpl_basic_premium.disabled = false;
@@ -257,15 +168,6 @@ tpl.addEventListener("change", function () {
     tpl_basic_premium.required = false;
   }
 });
-
-////////////////////////////////////////////
-if (pal.checked) {
-  pal_basic_premium.disabled = false;
-  pal_basic_premium.required = true;
-} else {
-  pal_basic_premium.disabled = true;
-  pal_basic_premium.required = false;
-}
 pal.addEventListener("change", function () {
   if (pal.checked) {
     pal_basic_premium.disabled = false;
@@ -275,14 +177,6 @@ pal.addEventListener("change", function () {
     pal_basic_premium.required = false;
   }
 });
-////////////////////////////////////////////////
-if (mp.checked) {
-  mp_basic_premium.disabled = false;
-  mp_basic_premium.required = true;
-} else {
-  mp_basic_premium.disabled = true;
-  mp_basic_premium.required = false;
-}
 mp.addEventListener("change", function () {
   if (mp.checked) {
     mp_basic_premium.disabled = false;
@@ -292,14 +186,6 @@ mp.addEventListener("change", function () {
     mp_basic_premium.required = false;
   }
 });
-////////////////////////////////////////////////
-if (pvt.checked) {
-  pvt_basic_premium.disabled = false;
-  pvt_basic_premium.required = true;
-} else {
-  pvt_basic_premium.disabled = true;
-  pvt_basic_premium.required = false;
-}
 pvt.addEventListener("change", function () {
   if (pvt.checked) {
     pvt_basic_premium.disabled = false;

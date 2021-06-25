@@ -22,16 +22,13 @@ const Client = sequelize.define('clients', {
     type: Sequelize.STRING,
     allowNull:false
   },
-  country:{
-    type: Sequelize.STRING,
-    allowNull:false
-  },
+  
   boxOffice:{
     type: Sequelize.STRING,
     allowNull:false
   },
   phoneNumber:{
-    type: Sequelize.INTEGER,
+    type: Sequelize.STRING,
     allowNull:false
   },
   email:{

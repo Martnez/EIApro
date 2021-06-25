@@ -140,6 +140,10 @@ const Policy = sequelize.define('policy', {
     type: Sequelize.STRING,
     allowNull:true
   },
+  chassis:{
+    type: Sequelize.STRING,
+    allowNull:true
+  },
   PVT:{
     type: Sequelize.INTEGER,
     allowNull:true,

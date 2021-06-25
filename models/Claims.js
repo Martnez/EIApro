@@ -74,7 +74,7 @@ reporterContact:{
     type: Sequelize.STRING,
     allowNull:true
   },
-  clientName:{
+  PolicyNumber:{
     type: Sequelize.STRING,
     allowNull:true
   },

@@ -72,8 +72,9 @@
           <div class="client-profile-content">
             <div class="details-display">
               <div class="top-nav-options">
-                <a href="" class="nav-options-link active">Client Details</a>
-                <a href="" class="nav-options-link">Image Documents</a>
+                <a href="" class="nav-options-link active">Policy Details</a>
+                <a href="http://192.168.0.34/EIApro/php_files/policy-documents.php?id=<%=
+                policy.id %>&username=<%= userN.firstName %>" class="nav-options-link">Image Documents</a>
               </div>
               <div class="display-panel">
                 <h2 class="data-input-title"><%= policy.client.firstName %> <%= policy.client.lastName %></h2>
@@ -93,7 +94,7 @@
                     </div>
                     <div class="client-details-display">
                       <h4 class="main">Registration Number:</h4>
-                      <h4><%= policy.regN %></h4>
+                      <h4><%= policy.vehicle.RegN %> </h4>
                     </div>
                     <div class="client-details-display">
                       <h4 class="main">MV-Class:</h4>
@@ -106,6 +107,10 @@
                     <div class="client-details-display">
                       <h4 class="main">Created by:</h4>
                       <h4><%= policy.signature %></h4>
+                    </div>
+                    <div class="client-details-display">
+                      <h4 class="main">Remarks:</h4>
+                      <h4><%= policy.remarks %></h4>
                     </div>
                   </div>
                   <div class="data-col premiums">
@@ -130,7 +135,7 @@
                     </div>
                     <div class="client-details-display">
                       <h4 class="main">Policy Rate:</h4>
-                      <h4><%= policy.rate%></h4>
+                      <h4><%= policy.rate%>%</h4>
                     </div>
                     <div class="policy-benefits-display">
                       <div class="client-details-display">
@@ -191,6 +196,16 @@
                       <h4>Kshs  <%= policy.GrandTotal %></h4>
                     </div>
                   </div>
+                  <div
+                  class="button-holder edit"
+                  style="
+                    display: flex;
+                    justify-content: flex-end;
+                    padding: 0 2rem 0 0;
+                  "
+                >
+                  <a href="/motor-edit/<%= policy.id %> " class="btn add-new">Edit</a>
+                </div>
                 </div>
               </div>
             </div>

@@ -87,7 +87,7 @@
                            <% if(clients.length > 0) { %> 
                         <% for(let client of clients) { %>
                           
-                      <option  value="<%= client.id%>">
+                      <option  value="<%= client.id%>  <%= client.firstName%> <%= client.lastName%>">
                         <%= client.firstName%> <%= client.lastName%>
                       </option>
                     <% } %>
@@ -254,26 +254,6 @@
                         />
                       </div>
                     </div>
-                    <div class="split-diplay">
-                      <div class="input-holder split">
-                        <input
-                          class="input-space"
-                          type="number"
-                          placeholder="Stamp Duty (Kshs)"
-                          name="stampDuty"
-                          id="stamp_duty"
-                        />
-                      </div>
-                      <div class="input-holder split">
-                        <input
-                        class="input-space"
-                        type=""
-                        placeholder="rate"
-                        name="rate"
-                        id="rate"
-                        />
-                      </div>
-                    </div>
                     <div class="input-holder inside">
                       <input
                         type="text"
@@ -296,16 +276,27 @@
                         class="input-space"
                       />
                     </div>
-                    <!-- <div class="input-holder inside">
-                      <input
-                        type="number"
-                        placeholder="Stamp Duty (Kshs)"
-                        name="stampDuty"
-                        required
-                        id="stamp_duty"
-                        class="input-space"
-                      />
-                    </div> -->
+                    <div class="split-diplay">
+                      <div class="input-holder split" id="stamp_duty_holder">
+                        <input
+                          class="input-space"
+                          type="number"
+                          placeholder="Stamp Duty (Kshs)"
+                          name="stampDuty"
+                          id="stamp_duty"
+                        />
+                      </div>
+                      <div class="input-holder split" id="rate_holder">
+                        <input
+                          class="input-space"
+                          type=""
+                          placeholder="Rate"
+                          name="Rate"
+                          id="rate"
+                        />
+                      </div>
+                    </div>
+                    
                     <div class="input-holder">
                       <textarea
                         style="

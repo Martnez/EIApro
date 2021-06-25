@@ -1,17 +1,4 @@
-<!DOCTYPE html>
-<html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link rel="stylesheet" href="../css/main.css" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" />
-    <link
-      href="https://fonts.googleapis.com/css2?family=Roboto:wght@100;300;400;500;700;900&display=swap"
-      rel="stylesheet"
-    />
-    <title><%=pageTitle%></title>
-  </head>
+<%- include ('./includes/header.ejs') %>
   <body>
     <div class="dash-container">
       <div class="hover-hamburger" id="hover_hamburger">
@@ -32,14 +19,14 @@
         </div>
         <div class="side-bar-content">
           <div class="top-image-holder dash-img">
-            <img src="/images/eia_logo.png" alt="" />
+            <img src="./images/eia_logo.png" alt="" />
           </div>
           <ul class="links">
             <li class="list">
               <a href="/dashboard" class="link">Home</a>
             </li>
             <li class="list">
-              <a href="/clients" class="link active">Clients</a>
+              <a href="/clients" class="link">Clients</a>
             </li>
             <li class="list">
               <a href="/underwriting" class="link">Underwriting</a>
@@ -48,7 +35,7 @@
               <a href="/claims" class="link">Claims</a>
             </li>
             <li class="list">
-              <a href="/vehicles" class="link">Vehicles</a>
+              <a href="/vehicles" class="link active">Vehicles</a>
             </li>
             <li class="list">
               <a href="" class="link">Credit</a>
@@ -85,98 +72,92 @@
           <div class="client-profile-content">
             <div class="details-display">
               <div class="top-nav-options">
-                <a href="" class="nav-options-link active">Client Details</a>
-                <a href="http://192.168.0.34/EIApro/php_files/client-documents.php?id=<%=
-                client.id %>&username=<%= userN.firstName %>" class="nav-options-link">Image Documents</a>
+                <a href="" class="nav-options-link active">Vehicle Details</a>
+                <a href="" class="nav-options-link">Image Documents</a>
               </div>
               <div class="display-panel">
-                <h2 class="data-input-title">Client Details</h2>
+                <h2 class="data-input-title">Vehicle Details</h2>
                 <div class="rows">
                   <div class="data-col">
                     <div class="client-details-display">
-                      <h4 class="main">Name:</h4>
-                      <h4><%= client.firstName %> <%= client.lastName %> </h4>
+                      <h4 class="main">Registration Number:</h4>
+                      <h4><%= vehicle.RegN %> </h4>
                     </div>
                     <div class="client-details-display">
-                      <h4 class="main">Business Type:</h4>
-                      <h4><%= client.businessType %> </h4>
+                      <h4 class="main">Chassis Number:</h4>
+                      <h4><%= vehicle.Chasis %> </h4>
                     </div>
                     <div class="client-details-display">
-                      <h4 class="main">KRA Pin</h4>
-                      <h4><%= client.pin %> </h4>
+                      <h4 class="main">Logbook Number:</h4>
+                      <h4><%= vehicle.LogBook %> </h4>
                     </div>
                     <div class="client-details-display">
-                      <h4 class="main">Business Nature:</h4>
-                      <h4><%= client.businessNature %> </h4>
+                      <h4 class="main">Make</h4>
+                      <h4><%= vehicle.Make %> </h4>
+                    </div>
+                    <div class="client-details-display">
+                      <h4 class="main">Year of Manufacture:</h4>
+                      <h4><%= vehicle.MOY %> </h4>
                     </div>
                   </div>
                   <div class="data-col">
                     <div class="client-details-display">
-                      <h4 class="main">Physical Address:</h4>
-                      <h4><%= client.town %> , Kenya</h4>
+                      <h4 class="main">Engine Number:</h4>
+                      <h4><%= vehicle.EngNo %> </h4>
                     </div>
                     <div class="client-details-display">
-                      <h4 class="main">Email:</h4>
-                      <h4><%= client.email %> </h4>
+                      <h4 class="main">Color:</h4>
+                      <h4><%= vehicle.Color %> </h4>
                     </div>
                     <div class="client-details-display">
-                      <h4 class="main">Phone:</h4>
-                      <h4><%= client.phoneNumber %> </h4>
+                      <h4 class="main">Loading Capacity:</h4>
+                      <h4><%= vehicle.LoadingCapacity %> Kgs</h4>
                     </div>
                     <div class="client-details-display">
-                      <h4 class="main">P. O. Box:</h4>
-                      <h4><%= client.boxOffice%>  <%= client.town %> , Kenya</h4>
+                      <h4 class="main">Owner:</h4>
+                      <h4><%= vehicle.Owner %> </h4>
                     </div>
                   </div>
+                  
                   <div
-                  class="button-holder edit"
-                  style="
-                    display: flex;
-                    justify-content: flex-end;
-                    padding: 0 2rem 0 0;
-                  "
-                >
-                  <a href="/client-edit/<%= client.id %> " class="btn add-new">Edit</a>
-                </div>
+                    class="button-holder edit"
+                    style="
+                      display: flex;
+                      justify-content: flex-end;
+                      padding: 0 2rem 0 0;
+                    "
+                  >
+                    <a href="/edit/<%= vehicle.id %> " class="btn add-new">Edit</a>
+                  </div>
                 </div>
 
-                <h2 class="data-input-title">Client Policies</h2>
+                <h2 class="data-input-title">Vehicle Policies</h2>
 
                 <div class="dash-table-display">
                   <table class="info-list-table">
                     <thead>
                       <tr>
-                        <th>Reg No.</th>
-                        <th>Client Name</th>
                         <th>Sum Insured</th>
                         <th>Cover Type</th>
+                        <th>Client Name</th>
                         <th>From</th>
                         <th>To</th>
                       </tr>
                     </thead>
                     <tbody>
-                      <% if(policies.length > 0) { %> 
-                        <% for(let policy of policies) { %>
-                            <input type="hidden" value="<%=policy.id%>" name="policyId">
-                    <tr onclick="document.location='/policyView/<%=policy.id%>'">
-                        <td><% if( policy.policytype =="NonMotor vehicles") { %>
-                            <%= policy.policyName%>
-                               <% } else {%>
-                                <%= policy.regN %> 
-                                <%}%>
-                        </td>
-                        <td>
-                          <%= policy.firstName %> <%= policy.lastName %>
-                        </td>
-                        <td><%=policy.sumInsured %></td>
-                        <td><%= policy.coverType %></td>
-                        <td><%= policy.policyStart %></td>
-                        <td><%= policy.policyEnd %></td>
-                      </tr>
-                      <% } %> <% } else { %>
-                      
-                      <% } %>
-                      
+                      <% if(vehicle.policies.length > 0) { %>
+                        <% for(let policy of vehicle.policies) {%> 
+                        <tr onclick="document.location='client-profile'">
+                          <td>Kshs<br /><%= policy.sumInsured %> </td>
+                          <td><%= policy.coverType %> </td>
+                          <td><%= policy.client.firstName %> <%= policy.client.lastName %> </td>
+                          <td><%= policy.policyStart %> </td>
+                          <td><%= policy.policyEnd %> </td>
+                        </tr>
+                        <% } %>
+                         <%}else{ %>
+                          <h2>nothing to display</h2>
+                          <% } %>  
                     </tbody>
                   </table>
                 </div>

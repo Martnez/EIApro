@@ -1,0 +1,259 @@
+<%- include ('./includes/header.ejs') %>
+  <body>
+    <div class="dash-container">
+      <div class="hover-hamburger" id="hover_hamburger">
+        <div class="inner-hamburger">
+          <div class="bar"></div>
+          <div class="bar"></div>
+          <div class="bar"></div>
+        </div>
+      </div>
+      <div class="nav-overlay" id="overlay"></div>
+      <div class="side-bar" id="side_bar">
+        <div class="other-hover-hamburger show" id="other_hover_hamburger">
+          <div class="inner-hamburger">
+            <div class="bar"></div>
+            <div class="bar"></div>
+            <div class="bar"></div>
+          </div>
+        </div>
+        <div class="side-bar-content">
+          <div class="top-image-holder dash-img">
+            <img src="/images/eia_logo.png" alt="" />
+          </div>
+          <ul class="links">
+            <li class="list">
+              <a href="/dashboard" class="link">Home</a>
+            </li>
+            <li class="list">
+              <a href="/clients" class="link">Clients</a>
+            </li>
+            <li class="list">
+              <a href="/underwriting" class="link">Underwriting</a>
+            </li>
+            <li class="list">
+              <a href="claims" class="link active">Claims</a>
+            </li>
+            <li class="list">
+              <a href="/vehicles" class="link">Vehicles</a>
+            </li>
+            <li class="list">
+              <a href="" class="link">Credit</a>
+            </li>
+            <li class="list">
+              <a href="" class="link">Reports</a>
+            </li>
+          </ul>
+          <ul class="links lower">
+            <li class="list">
+              <a href="/admin" class="link">Admin</a>
+            </li>
+            <li class="list">
+              <a href="/logout" class="link logout">Logout</a>
+            </li>
+          </ul>
+        </div>
+      </div>
+      <div class="top-bar">
+        <div class="user-name-space">
+          <div class="user-icon">
+            <div class="image-holder">
+              <img src="./images/user-img.png" alt="" />
+            </div>
+            <h3 class="username-dash">Hello <%= userN.firstName %> </h3>
+          </div>
+        </div>
+      </div>
+      <div class="time-bar">
+        <h3 id="date_value"></h3>
+      </div>
+      <div class="dash-main">
+        <div class="dash-content">
+          <div class="data-input-content">
+            <h2 class="data-input-title">New Claim</h2>
+            <form action="" method="post" class="form-action">
+              <div class="form-contents">
+                <div class="rows">
+                  <div class="data-col">
+                    <div class="input-holder inside">
+                      <input
+                        list="policy_list"
+                        class="input-space"
+                        placeholder="Policy Type"
+                        name="policyId"
+                        required
+                      />
+                    </div>
+                    <div class="input-holder inside">
+                      <input
+                        list="policy_list"
+                        class="input-space"
+                        placeholder="Select or Enter Policy Number"
+                        name="policyId"
+                        required
+                      />
+                      <datalist id="policy_list">
+                        <% if(policies.length > 0) { %> 
+                          <% for(let policy of policies) { %>
+                            
+                        <option  value="<%= policy.id%>  <%= policy.policyNumber %>">
+                           <%= policy.policyNumber %>
+                        </option>
+                        
+                      <% } %>
+                      <% } else { %>
+                      <% } %>
+                      </datalist>
+                    </div>
+                    <div class="split-diplay">
+                      <div class="input-holder split">
+                        <input
+                          type="text"
+                          placeholder="Report Date"
+                          onblur="(this.type='text')"
+                          onfocus="(this. type='date')"
+                          required
+                          name="reportDate"
+                          id="start_date"
+                          class="input-space"
+                        />
+                      </div>
+                      <div class="input-holder split">
+                        <input
+                          type="text"
+                          placeholder="Date of Loss"
+                          onblur="(this.type='text')"
+                          onfocus="(this. type='date')"
+                          id="end_date"
+                          required
+                          name="lossDate"
+                          class="input-space"
+                        />
+                      </div>
+                    </div>
+                    <div class="input-holder inside">
+                      <input
+                        type="text"
+                        placeholder="Claim Type"
+                        required
+                        name="claimType"
+                        class="input-space"
+                      />
+                    </div>
+                    <div class="input-holder">
+                      <textarea
+                        style="
+                          height: auto;
+                          padding: 1rem 0 0 1rem;
+                          max-width: 523px;
+                          max-height: 143px;
+                        "
+                        type="text"
+                        id=""
+                        rows="9"
+                        required
+                        class="input-space"
+                        placeholder="Claim Description"
+                        name="description"
+                      ></textarea>
+                    </div>
+                    <div class="input-holder inside">
+                      <select name="comp" class="input-space" required id="">
+                        <option value="" selected>Select Compensation</option>
+                        <option value="Comprehensive">Cash-In-Lieu</option>
+                        <option value="Third Party">Authorize Repair</option>
+                      </select>
+                    </div>
+                  </div>
+                  <div class="data-col">
+                    <div class="input-holder inside">
+                      <input
+                        type="text"
+                        placeholder="Reporter"
+                        required
+                        name="reporter"
+                        class="input-space"
+                      />
+                    </div>
+                    <div class="input-holder inside">
+                      <input
+                        type="tel"
+                        placeholder="Reporter Contact"
+                        required
+                        name="reporterContact"
+                        class="input-space"
+                      />
+                    </div>
+                    <div class="split-diplay">
+                      <div class="input-holder split">
+                        <input
+                          type="text"
+                          placeholder="Offer Date"
+                          onblur="(this.type='text')"
+                          onfocus="(this. type='date')"
+                          required
+                          name="offerDate"
+                          id="start_date"
+                          class="input-space"
+                        />
+                      </div>
+                      <div class="input-holder split">
+                        <input
+                          type="text"
+                          placeholder="Compensation Date"
+                          onblur="(this.type='text')"
+                          onfocus="(this. type='date')"
+                          id="end_date"
+                          required
+                          name="compDate"
+                          class="input-space"
+                        />
+                      </div>
+                    </div>
+                    <div class="input-holder inside">
+                      <input
+                        type="number"
+                        placeholder="Claim Amount"
+                        name="claimAmount"
+                        class="input-space"
+                      />
+                    </div>
+                    <div class="input-holder inside">
+                      <input
+                        type="number"
+                        placeholder="Offer Amount"
+                        name="offerAmount"
+                        class="input-space"
+                      />
+                    </div>
+                    <div class="input-holder inside">
+                      <input
+                        type="text"
+                        placeholder="Garaged at"
+                        name="garagedAt"
+                        class="input-space"
+                      />
+                    </div>
+                    <div class="input-holder inside">
+                      <input
+                        type="tel"
+                        placeholder="Garage Contact"
+                        name="garageContact"
+                        class="input-space"
+                      />
+                    </div>
+                  </div>
+                </div>
+                <div class="button-holder" style="margin-left: 1.5rem">
+                  <button name="" class="btn add-new">Create</button>
+                </div>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+    <script src="./js/time.js"></script>
+    <script src="./js/nav.js"></script>
+  </body>
+</html>

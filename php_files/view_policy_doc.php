@@ -1,0 +1,37 @@
+<?php
+$filename = filter_var($_GET['file_name'],FILTER_SANITIZE_STRING,FILTER_FLAG_STRIP_HIGH);
+$filetype = filter_var($_GET['filetype'],FILTER_SANITIZE_STRING,FILTER_FLAG_STRIP_HIGH);
+$title = filter_var($_GET['title'],FILTER_SANITIZE_STRING,FILTER_FLAG_STRIP_HIGH);
+
+
+if ($title == "quotation") {
+    $file = "./documents/underwriting-documents/quotation/".$filename;
+}else if ($title == "risk_note") {
+    $file = "./documents/underwriting-documents/risk-note/".$filename;
+}else if ($title == "dec_form") {
+    $file = "./documents/underwriting-documents/dec-form/".$filename;
+}else if ($title == "policy_schedule") {
+    $file = "./documents/underwriting-documents/policy-schedule/".$filename;
+}else if ($title == "endorsement") {
+    $file = "./documents/underwriting-documents/endorsement/".$filename;
+}else{
+    $file = "./documents/underwriting-documents/others".$filename;
+}
+
+
+$file_name = $filename;
+
+    if ($filetype == 'pdf') {
+        header('Content-type: application/pdf');
+        header('Content-Disposition: inline; filename="' . $file_name . '"');
+        header('Content-Transfer-Encoding: binary');
+        header('Content-Length: ' . filesize($file));
+        header('Accept-Ranges: bytes');
+    
+        @readfile($file);
+    }else{
+        $im = file_get_contents($file);
+        header("Content-type: image/jpeg");
+        echo $im;
+    }
+?>

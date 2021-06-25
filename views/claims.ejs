@@ -1,4 +1,4 @@
-<%- include ('./includes/header') %>
+<%- include ('./includes/header.ejs') %>
   <body>
     <div class="dash-container">
       <div class="hover-hamburger" id="hover_hamburger">
@@ -19,7 +19,7 @@
         </div>
         <div class="side-bar-content">
           <div class="top-image-holder dash-img">
-            <img src="./images/eia_logo.png" alt="" />
+            <img src="/images/eia_logo.png" alt="" />
           </div>
           <ul class="links">
             <li class="list">
@@ -29,10 +29,10 @@
               <a href="/clients" class="link">Clients</a>
             </li>
             <li class="list">
-              <a href="/underwriting" class="link active">Underwriting</a>
+              <a href="/underwriting" class="link">Underwriting</a>
             </li>
             <li class="list">
-              <a href="/claims" class="link">Claims</a>
+              <a href="/claims" class="link active">Claims</a>
             </li>
             <li class="list">
               <a href="/vehicles" class="link">Vehicles</a>
@@ -58,21 +58,14 @@
         <div class="user-name-space">
           <div class="user-icon">
             <div class="image-holder">
-              <img src="/images/user-img.png" alt="" />
+              <img src="./images/user-img.png" alt="" />
             </div>
-            <h3 class="username-dash">Hello Stephen</h3>
+            <h3 class="username-dash">Hello <%= userN.firstName %> </h3>
           </div>
         </div>
       </div>
       <div class="time-bar">
         <h3 id="date_value"></h3>
-      </div>
-      <div class="popup-info-display">
-        <div class="popup-overlays" id="popup_overlay"></div>
-        <div class="pop-up-selections" id="popup_selection">
-          <a href="/new-motor" class="popup-link">Motor Policy</a>
-          <a href="/new-non-motor" class="popup-link">Non-Motor Policy</a>
-        </div>
       </div>
       <div class="dash-main">
         <div class="dash-content">
@@ -87,8 +80,8 @@
                   onkeyup="myFunction()"
                 />
               </div>
-              <a class="btn add-new" id="policy_btn" style="margin: 1em 0"
-                >Add Policy</a
+              <a href="/new-claim" class="btn add-new" style="margin: 1em 0"
+                >Add Claim</a
               >
             </div>
 
@@ -96,35 +89,35 @@
               <table class="info-list-table">
                 <thead>
                   <tr>
-                    <th>Reg No.</th>
                     <th>Client Name</th>
-                    <th>Sum Insured</th>
                     <th>Cover Type</th>
-                    <th>From</th>
-                    <th>To</th>
+                    <th>Project Name/Reg. No</th>
+                    <th>Sum Insured</th>
+                    <th>PaidAmount</th>
+                    <th>Date of Loss</th>
+                    <th>Date of Offer</th>
                   </tr>
                 </thead>
                 <tbody id="myTable">
-                  <% if(policies.length > 0) { %> 
-                    <% for(let policy of policies) { %>
-                      <tr onclick="document.location='/policyView/<%=policy.id%>'">
-                          <td>
-                            <% if( policy.policytype =="NonMotor vehicles") { %>
-                                <%= policy.policyName%>
-                            <% } else {%>
-                                <%= policy.vehicle.RegN %>                              
-                            <%}%>
-                         </td>
-                        <td><%= policy.client.firstName %> <%= policy.client.lastName %> </td>
-                        <td>Kshs<br /><%= policy.sumInsured %> </td>
-                        <td><%= policy.coverType %> </td>
-                        <td><%= policy.policyStart %> </td>
-                        <td><%= policy.policyEnd %> </td>
-                        <input type="hidden" name="policyId" value="<%= policy.id %> ">
-                      </tr>
-                <% } %>
-                <% } else { %>
-                <% } %>      
+                    <% if(claims.length > 0){ %>
+                      <% for(let claim of claims) { %>  
+                        <!-- <input type="hidden" name="claimId" value="<%= claim.id %> ">    -->
+                  <tr onclick="document.location='/claim-view/<%= claim.id %>'">
+                    <td><%=claim.policy.client.firstName%></td>
+                    <td><%=claim.claimType%></td>
+                    <td><% if( claim.policy.policytype =="NonMotor vehicles") { %>
+                      <%= claim.policy.policyName%>
+                         <% } else {%>
+                          <%=claim.policy.regN %> 
+                          <%}%>
+                    </td>
+                    <td>Kshs<br /><%=claim.policy.sumInsured%></>
+                    <td>Kshs<br /><%= claim.offerAmount %></td>
+                    <td><%= claim.lossDate %></td>
+                    <td><%= claim.offerDate %> </td>
+                  </tr>
+                  <% } %> 
+                  <% }else{ %> <% } %> 
                 </tbody>
               </table>
             </div>
@@ -133,7 +126,6 @@
       </div>
     </div>
     <script src="./js/search.js"></script>
-    <script src="./js/policy-toggle.js"></script>
     <script src="./js/time.js"></script>
     <script src="./js/nav.js"></script>
   </body>

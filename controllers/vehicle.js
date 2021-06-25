@@ -2,6 +2,10 @@ const Vehicles = require('../models/Vehicle');
 
 const Logs = require('../models/Logs')
 
+const Policy = require('../models/policy')
+
+const Clients= require('../models/Client')
+
 exports.getVehicles= (req,res,next) =>{
   const user = req.user;
   Vehicles.findAll({order: [ [ 'createdAt', 'DESC' ]]})
@@ -17,15 +21,30 @@ exports.getVehicles= (req,res,next) =>{
 })
   };
   exports.getNewVehicle= (req,res,next) =>{
-
     const user = req.user;
-      res.render('new-vehicle', {
+    res.render("new-vehicle",{
+      userN:user,
+      pageTitle:"vehicle registration",
+      path:"/new-vehicle"
+    })
+   
+    
+  };
+  exports.getVehicleView= (req,res,next) =>{
+    const user = req.user;
+    const vehicleId= req.params.vehicleId
+    Vehicles.findOne({where:{id:vehicleId},include:{model: Policy,include:{model:Clients}}}).then(
+      vehicle=>{
+      res.render('vehicle-view', {
         userN:user,
-          pageTitle: 'new-vehicle',
-          path: '/new-vehicle',
+        vehicle:vehicle,
+          pageTitle: 'vehicle-view',
+          path: '/vehicle-view',
         //   errorMessage: req.flash('emailError')
           
   })
+}
+).catch(err=>(console.log(err)))
   };
   exports.postNewVehicle=(req,res,next)=>{
     const user = req.user;

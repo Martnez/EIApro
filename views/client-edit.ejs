@@ -1,0 +1,376 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="../css/main.css" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Roboto:wght@100;300;400;500;700;900&display=swap"
+      rel="stylesheet"
+    />
+    <title><%=pageTitle%></title>
+  </head>
+  <body>
+    <div class="dash-container">
+      <div class="hover-hamburger" id="hover_hamburger">
+        <div class="inner-hamburger">
+          <div class="bar"></div>
+          <div class="bar"></div>
+          <div class="bar"></div>
+        </div>
+      </div>
+      <div class="nav-overlay" id="overlay"></div>
+      <div class="side-bar" id="side_bar">
+        <div class="other-hover-hamburger show" id="other_hover_hamburger">
+          <div class="inner-hamburger">
+            <div class="bar"></div>
+            <div class="bar"></div>
+            <div class="bar"></div>
+          </div>
+        </div>
+        <div class="side-bar-content">
+          <div class="top-image-holder dash-img">
+            <img src="/images/eia_logo.png" alt="" />
+          </div>
+          <ul class="links">
+            <li class="list">
+              <a href="/dashboard" class="link">Home</a>
+            </li>
+            <li class="list">
+              <a href="/clients" class="link active">Clients</a>
+            </li>
+            <li class="list">
+              <a href="/underwriting" class="link">Underwriting</a>
+            </li>
+            <li class="list">
+              <a href="/claims" class="link">Claims</a>
+            </li>
+            <li class="list">
+              <a href="/vehicles" class="link">Vehicles</a>
+            </li>
+            <li class="list">
+              <a href="" class="link">Credit</a>
+            </li>
+            <li class="list">
+              <a href="" class="link">Reports</a>
+            </li>
+          </ul>
+          <ul class="links lower">
+            <li class="list">
+              <a href="/admin" class="link">Admin</a>
+            </li>
+            <li class="list">
+              <a href="/logout" class="link logout">Logout</a>
+            </li>
+          </ul>
+        </div>
+      </div>
+      <div class="top-bar">
+        <div class="user-name-space">
+          <div class="user-icon">
+            <div class="image-holder">
+              <img src="./images/user-img.png" alt="" />
+            </div>
+            <h3 class="username-dash">Hello Stephen</h3>
+          </div>
+        </div>
+      </div>
+      <div class="time-bar">
+        <h3 id="date_value"></h3>
+      </div>
+      <div class="dash-main">
+        <div class="dash-content">
+          <div class="data-input-content">
+            <h2 class="data-input-title">Edit Client Detailss</h2>
+            <form action="" method="post" class="form-action">
+              <div class="form-contents">
+                <div class="rows">
+                  <div class="data-col">
+                    <div class="input-holder inside" style="flex-wrap: wrap">
+                        <h4
+                          style="
+                            width: 100%;
+                            margin: 0.5rem 0;
+                            font-weight: 400;
+                            font-size: 15px;
+                          "
+                        >
+                         Business Type
+                        </h4>
+                      <select name="businessType" class="input-space"  id="business_type">
+                        <option value="<%= client.businessType %>" selected><%= client.businessType %>  </option>
+                        <option value="Individual">Individual</option>
+                        <option value="Corporate">Corporate</option>
+                      </select>
+                    </div>
+                    <div class="split-diplay">
+                        <div class="input-holder inside" style="flex-wrap: wrap">
+                            <h4
+                              style="
+                                width: 100%;
+                                margin: 0.5rem 0;
+                                font-weight: 400;
+                                font-size: 15px;
+                              "
+                            >
+                            First name
+                            </h4>
+                        <input
+                          type="text"
+                          placeholder="First name"
+                          id="firstname"
+                          value="<%= client.firstName%>"
+                          
+                          name="firstName"
+                          class="input-space"
+                        />
+                      </div>
+                      <div class="input-holder inside" style="flex-wrap: wrap">
+                        <h4
+                          style="
+                            width: 100%;
+                            margin: 0.5rem 0;
+                            font-weight: 400;
+                            font-size: 15px;
+                          "
+                        >
+                        Last name
+                        </h4>
+                        <input
+                          type="text"
+                          placeholder="Last name"
+                          value="<%= client.lastName%>"
+                          
+                          id="lastname"
+                          name="lastName"
+                          class="input-space"
+                        />
+                      </div>
+                    </div>
+                    <div class="input-holder inside" style="flex-wrap: wrap">
+                        <h4
+                          style="
+                            width: 100%;
+                            margin: 0.5rem 0;
+                            font-weight: 400;
+                            font-size: 15px;
+                          "
+                        >
+                        ID Number
+                        </h4>
+                      <input
+                        type="text"
+                        placeholder="ID Number"
+                        value="<%= client.idNumber%>"
+                        
+                        id="id_num"
+                        name="clientIdN"
+                        class="input-space"
+                      />
+                    </div>
+                    <div class="input-holder inside" style="flex-wrap: wrap">
+                        <h4
+                          style="
+                            width: 100%;
+                            margin: 0.5rem 0;
+                            font-weight: 400;
+                            font-size: 15px;
+                          "
+                        >
+                        KRA Pin
+                        </h4>
+                      <input
+                        type="text"
+                        placeholder="KRA Pin"
+                        value="<%= client.pin%>"
+                        
+                        name="pin"
+                        class="input-space"
+                      />
+                    </div>
+                    <div class="input-holder inside" style="flex-wrap: wrap">
+                        <h4
+                          style="
+                            width: 100%;
+                            margin: 0.5rem 0;
+                            font-weight: 400;
+                            font-size: 15px;
+                          "
+                        >
+                        Street, City
+                        </h4>
+                      <input
+                        type="text"
+                        placeholder="Street, City"
+                        value="<%= client.town%>"
+                        
+                        name="city"
+                        class="input-space"
+                      />
+                    </div>
+                    
+                    <div class="input-holder inside" style="flex-wrap: wrap">
+                        <h4
+                          style="
+                            width: 100%;
+                            margin: 0.5rem 0;
+                            font-weight: 400;
+                            font-size: 15px;
+                          "
+                        >
+                        P. O. Box
+                        </h4>
+                      <input
+                        type="text"
+                        placeholder="P. O. Box"
+                        value="<%= client. boxOffice%>"
+                        
+                        name="boxOffice"
+                        class="input-space"
+                      />
+                    </div>
+                  </div>
+                  <div class="data-col">
+                    <div class="input-holder inside" style="flex-wrap: wrap">
+                        <h4
+                          style="
+                            width: 100%;
+                            margin: 0.5rem 0;
+                            font-weight: 400;
+                            font-size: 15px;
+                          "
+                        >
+                        Phone
+                        </h4>
+                      <input
+                        type="tel"
+                        placeholder="Phone"
+                        value="<%= client.phoneNumber%>"
+                        
+                        name="phoneNumber"
+                        class="input-space"
+                      />
+                    </div>
+                    <div class="input-holder inside" style="flex-wrap: wrap">
+                        <h4
+                          style="
+                            width: 100%;
+                            margin: 0.5rem 0;
+                            font-weight: 400;
+                            font-size: 15px;
+                          "
+                        >
+                          Client level
+                        </h4>
+                      <select name="level" class="input-space"  id="">
+                        <option value="<%= client.level%>" selected><%= client.level%></option>
+                        <option value="High Level">High Level</option>
+                        <option value="Normal Level">Normal Level</option>
+                        <option value="Low Level">Low Level</option>
+                      </select>
+                    </div>
+                    <div class="input-holder inside" style="flex-wrap: wrap">
+                        <h4
+                          style="
+                            width: 100%;
+                            margin: 0.5rem 0;
+                            font-weight: 400;
+                            font-size: 15px;
+                          "
+                        >
+                        Email
+                        </h4>
+                      <input
+                        type="email"
+                        placeholder="Email"
+                        value="<%= client. email%>"
+                        
+                        name="email"
+                        class="input-space"
+                      />
+                    </div>
+
+                    <div class="input-holder inside" style="flex-wrap: wrap">
+                        <h4
+                          style="
+                            width: 100%;
+                            margin: 0.5rem 0;
+                            font-weight: 400;
+                            font-size: 15px;
+                          "
+                        >
+                        Select or Enter Nature of Business
+                        </h4>
+                      <input
+                        list="business_nature"
+                        class="input-space"
+                        placeholder="business_nature"
+                        name="businessNature"
+                        value="<%= client.businessNature%>"
+                        
+                      />
+                      <datalist id="business_nature">
+                        <option value="Manufacturing"></option>
+                        <option value="Processing"></option>
+                        <option value="Contruction"></option>
+                      </datalist>
+                    </div>
+                    <div class="input-holder inside" style="flex-wrap: wrap">
+                        <h4
+                          style="
+                            width: 100%;
+                            margin: 0.5rem 0;
+                            font-weight: 400;
+                            font-size: 15px;
+                          "
+                        >
+                        Contact Person Name
+                        </h4>
+                      <input
+                        type="text"
+                        placeholder="Contact Person Name"
+                        value="<%= client.contactPerson%>"
+                        
+                        name="contactPerson"
+                        class="input-space"
+                      />
+                    </div>
+                    <div class="input-holder inside" style="flex-wrap: wrap">
+                        <h4
+                          style="
+                            width: 100%;
+                            margin: 0.5rem 0;
+                            font-weight: 400;
+                            font-size: 15px;
+                          "
+                        >
+                        Contact Person Phone
+                        </h4>
+                      <input
+                        type="tel"
+                        placeholder="Contact Person Phone"
+                        value="<%= client.contactPersonNumber%>"
+                        
+                        name="contactPhone"
+                        class="input-space"
+                      />
+                    </div>
+                  </div>
+                  <div class="button-holder" style="margin-left: 1rem">
+                    
+                    <button name="" class="btn add-new">Update</button>
+                  </div>
+                </div>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+    <script src="./js/client-type.js"></script>
+    <script src="./js/time.js"></script>
+    <script src="./js/nav.js"></script>
+  </body>
+</html>
