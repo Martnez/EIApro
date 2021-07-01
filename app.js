@@ -8,6 +8,8 @@ const bodyParser = require('body-parser');
 
 const Sequelize = require('./util/database');
 
+const db =require('./util/datbase_s');
+
 const path = require('path');
 
 const SequelizeStore = require('connect-session-sequelize')(session.Store);
@@ -82,6 +84,17 @@ app.use(
         console.log(err);
       });
   });
+  app.get('/search',function(req,res){
+    connection.query('SELECT policyNumber from policies',
+    function(err,rows,fields){
+        if(err) throw err;
+        var data=[];
+        for(i=0;i<rows.length;i++){
+            data.push(rows[i].first_name);
+        }
+        res.end(JSON.stringify(data))
+    });
+});
 
 Logs.belongsTo(User, { constraints: true, onDelete: "CASCADE" });
 User.hasMany(Logs);

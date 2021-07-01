@@ -95,6 +95,7 @@
                       <% } %>
                       </datalist>
                     </div>
+                    
                     <div class="input-holder inside">
                       <input
                         list="plate_number"
@@ -103,6 +104,7 @@
                         name="regN"
                         required
                       />
+                      
                       <datalist id="plate_number">
                         <% if(clients.length > 0) { %> 
                           <% for(let client of clients) { %>

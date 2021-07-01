@@ -66,7 +66,8 @@ exports.getVehicles= (req,res,next) =>{
   date:current_date
   });
     log.save();
-    
+  
+  const userId =user.id;
   const regN = req.body.regN;
   const chassisN = req.body.chassisN;
   const logbookN = req.body.logbookN;
@@ -86,7 +87,8 @@ exports.getVehicles= (req,res,next) =>{
       EngNo:engineN,
       Color:color,
       LoadingCapacity:loadingCapacity,
-      Owner:owner
+      Owner:owner,
+      clientId:userId
   })
   vehicle.save();
   return res.redirect('/vehicles')

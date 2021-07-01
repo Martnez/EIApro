@@ -6,6 +6,8 @@ const Logs = require('../models/Logs');
 
 const Clients =require('../models/Client');
 
+const db = require('../util/datbase_s');
+
 exports.getClaims= (req,res,next) =>{
     const user = req.user;
 Claim.findAll({order: [ [ 'createdAt', 'DESC']],include:{model:Policies,include:{model:Clients}}}).then(claims=>{
@@ -19,6 +21,7 @@ Claim.findAll({order: [ [ 'createdAt', 'DESC']],include:{model:Policies,include:
 }).catch(err=>(console.log(err)))
       
   };
+ 
   exports.getNewClaim= (req,res,next) =>{
     const user = req.user;
   Policies.findAll().then(policies=>{

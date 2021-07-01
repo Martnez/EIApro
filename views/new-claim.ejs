@@ -1,4 +1,19 @@
-<%- include ('./includes/header.ejs') %>
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="../css/main.css" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Roboto:wght@100;300;400;500;700;900&display=swap"
+      rel="stylesheet"
+    />
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+    <script src="../jquery/typeahead.min.js" type="text/javascript"></script>
+    <title><%=pageTitle%></title>
+  </head>
   <body>
     <div class="dash-container">
       <div class="hover-hamburger" id="hover_hamburger">
@@ -74,40 +89,21 @@
             <form action="" method="post" class="form-action">
               <div class="form-contents">
                 <div class="rows">
-                  <div class="data-col">
-                    <div class="input-holder inside">
-                      <input
-                        list="policy_list"
-                        class="input-space"
-                        placeholder="Policy Type"
-                        name="policyId"
-                        required
-                      />
-                    </div>
-                    <div class="input-holder inside">
-                      <input
-                        list="policy_list"
-                        class="input-space"
-                        placeholder="Select or Enter Policy Number"
-                        name="policyId"
-                        required
-                      />
-                      <datalist id="policy_list">
-                        <% if(policies.length > 0) { %> 
-                          <% for(let policy of policies) { %>
-                            
-                        <option  value="<%= policy.id%>  <%= policy.policyNumber %>">
-                           <%= policy.policyNumber %>
-                        </option>
+                  <div class="data-col" id="the-basics"> 
+                     <input
+                        class="typeahead tt-query input-space"
+                        spellcheck="false"
+                        autocomplete="off"
+                        placeholder="search"
+                        name="typeahead"
+                        type="text"
                         
-                      <% } %>
-                      <% } else { %>
-                      <% } %>
-                      </datalist>
-                    </div>
+                      />
+                    
+                    
                     <div class="split-diplay">
-                      <div class="input-holder split">
-                        <input
+                      <div class=" input-holder ">
+                         <input
                           type="text"
                           placeholder="Report Date"
                           onblur="(this.type='text')"
@@ -255,5 +251,6 @@
     </div>
     <script src="./js/time.js"></script>
     <script src="./js/nav.js"></script>
-  </body>
+    <script src="./js/typeahead_search.js"></script>
+    </body>
 </html>

@@ -22,7 +22,7 @@ exports.getUnderwriting= (req,res,next) =>{
   exports.getNewMotor= (req,res,next) =>{
     const user = req.user;
     Clients.findAll({include:{model:Vehicles}}).then(clients=>{
-      console.log(clients[0].vehicles[0].RegN)
+      console.log(clients[0].vehicles)
       res.render('new-motor', {
         userN:user,
         clients:clients,

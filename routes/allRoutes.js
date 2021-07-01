@@ -10,37 +10,39 @@ const vehicleControllers = require("../controllers/vehicle");
 
 const claimsControllers = require("../controllers/claims");
 
-const editControllers = require("../controllers/edits")
+const editControllers = require("../controllers/edits");
+
+const isAuth = require('../middleware/auth');
 
 const router = express.Router();
 // client routes
-router.get('/clients',clientsControllers.getClients);
+router.get('/clients',isAuth,clientsControllers.getClients);
 
-router.get('/new-client',clientsControllers.getNewClient);
+router.get('/new-client',isAuth,clientsControllers.getNewClient);
 
-router.get('/client-profile/:clientId',clientsControllers.getClientProfile);
+router.get('/client-profile/:clientId',isAuth,isAuth,clientsControllers.getClientProfile);
 
 router.post('/new-client',clientsControllers.postClient);
 
 // underwriting routes
-router.get('/underwriting',underwritingControllers.getUnderwriting)
+router.get('/underwriting',isAuth,underwritingControllers.getUnderwriting)
 
-router.get('/new-motor',underwritingControllers.getNewMotor);
+router.get('/new-motor',isAuth,underwritingControllers.getNewMotor);
 
 router.post('/new-motor',underwritingControllers.postNewMotor);
 
-router.get('/new-non-motor',underwritingControllers.getNewNonMotor);
+router.get('/new-non-motor',isAuth,underwritingControllers.getNewNonMotor);
 
 router.post('/new-non-motor',underwritingControllers.postNonMotor);
 
-router.get('/policyView/:policyId',underwritingControllers.getPolicyView);
+router.get('/policyView/:policyId',isAuth,underwritingControllers.getPolicyView);
 
 // vehicles routes
-router.get('/new-vehicle',vehicleControllers.getNewVehicle);
+router.get('/new-vehicle',isAuth,vehicleControllers.getNewVehicle);
 
-router.get('/vehicles',vehicleControllers.getVehicles);
+router.get('/vehicles',isAuth,vehicleControllers.getVehicles);
 
-router.get('/vehicle-view/:vehicleId',vehicleControllers.getVehicleView);
+router.get('/vehicle-view/:vehicleId',isAuth,vehicleControllers.getVehicleView);
 
 router.post('/new-vehicle',vehicleControllers.postNewVehicle);
 
@@ -49,49 +51,52 @@ router. get('/home',homeControllers.getIndex);
 
 router. get('/',homeControllers.getIndex);
 
-router. get('/dashboard',homeControllers.getDashboard);
+router. get('/dashboard',isAuth,homeControllers.getDashboard);
 
 router.post('/',homeControllers.postIndex);
 
-router. get('/new-user',homeControllers.getNewUser);
+router. get('/new-user',isAuth,homeControllers.getNewUser);
 
 router. post('/new-user',homeControllers.postNewUser);
 
-router. get('/admin',homeControllers.getAdmin);
+router. get('/admin',isAuth,homeControllers.getAdmin);
 
-router.get('/logout',homeControllers.postLogout);
+router.get('/logout',isAuth,homeControllers.postLogout);
 
-router. get('/logs',homeControllers.getLogs);
+router. get('/logs',isAuth,homeControllers.getLogs);
 
-router.get('/user-profile/:userId',homeControllers.getUserProfile);
+router.get('/user-profile/:userId',isAuth,homeControllers.getUserProfile);
 
-router.get('/delete-user/:userId',homeControllers.postDeleteUser);
+router.get('/delete-user/:userId',isAuth,homeControllers.postDeleteUser);
 
-router.get('/reset-flag/:userId',homeControllers.postResetFlag);
+router.get('/reset-flag/:userId',isAuth,homeControllers.postResetFlag);
 //claims routes
-router.get('/claims',claimsControllers.getClaims);
+router.get('/claims',isAuth,claimsControllers.getClaims);
 
-router.get('/new-claim',claimsControllers.getNewClaim);
+router.get('/new-claim',isAuth,claimsControllers.getNewClaim);
 
 router.post('/new-claim',claimsControllers.postNewClaim);
 
-router.get('/claim-view/:claimId',claimsControllers.getClaimView);
+router.get('/claim-view/:claimId',isAuth,claimsControllers.getClaimView);
 // all edits
-router.get('/edit/:vehicleId',editControllers.getVehicleEdit);
+router.get('/edit/:vehicleId',isAuth,editControllers.getVehicleEdit);
 
 router.post('/edit/:vehicleId',editControllers.postVehicleEdit);
 
-router.get('/client-edit/:clientId',editControllers.getClientEdit);
+router.get('/client-edit/:clientId',isAuth,editControllers.getClientEdit);
 
 router.post('/client-edit/:clientId',editControllers.postClientEdit);
 
-router.get('/nonMotor-edit/:policyId',editControllers.getNonMotorEdit);
+router.get('/nonMotor-edit/:policyId',isAuth,editControllers.getNonMotorEdit);
 
 router.post('/nonMotor-edit/:policyId',editControllers.postNonMotorEdit);
 
-router.get('/motor-edit/:policyId',editControllers.getMotorEdit);
+router.get('/motor-edit/:policyId',isAuth,editControllers.getMotorEdit);
 
-router.post('/motor-edit/:policyId',editControllers.postMotorEdit);
+router.post('/motor-edit/:policyId',isAuth,editControllers.postMotorEdit);
+
+
+router.get('/search',claimsControllers.getSearch);
 
 
 
