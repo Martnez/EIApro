@@ -96,7 +96,7 @@ router.get('/motor-edit/:policyId',isAuth,editControllers.getMotorEdit);
 router.post('/motor-edit/:policyId',isAuth,editControllers.postMotorEdit);
 
 
-router.get('/search',claimsControllers.getSearch);
+// router.get('/search',claimsControllers.getSearch);
 
 
 

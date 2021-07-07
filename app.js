@@ -9,6 +9,14 @@ const bodyParser = require('body-parser');
 const Sequelize = require('./util/database');
 
 const db =require('./util/datbase_s');
+const mysql= require('mysql2');
+const connection = mysql.createConnection({
+  host:'localhost',
+  user: 'root',
+  password:"",
+  database:'eia'
+});
+connection.connect();
 
 const path = require('path');
 
@@ -85,15 +93,29 @@ app.use(
       });
   });
   app.get('/search',function(req,res){
-    connection.query('SELECT policyNumber from policies',
+    connection.query('SELECT policyNumber FROM `policies` WHERE 1',
     function(err,rows,fields){
         if(err) throw err;
         var data=[];
         for(i=0;i<rows.length;i++){
-            data.push(rows[i].first_name);
+            data.push(rows[i].policyNumber);
         }
         res.end(JSON.stringify(data))
+        console.log(JSON.stringify(data));
     });
+});
+app.get('/secondSearch',function(req,res){
+  connection.query('SELECT policytype, coverType from `policies` WHERE policyNumber= "CCBD/1200/01"',
+  function(err,rows,fields){
+    if(err) throw err;
+    var data=[];
+    for(i=0;i<rows.length;i++){
+        data.push(rows[i].policytype);
+        data.push(rows[i].coverType);
+    }
+    res.end(JSON.stringify(data))
+    console.log(JSON.stringify(data));
+} );
 });
 
 Logs.belongsTo(User, { constraints: true, onDelete: "CASCADE" });

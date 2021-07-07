@@ -17,7 +17,7 @@ exports.getIndex=(req,res,next)=>{
 exports.getDashboard=(req,res,next)=>{
   const user = req.user;
     res.render('dashboard',{
-      user:user,
+      userN:user,
         pageTitle:'dashboard',
         path:'/dashboard',
 

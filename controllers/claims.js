@@ -11,7 +11,7 @@ const db = require('../util/datbase_s');
 exports.getClaims= (req,res,next) =>{
     const user = req.user;
 Claim.findAll({order: [ [ 'createdAt', 'DESC']],include:{model:Policies,include:{model:Clients}}}).then(claims=>{
-    
+    console.log(claims)
     res.render('claims', {
         userN:user,
           pageTitle: 'claims',

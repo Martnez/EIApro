@@ -80,6 +80,13 @@
                 <h2 class="data-input-title"><%= policy.client.firstName %> <%= policy.client.lastName %></h2>
                 <div class="rows">
                   <div class="data-col">
+                    <% if(policy.coverType=="Third Party"){ %> <% }else{%>
+                      <div class="client-details-display">
+                        <h4 class="main">Sum Insured:</h4>
+                        <h4>Kshs <%= policy.sumInsured %></h4>
+                      </div>
+                      <% } %>   
+                    
                     <div class="client-details-display">
                       <h4 class="main">Policy Number:</h4>
                       <h4><%= policy.policyNumber %></h4>
@@ -116,10 +123,6 @@
                   <div class="data-col premiums">
                     <div class="client-details-display">
                       <h3 style="width: 100%">Premiums</h3>
-                    </div>
-                    <div class="client-details-display">
-                      <h4 class="main">Sum Insured:</h4>
-                      <h4>Kshs <%= policy.sumInsured %></h4>
                     </div>
                     <div class="client-details-display">
                       <h4 class="main">PHCF:</h4>

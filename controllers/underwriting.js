@@ -34,24 +34,7 @@ exports.getUnderwriting= (req,res,next) =>{
   };
   exports.postNewMotor=(req,res,next)=>{
     const user = req.user;
-    let today = new Date()
-    let month = today.getMonth() + 1;
-    let date= today.getDate();
-    let year = today.getFullYear();
-    let hour = today.getHours();
-    let min = today.getMinutes();
-    let secs = today.getSeconds();
-    const current_date = `${year}/${month}/${date}`;
-    const current_time = `${hour}:${min}:${secs}`;
-  
-  const log= new Logs({
-  task: "created a  motor policy",
-  userId: user._id,
-  time: current_time,
-  date:current_date
-  });
-    log.save();
-  const clientId= req.body.clientName;
+    const clientId= req.body.clientName;
   const policytype= 'Motor vehicles';
   let stampDuty ='40';
   const excessProtector = req.body.excessProtector;
@@ -83,24 +66,35 @@ exports.getUnderwriting= (req,res,next) =>{
   let pll =(passangerLegalLiability-0)||0;
   let rb=(rescueBenefit-0)||0;
   let newOtherBe = (wb+lof+pll+rb) || 0;
-  let basicPremium = (newSumInsured *(NewRate/100));
-  
-  if(excessProtector=="excessProtector"){
-    if(coverType!="Comprehensive"){
-      const XbasicPremium= newSumInsured;
-      const xtrainingLevy= (XbasicPremium * 0.002);
-      const xPHCF = (XbasicPremium * 0.0025);
-      const xGrandTotal = (newStampDuty + xtrainingLevy+ xPHCF + XbasicPremium);
+  let expoRate =1;
+  let expo = 0;
+  let basicPremium = 5000;
+  if(coverType=="Comprehensive"){expoRate=0.005};
+  if(mvClass.includes("Private")){expoRate=0.0025};
+    expo=(newSumInsured*expoRate);
+  if(coverType=="Comprehensive"&& expo <=5000){ expo=5000};
+  if(mvClass.includes("Private")&& expo<=2500){ expo=2500};
+  if(insurer=="Fidelity Shield  Insurance Co. Ltd" & expo<=5000){ expo=5000};
+   basicPremium =(newSumInsured*NewRate);
+  if(mvClass.includes("Private")&&coverType=="Comprehensive" && basicPremium<=20000){basicPremium=20000};
+  if(coverType=="Third Party Fire and Theft"&& basicPremium<=15000){basicPremium=15000};
+  if(coverType=="Third Party"){basicPremium = newSumInsured};
+  if(coverType=="Third Party"||coverType=="Third Party Fire and Theft"){expo=0}
+      const subBasic = (basicPremium + expo + newPoliTe + newPerAcc + newOtherBe);
+      const trainingLevy= (subBasic * 0.002);
+      const PHCF = (subBasic * 0.0025);
+      const GrandTotal = (newStampDuty + trainingLevy + PHCF + subBasic);
       const  policy= new Policies({
-        levy:xtrainingLevy,
-        PHCF:xPHCF,
+        levy:trainingLevy,
+        PHCF:PHCF,
+        exPro:expo,
         clientId:clientId,
         signature:signature,
         remarks:remarks,
-        basicPremium:XbasicPremium,
+        basicPremium:basicPremium,
         rate:rate,
         stampDuty: stampDuty,
-        netProfit:xGrandTotal,
+        netProfit:GrandTotal,
         policytype: policytype,
         policyName: policyName,
         coverType: coverType,
@@ -117,272 +111,365 @@ exports.getUnderwriting= (req,res,next) =>{
         policyNumber: policyNumber,
         policyStart: policyStart,
         policyEnd: policyEnd,
-        GrandTotal:xGrandTotal,
-      });
-        policy.save();
-    
-    res.redirect("/underwriting")
-    }else{
-      
-    if(mvClass.includes('Private')){
-      let Xrate = 0.25;
-      const exProt =(newSumInsured *(Xrate/100));
-      const subBasic = (basicPremium + exProt + newPoliTe + newPerAcc + newOtherBe);
-      const trainingLevy= (subBasic * 0.002);
-      const PHCF = (subBasic * 0.0025);
-      const GrandTotal = (newStampDuty + trainingLevy + PHCF + subBasic);
-      console.log(insurer + exProt);
-      if(insurer=="Fidelity Shield  Insurance Co. Ltd" && exProt<5000){
-        console.log("Fidelity calculations" )
-        const exProt = 5000;
-        const subBasic = (basicPremium + exProt + newPoliTe + newPerAcc + newOtherBe);
-        const trainingLevy= (subBasic * 0.002);
-        const PHCF = (subBasic * 0.0025);
-        const GrandTotal = (newStampDuty + trainingLevy + PHCF + subBasic);
-        const  policy= new Policies({
-          levy:trainingLevy,
-          PHCF:PHCF,
-          clientId:clientId,
-          
-          signature:signature,
-          remarks:remarks,
-          basicPremium:basicPremium,
-          rate:rate,
-          rescueBenefit: rescueBenefit,
-          stampDuty: stampDuty,
-          netProfit:GrandTotal,
-          exPro:exProt,
-          poliTe:poliTe,
-          perAcc:perAcc,
-          policytype: policytype,
-          policyName: policyName,
-          coverType: coverType,
-          
-          mvClass: mvClass,
-          vehicleId: vehicleId,
-          sumInsured: sumInsured,
-          insurer: insurer,
-          pll:passangerLegalLiability,
-          Windscreen: windscreenBenefit,
-          lossOfUse :lossOfUse,
-          policyNumber: policyNumber,
-          policyStart: policyStart,
-          policyEnd: policyEnd,
-          GrandTotal:GrandTotal,
-        });
-          policy.save();
-      
-        res.redirect("/underwriting")
-      }else{      
-        if(exProt<= 2500){
-        console.log("not fidelity")
-         const exProt= 2500;
-          const subBasic = (basicPremium + exProt + newPoliTe + newPerAcc + newOtherBe);
-         const trainingLevy= (subBasic * 0.002);
-          const PHCF = (subBasic * 0.0025);
-         const GrandTotal = (newStampDuty + trainingLevy + PHCF + subBasic);
-         const  policy= new Policies({
-        levy:trainingLevy,
-        PHCF:PHCF,
-        clientId:clientId,
-        
-        signature:signature,
-        remarks:remarks,
-        basicPremium:basicPremium,
-        rate:rate,
-        rescueBenefit: rescueBenefit,
-        stampDuty: stampDuty,
-        netProfit:GrandTotal,
-        exPro:exProt,
-        poliTe:poliTe,
-        perAcc:perAcc,
-        policytype: policytype,
-        policyName: policyName,
-        coverType: coverType,
-        
-        mvClass: mvClass,
-        vehicleId: vehicleId,
-        sumInsured: sumInsured,
-        insurer: insurer,
-        pll:passangerLegalLiability,
-        Windscreen: windscreenBenefit,
-        lossOfUse :lossOfUse,
-        policyNumber: policyNumber,
-        policyStart: policyStart,
-        policyEnd: policyEnd,
-        GrandTotal:GrandTotal,
-      });
-        policy.save();
-    
-    res.redirect("/underwriting")
-        
-      }else{
-        const subBasic = (basicPremium + exProt + newPoliTe + newPerAcc + newOtherBe);
-      const trainingLevy= (subBasic * 0.002);
-      const PHCF = (subBasic * 0.0025);
-      const GrandTotal = (newStampDuty + trainingLevy + PHCF + subBasic);
-        const  policy= new Policies({
-          levy:trainingLevy,
-          PHCF:PHCF,
-          clientId:clientId,
-          
-          signature:signature,
-          remarks:remarks,
-          basicPremium:basicPremium,
-          rate:rate,
-          rescueBenefit: rescueBenefit,
-          stampDuty: stampDuty,
-          netProfit:GrandTotal,
-          exPro:exProt,
-          poliTe:poliTe,
-          perAcc:perAcc,
-          policytype: policytype,
-          policyName: policyName,
-          coverType: coverType,
-          
-          mvClass: mvClass,
-          vehicleId: vehicleId,
-          sumInsured: sumInsured,
-          insurer: insurer,
-          pll:passangerLegalLiability,
-          Windscreen: windscreenBenefit,
-          lossOfUse :lossOfUse,
-          policyNumber: policyNumber,
-          policyStart: policyStart,
-          policyEnd: policyEnd,
-          GrandTotal:GrandTotal,
-        });
-          policy.save();
-      
-      res.redirect("/underwriting")
-        
-      }}
-
-    }else{
-      let Xrate =0.5;
-      const exProt =(newSumInsured*(Xrate/100))
-      const subBasic = (basicPremium + exProt + newPoliTe + newPerAcc + newOtherBe);
-      const trainingLevy= (subBasic * 0.002);
-      const PHCF = (subBasic * 0.0025);
-      const GrandTotal = (newStampDuty + trainingLevy + PHCF + subBasic);
-      if(exProt <= 5000){
-       const exProt =5000;
-       const  policy= new Policies({
-        levy:trainingLevy,
-        PHCF:PHCF,
-        clientId:clientId,
-        
-        signature:signature,
-        remarks:remarks,
-        basicPremium:basicPremium,
-        rate:rate,
-        rescueBenefit: rescueBenefit,
-        stampDuty: stampDuty,
-        netProfit:GrandTotal,
-        exPro:exProt,
-        poliTe:poliTe,
-        perAcc:perAcc,
-        policytype: policytype,
-        policyName: policyName,
-        coverType: coverType,
-        
-        mvClass: mvClass,
-        vehicleId: vehicleId,
-        sumInsured: sumInsured,
-        insurer: insurer,
-        pll:passangerLegalLiability,
-        Windscreen: windscreenBenefit,
-        lossOfUse :lossOfUse,
-        policyNumber: policyNumber,
-        policyStart: policyStart,
-        policyEnd: policyEnd,
-        GrandTotal:GrandTotal,
-      });
-        policy.save();
-    
-    res.redirect("/underwriting")
-      }else{
-      const subBasic = (basicPremium + exProt + newPoliTe + newPerAcc + newOtherBe);
-      const trainingLevy= (subBasic * 0.002);
-      const PHCF = (subBasic * 0.0025);
-      const GrandTotal = (newStampDuty + trainingLevy + PHCF + subBasic);
-        const  policy= new Policies({
-          levy:trainingLevy,
-          PHCF:PHCF,
-          clientId:clientId,
-          
-          signature:signature,
-          remarks:remarks,
-          basicPremium:basicPremium,
-          rate:rate,
-          rescueBenefit: rescueBenefit,
-          stampDuty: stampDuty,
-          netProfit:GrandTotal,
-          exPro:exProt,
-          poliTe:poliTe,
-          perAcc:perAcc,
-          policytype: policytype,
-          policyName: policyName,
-          coverType: coverType, 
-          mvClass: mvClass,
-          vehicleId: vehicleId,
-          sumInsured: sumInsured,
-          insurer: insurer,
-          pll:passangerLegalLiability,
-          Windscreen: windscreenBenefit,
-          lossOfUse :lossOfUse,
-          policyNumber: policyNumber,
-          policyStart: policyStart,
-          policyEnd: policyEnd,
-          GrandTotal:GrandTotal,
-        });
-          policy.save();
-      
-      res.redirect("/underwriting")
-  
-      }
-    }
-    } 
-  }else{
-    const subBasic = (newSumInsured + newPoliTe + newPerAcc + newOtherBe);
-    const trainingLevy= (subBasic * 0.002);
-    const PHCF = (subBasic * 0.0025);
-    const GrandTotal = (newStampDuty + trainingLevy + PHCF + subBasic);
-      const  policy= new Policies({
-        levy:trainingLevy,
-        PHCF:PHCF,
-        clientId:clientId,
-        signature:signature,
-        remarks:remarks,
-        basicPremium:newSumInsured,
-        rate:rate,
-        rescueBenefit: rescueBenefit,
-        stampDuty: stampDuty,
-        netProfit:GrandTotal,
-        poliTe:poliTe,
-        perAcc:perAcc,
-        policytype: policytype,
-        policyName: policyName,
-        coverType: coverType,
-        mvClass: mvClass,
-        vehicleId: vehicleId,
-        sumInsured: sumInsured,
-        insurer: insurer,
-        pll:passangerLegalLiability,
-        Windscreen: windscreenBenefit,
-        lossOfUse :lossOfUse,
-        policyNumber: policyNumber,
-        policyStart: policyStart,
-        policyEnd: policyEnd,
         GrandTotal:GrandTotal,
       });
         policy.save();
     
     res.redirect("/underwriting")
 
-    }
-  
+
   };
+  // exports.postNewMotor=(req,res,next)=>{
+  //   const user = req.user;
+  //   let today = new Date()
+  //   let month = today.getMonth() + 1;
+  //   let date= today.getDate();
+  //   let year = today.getFullYear();
+  //   let hour = today.getHours();
+  //   let min = today.getMinutes();
+  //   let secs = today.getSeconds();
+  //   const current_date = `${year}/${month}/${date}`;
+  //   const current_time = `${hour}:${min}:${secs}`;
+  
+  // const log= new Logs({
+  // task: "created a  motor policy",
+  // userId: user.id,
+  // time: current_time,
+  // date:current_date
+  // });
+  //   log.save();
+  // const clientId= req.body.clientName;
+  // const policytype= 'Motor vehicles';
+  // let stampDuty ='40';
+  // const excessProtector = req.body.excessProtector;
+  // const rate = req.body.rate;
+  // const signature = user.firstName;
+  // const remarks = req.body.remarks;
+  // const policyName= req.body.policyName;
+  // const coverType = req.body.coverType;
+  // const policyNumber= req.body.policyN;
+  // const mvClass = req.body.mvClass;
+  // const policyStart= req.body.policyStart;
+  // const policyEnd = req.body.policyEnd;
+  // const vehicleId = req.body.regN;
+  // const sumInsured= req.body.sumInsuredPoa;
+  // const insurer =req.body.insurer;
+  // let newSumInsured= (sumInsured-0) || 0;
+  // const poliTe = req.body.pvt;
+  // const perAcc= req.body.personalAccident;
+  // const windscreenBenefit=req.body.windscreenBenefit;
+  // const lossOfUse= req.body.lossOfUse;
+  // const passangerLegalLiability =req.body.passangerLegalLiability;
+  // const rescueBenefit =req.body.rescueBenefit;
+  // let newStampDuty = (stampDuty-0) || 0;
+  // let NewRate = (rate-0) || 1;
+  // let newPoliTe= (poliTe-0) || 0;
+  // let newPerAcc= (perAcc-0) || 0;
+  // let wb= (windscreenBenefit-0)||0;
+  // let lof = (lossOfUse-0)||0;
+  // let pll =(passangerLegalLiability-0)||0;
+  // let rb=(rescueBenefit-0)||0;
+  // let newOtherBe = (wb+lof+pll+rb) || 0;
+  // let basicPremium = (newSumInsured *(NewRate/100));
+  
+  // if(excessProtector=="excessProtector"){
+  //   if(coverType!="Comprehensive"){
+  //     const XbasicPremium= newSumInsured;
+  //     const xtrainingLevy= (XbasicPremium * 0.002);
+  //     const xPHCF = (XbasicPremium * 0.0025);
+  //     const xGrandTotal = (newStampDuty + xtrainingLevy+ xPHCF + XbasicPremium);
+  //     const  policy= new Policies({
+  //       levy:xtrainingLevy,
+  //       PHCF:xPHCF,
+  //       clientId:clientId,
+  //       signature:signature,
+  //       remarks:remarks,
+  //       basicPremium:XbasicPremium,
+  //       rate:rate,
+  //       stampDuty: stampDuty,
+  //       netProfit:xGrandTotal,
+  //       policytype: policytype,
+  //       policyName: policyName,
+  //       coverType: coverType,
+  //       mvClass: mvClass,
+  //       vehicleId:vehicleId,
+  //       sumInsured: sumInsured,
+  //       insurer: insurer,
+  //       poliTe:poliTe,
+  //       perAcc:perAcc,
+  //       pll:passangerLegalLiability,
+  //       Windscreen: windscreenBenefit,
+  //       rescueBenefit: rescueBenefit,
+  //       lossOfUse :lossOfUse,
+  //       policyNumber: policyNumber,
+  //       policyStart: policyStart,
+  //       policyEnd: policyEnd,
+  //       GrandTotal:xGrandTotal,
+  //     });
+  //       policy.save();
+    
+  //   res.redirect("/underwriting")
+  //   }else{
+      
+  //   if(mvClass.includes('Private')){
+  //     let Xrate = 0.25;
+  //     const exProt =(newSumInsured *(Xrate/100));
+  //     const subBasic = (basicPremium + exProt + newPoliTe + newPerAcc + newOtherBe);
+  //     const trainingLevy= (subBasic * 0.002);
+  //     const PHCF = (subBasic * 0.0025);
+  //     const GrandTotal = (newStampDuty + trainingLevy + PHCF + subBasic);
+  //     console.log(insurer + exProt);
+  //     if(insurer=="Fidelity Shield  Insurance Co. Ltd" && exProt<5000){
+  //       console.log("Fidelity calculations" )
+  //       const exProt = 5000;
+  //       const subBasic = (basicPremium + exProt + newPoliTe + newPerAcc + newOtherBe);
+  //       const trainingLevy= (subBasic * 0.002);
+  //       const PHCF = (subBasic * 0.0025);
+  //       const GrandTotal = (newStampDuty + trainingLevy + PHCF + subBasic);
+  //       const  policy= new Policies({
+  //         levy:trainingLevy,
+  //         PHCF:PHCF,
+  //         clientId:clientId,
+          
+  //         signature:signature,
+  //         remarks:remarks,
+  //         basicPremium:basicPremium,
+  //         rate:rate,
+  //         rescueBenefit: rescueBenefit,
+  //         stampDuty: stampDuty,
+  //         netProfit:GrandTotal,
+  //         exPro:exProt,
+  //         poliTe:poliTe,
+  //         perAcc:perAcc,
+  //         policytype: policytype,
+  //         policyName: policyName,
+  //         coverType: coverType,
+          
+  //         mvClass: mvClass,
+  //         vehicleId: vehicleId,
+  //         sumInsured: sumInsured,
+  //         insurer: insurer,
+  //         pll:passangerLegalLiability,
+  //         Windscreen: windscreenBenefit,
+  //         lossOfUse :lossOfUse,
+  //         policyNumber: policyNumber,
+  //         policyStart: policyStart,
+  //         policyEnd: policyEnd,
+  //         GrandTotal:GrandTotal,
+  //       });
+  //         policy.save();
+      
+  //       res.redirect("/underwriting")
+  //     }else{      
+  //       if(exProt<= 2500){
+  //       console.log("not fidelity")
+  //        const exProt= 2500;
+  //         const subBasic = (basicPremium + exProt + newPoliTe + newPerAcc + newOtherBe);
+  //        const trainingLevy= (subBasic * 0.002);
+  //         const PHCF = (subBasic * 0.0025);
+  //        const GrandTotal = (newStampDuty + trainingLevy + PHCF + subBasic);
+  //        const  policy= new Policies({
+  //       levy:trainingLevy,
+  //       PHCF:PHCF,
+  //       clientId:clientId,
+        
+  //       signature:signature,
+  //       remarks:remarks,
+  //       basicPremium:basicPremium,
+  //       rate:rate,
+  //       rescueBenefit: rescueBenefit,
+  //       stampDuty: stampDuty,
+  //       netProfit:GrandTotal,
+  //       exPro:exProt,
+  //       poliTe:poliTe,
+  //       perAcc:perAcc,
+  //       policytype: policytype,
+  //       policyName: policyName,
+  //       coverType: coverType,
+        
+  //       mvClass: mvClass,
+  //       vehicleId: vehicleId,
+  //       sumInsured: sumInsured,
+  //       insurer: insurer,
+  //       pll:passangerLegalLiability,
+  //       Windscreen: windscreenBenefit,
+  //       lossOfUse :lossOfUse,
+  //       policyNumber: policyNumber,
+  //       policyStart: policyStart,
+  //       policyEnd: policyEnd,
+  //       GrandTotal:GrandTotal,
+  //     });
+  //       policy.save();
+    
+  //   res.redirect("/underwriting")
+        
+  //     }else{
+  //       const subBasic = (basicPremium + exProt + newPoliTe + newPerAcc + newOtherBe);
+  //     const trainingLevy= (subBasic * 0.002);
+  //     const PHCF = (subBasic * 0.0025);
+  //     const GrandTotal = (newStampDuty + trainingLevy + PHCF + subBasic);
+  //       const  policy= new Policies({
+  //         levy:trainingLevy,
+  //         PHCF:PHCF,
+  //         clientId:clientId,
+          
+  //         signature:signature,
+  //         remarks:remarks,
+  //         basicPremium:basicPremium,
+  //         rate:rate,
+  //         rescueBenefit: rescueBenefit,
+  //         stampDuty: stampDuty,
+  //         netProfit:GrandTotal,
+  //         exPro:exProt,
+  //         poliTe:poliTe,
+  //         perAcc:perAcc,
+  //         policytype: policytype,
+  //         policyName: policyName,
+  //         coverType: coverType,
+          
+  //         mvClass: mvClass,
+  //         vehicleId: vehicleId,
+  //         sumInsured: sumInsured,
+  //         insurer: insurer,
+  //         pll:passangerLegalLiability,
+  //         Windscreen: windscreenBenefit,
+  //         lossOfUse :lossOfUse,
+  //         policyNumber: policyNumber,
+  //         policyStart: policyStart,
+  //         policyEnd: policyEnd,
+  //         GrandTotal:GrandTotal,
+  //       });
+  //         policy.save();
+      
+  //     res.redirect("/underwriting")
+        
+  //     }}
+
+  //   }else{
+  //     let Xrate =0.5;
+  //     const exProt =(newSumInsured*(Xrate/100))
+  //     const subBasic = (basicPremium + exProt + newPoliTe + newPerAcc + newOtherBe);
+  //     const trainingLevy= (subBasic * 0.002);
+  //     const PHCF = (subBasic * 0.0025);
+  //     const GrandTotal = (newStampDuty + trainingLevy + PHCF + subBasic);
+  //     if(exProt <= 5000){
+  //      const exProt =5000;
+  //      const  policy= new Policies({
+  //       levy:trainingLevy,
+  //       PHCF:PHCF,
+  //       clientId:clientId,
+        
+  //       signature:signature,
+  //       remarks:remarks,
+  //       basicPremium:basicPremium,
+  //       rate:rate,
+  //       rescueBenefit: rescueBenefit,
+  //       stampDuty: stampDuty,
+  //       netProfit:GrandTotal,
+  //       exPro:exProt,
+  //       poliTe:poliTe,
+  //       perAcc:perAcc,
+  //       policytype: policytype,
+  //       policyName: policyName,
+  //       coverType: coverType,
+        
+  //       mvClass: mvClass,
+  //       vehicleId: vehicleId,
+  //       sumInsured: sumInsured,
+  //       insurer: insurer,
+  //       pll:passangerLegalLiability,
+  //       Windscreen: windscreenBenefit,
+  //       lossOfUse :lossOfUse,
+  //       policyNumber: policyNumber,
+  //       policyStart: policyStart,
+  //       policyEnd: policyEnd,
+  //       GrandTotal:GrandTotal,
+  //     });
+  //       policy.save();
+    
+  //   res.redirect("/underwriting")
+  //     }else{
+  //     const subBasic = (basicPremium + exProt + newPoliTe + newPerAcc + newOtherBe);
+  //     const trainingLevy= (subBasic * 0.002);
+  //     const PHCF = (subBasic * 0.0025);
+  //     const GrandTotal = (newStampDuty + trainingLevy + PHCF + subBasic);
+  //       const  policy= new Policies({
+  //         levy:trainingLevy,
+  //         PHCF:PHCF,
+  //         clientId:clientId,
+          
+  //         signature:signature,
+  //         remarks:remarks,
+  //         basicPremium:basicPremium,
+  //         rate:rate,
+  //         rescueBenefit: rescueBenefit,
+  //         stampDuty: stampDuty,
+  //         netProfit:GrandTotal,
+  //         exPro:exProt,
+  //         poliTe:poliTe,
+  //         perAcc:perAcc,
+  //         policytype: policytype,
+  //         policyName: policyName,
+  //         coverType: coverType, 
+  //         mvClass: mvClass,
+  //         vehicleId: vehicleId,
+  //         sumInsured: sumInsured,
+  //         insurer: insurer,
+  //         pll:passangerLegalLiability,
+  //         Windscreen: windscreenBenefit,
+  //         lossOfUse :lossOfUse,
+  //         policyNumber: policyNumber,
+  //         policyStart: policyStart,
+  //         policyEnd: policyEnd,
+  //         GrandTotal:GrandTotal,
+  //       });
+  //         policy.save();
+      
+  //     res.redirect("/underwriting")
+  
+  //     }
+  //   }
+  //   } 
+  // }else{
+  //   const subBasic = (newSumInsured + newPoliTe + newPerAcc + newOtherBe);
+  //   const trainingLevy= (subBasic * 0.002);
+  //   const PHCF = (subBasic * 0.0025);
+  //   const GrandTotal = (newStampDuty + trainingLevy + PHCF + subBasic);
+  //     const  policy= new Policies({
+  //       levy:trainingLevy,
+  //       PHCF:PHCF,
+  //       clientId:clientId,
+  //       signature:signature,
+  //       remarks:remarks,
+  //       basicPremium:newSumInsured,
+  //       rate:rate,
+  //       rescueBenefit: rescueBenefit,
+  //       stampDuty: stampDuty,
+  //       netProfit:GrandTotal,
+  //       poliTe:poliTe,
+  //       perAcc:perAcc,
+  //       policytype: policytype,
+  //       policyName: policyName,
+  //       coverType: coverType,
+  //       mvClass: mvClass,
+  //       vehicleId: vehicleId,
+  //       sumInsured: sumInsured,
+  //       insurer: insurer,
+  //       pll:passangerLegalLiability,
+  //       Windscreen: windscreenBenefit,
+  //       lossOfUse :lossOfUse,
+  //       policyNumber: policyNumber,
+  //       policyStart: policyStart,
+  //       policyEnd: policyEnd,
+  //       GrandTotal:GrandTotal,
+  //     });
+  //       policy.save();
+    
+  //   res.redirect("/underwriting")
+
+  //   }
+  
+  // };
   exports.getNewNonMotor= (req,res,next) =>{
     const user = req.user;
     Clients.findAll().then(clients=>{
@@ -411,7 +498,7 @@ exports.getUnderwriting= (req,res,next) =>{
   
   const log= new Logs({
   task: "Created a Non Motor policy",
-  userId: user._id,
+  userId: user.id,
   time: current_time,
   date:current_date
   });
@@ -442,7 +529,7 @@ exports.getUnderwriting= (req,res,next) =>{
     let newMP = (MP-0) || 0;
     let newPVT= (PVT-0) || 0;
     let newTPL= (TPL-0) || 0;
-    if(coverType=="Work Injury Benefit"){
+    if(coverType=="Work Injury Benefit"|| "Personal Accident" || "Group Personal Accident"){
 
       let basicPremium = (newSumInsured);
       let subBasic = (basicPremium +newPAL+newMP+newPVT+newTPL);

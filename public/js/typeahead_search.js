@@ -39,3 +39,6 @@ minLength: 1
 name: 'results',
 source: substringMatcher(results)
 });
+// get policy number
+const policyNumber = document.getElementById("typeahead").value;
+ console.log(policyNumber)

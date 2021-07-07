@@ -15,8 +15,7 @@ exports.getVehicles= (req,res,next) =>{
       vehicles: vehicle,
       pageTitle: 'vehicles page',
       path: '/vehicles',
-  })
-  .catch(err=>{console.log(err)});
+  }).catch(err=>{console.log(err)});
  
 })
   };
@@ -61,13 +60,13 @@ exports.getVehicles= (req,res,next) =>{
   
   const log= new Logs({
   task: "Created new client",
-  userId: user._id,
+  userId: user.id,
   time: current_time,
   date:current_date
   });
     log.save();
   
-  const userId =user.id;
+  const userId =1;
   const regN = req.body.regN;
   const chassisN = req.body.chassisN;
   const logbookN = req.body.logbookN;
@@ -77,7 +76,6 @@ exports.getVehicles= (req,res,next) =>{
   const color = req.body.color;
   const loadingCapacity= req.body.loadingCapacity;
   const owner = req.body.owner;
- 
   const vehicle = new Vehicles({
       RegN:regN,
       Chasis:chassisN,
