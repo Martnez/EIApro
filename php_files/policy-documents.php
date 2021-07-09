@@ -86,6 +86,12 @@
                 <a href="" class="nav-options-link active"
                   >Image Documents</a
                 >
+                <a href="http://192.168.0.34:3000/credit/<?php echo $id?>" class="nav-options-link"
+                  >Credit Collection</a
+                >
+                <a href="http://192.168.0.34:3000/insurancePay/<?php echo $id?>" class="nav-options-link"
+                  >Insurance Payment</a
+                >
               </div>
               <div class="display-panel">
                 <h2 class="data-input-title">Underwriting Documents</h2>
@@ -215,7 +221,7 @@
                             $row3 = mysqli_fetch_array($sql_class);
                             $file_location = "dec-form";
                     ?>
-                        <a href="./documents/underwriting-documents/<?php echo $file_location;?>/<?php echo $row2['unique_name'];?>" class="doc-link" download><?php echo $row2['doc_name'];?></a>
+                        <a href="./documents/underwriting-documents/<?php echo $file_location;?>/<?php echo $row3['unique_name'];?>" class="doc-link" download><?php echo $row3['doc_name'];?></a>
                     <?php  
                         }else{
                     ?>
@@ -233,7 +239,7 @@
                         if ($data_match > 0) {
                         ?>
                           <div class="doc-info options">
-                            <a href="./view_policy_doc.php?file_name=<?php echo $row2['unique_name'];?>&filetype=<?php echo $row2['doc_type'];?>&title=<?php echo $row2['doc_title'];?>" class="doc-option-links">View</a>
+                            <a href="./view_policy_doc.php?file_name=<?php echo $row3['unique_name'];?>&filetype=<?php echo $row3['doc_type'];?>&title=<?php echo $row3['doc_title'];?>" class="doc-option-links">View</a>
                             <label
                               for="upload_dec_form"
                               class="doc-option-links upload2"

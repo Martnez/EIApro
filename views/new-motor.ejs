@@ -60,7 +60,7 @@
             <div class="image-holder">
               <img src="./images/user-img.png" alt="" />
             </div>
-            <h3 class="username-dash">Hello <%= userN.firstName %> </h3>
+            <h3 class="username-dash">Hello <%= user.firstName %> </h3>
           </div>
         </div>
       </div>
@@ -95,7 +95,6 @@
                       <% } %>
                       </datalist>
                     </div>
-                    
                     <div class="input-holder inside">
                       <input
                         list="plate_number"
@@ -104,7 +103,7 @@
                         name="regN"
                         required
                       />
-                      
+                      <a href="/new-vehicle" class="btn new-link">Add</a>
                       <datalist id="plate_number">
                         <% if(clients.length > 0) { %> 
                           <% for(let client of clients) { %>
@@ -123,6 +122,15 @@
                         placeholder="Policy Number"
                         required
                         name="policyN"
+                        class="input-space"
+                      />
+                    </div>
+                    <div class="input-holder inside">
+                      <input
+                        type="text"
+                        placeholder="Branch | Project Name"
+                        required
+                        name="branch"
                         class="input-space"
                       />
                     </div>
@@ -163,7 +171,7 @@
                         required
                         id="class_selection"
                       >
-                        <option value="" selected>Select Insuarer</option>
+                        <option value="" selected>Select Insurer</option>
                         <option value="APA Insurance Limited">
                           APA Insurance Limited
                         </option>
@@ -188,8 +196,11 @@
                         <option value="Occidental Insurance Co. Ltd">
                           Occidental Insurance Co. Ltd
                         </option>
-                        <option value="MUA Assurance Company">
-                          MUA Assurance Company
+                        <option value="Mua Insurance (Kenya) Limited">
+                          Mua Insurance (Kenya) Limited
+                        </option>
+                        <option value="Intra Africa Assurance">
+                          Intra Africa Assurance
                         </option>
                         <option value="Sanlam General Insurance Ltd">
                           Sanlam General Insurance Ltd
@@ -278,12 +289,11 @@
                         style="
                           height: auto;
                           padding: 1rem 0 0 1rem;
-                          max-width: 523px;
-                          max-height: 141px;
+                          max-height: 190px;
                         "
                         type="text"
                         id="policy_remarks"
-                        rows="8"
+                        rows="20"
                         required
                         class="input-space"
                         placeholder="Policy Remarks"

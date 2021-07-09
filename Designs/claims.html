@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="./css/main.css" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Roboto:wght@100;300;400;500;700;900&display=swap"
+      rel="stylesheet"
+    />
+    <title>EIA System</title>
+  </head>
+  <body>
+    <div class="dash-container">
+      <div class="hover-hamburger" id="hover_hamburger">
+        <div class="inner-hamburger">
+          <div class="bar"></div>
+          <div class="bar"></div>
+          <div class="bar"></div>
+        </div>
+      </div>
+      <div class="nav-overlay" id="overlay"></div>
+      <div class="side-bar" id="side_bar">
+        <div class="other-hover-hamburger show" id="other_hover_hamburger">
+          <div class="inner-hamburger">
+            <div class="bar"></div>
+            <div class="bar"></div>
+            <div class="bar"></div>
+          </div>
+        </div>
+        <div class="side-bar-content">
+          <div class="top-image-holder dash-img">
+            <img src="./images/eia_logo.png" alt="" />
+          </div>
+          <ul class="links">
+            <li class="list">
+              <a href="dashboard.html" class="link">Home</a>
+            </li>
+            <li class="list">
+              <a href="clients.html" class="link">Clients</a>
+            </li>
+            <li class="list">
+              <a href="underwriting.html" class="link">Underwriting</a>
+            </li>
+            <li class="list">
+              <a href="claims.html" class="link active">Claims</a>
+            </li>
+            <li class="list">
+              <a href="vehicles.html" class="link">Vehicles</a>
+            </li>
+            <li class="list">
+              <a href="" class="link">Credit</a>
+            </li>
+            <li class="list">
+              <a href="" class="link">Reports</a>
+            </li>
+          </ul>
+          <ul class="links lower">
+            <li class="list">
+              <a href="admin.html" class="link">Admin</a>
+            </li>
+            <li class="list">
+              <a href="/logout" class="link logout">Logout</a>
+            </li>
+          </ul>
+        </div>
+      </div>
+      <div class="top-bar">
+        <div class="user-name-space">
+          <div class="user-icon">
+            <div class="image-holder">
+              <img src="./images/user-img.png" alt="" />
+            </div>
+            <h3 class="username-dash">Hello Stephen</h3>
+          </div>
+        </div>
+      </div>
+      <div class="time-bar">
+        <h3 id="date_value"></h3>
+      </div>
+      <div class="dash-main">
+        <div class="dash-content">
+          <div class="client-content">
+            <div class="top-search-bar">
+              <div class="search-input-holder">
+                <input
+                  type="text"
+                  id="search_table"
+                  placeholder="Search"
+                  class="search-input"
+                  onkeyup="myFunction()"
+                />
+              </div>
+              <a href="" class="btn add-new" style="margin: 1em 0">Add Claim</a>
+            </div>
+
+            <div class="dash-table-display">
+              <table class="info-list-table">
+                <thead>
+                  <tr>
+                    <th>Client Name</th>
+                    <th>Cover Type</th>
+                    <th>Project Name/Reg. No</th>
+                    <th>Sum Insured</th>
+                    <th>PaidAmount</th>
+                    <th>Date of Loss</th>
+                    <th>Date of Offer</th>
+                  </tr>
+                </thead>
+                <tbody id="myTable">
+                  <tr onclick="document.location=''">
+                    <td>CHINA HENAN INT'L</td>
+                    <td>CPM OWN DAMAGE</td>
+                    <td>CHINA HENAN INT'L</td>
+                    <td>Kshs<br />100,000,000.00</td>
+                    <td>Kshs<br />1,000,000.00</td>
+                    <td>2021-06-09</td>
+                    <td>2021-06-08</td>
+                  </tr>
+                  <tr onclick="document.location=''">
+                    <td>CHINA HENAN INT'L</td>
+                    <td>CPM OWN DAMAGE</td>
+                    <td>CHINA HENAN INT'L</td>
+                    <td>Kshs<br />100,000,000.00</td>
+                    <td>Kshs<br />1,000,000.00</td>
+                    <td>2021-06-09</td>
+                    <td>2021-06-08</td>
+                  </tr>
+                  <tr onclick="document.location=''">
+                    <td>CHINA HENAN INT'L</td>
+                    <td>CPM OWN DAMAGE</td>
+                    <td>CHINA HENAN INT'L</td>
+                    <td>Kshs<br />100,000,000.00</td>
+                    <td>Kshs<br />1,000,000.00</td>
+                    <td>2021-06-09</td>
+                    <td>2021-06-08</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <script src="./js/search.js"></script>
+    <script src="./js/time.js"></script>
+    <script src="./js/nav.js"></script>
+  </body>
+</html>

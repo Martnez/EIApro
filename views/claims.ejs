@@ -60,7 +60,7 @@
             <div class="image-holder">
               <img src="./images/user-img.png" alt="" />
             </div>
-            <h3 class="username-dash">Hello <%= userN.firstName %> </h3>
+            <h3 class="username-dash">Hello <%= user.firstName %> </h3>
           </div>
         </div>
       </div>
@@ -111,8 +111,12 @@
                           <%=claim.policy.regN %> 
                           <%}%>
                     </td>
-                    <td>Kshs<br /><%=claim.policy.sumInsured%></>
-                    <td>Kshs<br /><%= claim.offerAmount %></td>
+                    <% const sum_insured = claim.policy.sumInsured %>
+                    <% const currency_sum_insured = sum_insured.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',') %>
+                    <td>Kshs<br /><%=currency_sum_insured%></td>
+                    <% const offerAmount = claim.offerAmount %>
+                    <% const currency_offerAmount = offerAmount.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',') %>
+                    <td>Kshs<br /><%= currency_offerAmount %></td>
                     <td><%= claim.lossDate %></td>
                     <td><%= claim.offerDate %> </td>
                   </tr>

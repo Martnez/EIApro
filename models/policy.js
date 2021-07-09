@@ -36,6 +36,10 @@ const Policy = sequelize.define('policy', {
     type: Sequelize.STRING,
     allowNull:true
   },
+  branch:{
+    type: Sequelize.STRING,
+    allowNull:true
+  },
   policyStart:{
     type: Sequelize.DATEONLY,
     allowNull:true
@@ -161,6 +165,11 @@ const Policy = sequelize.define('policy', {
     defaultValue:'0'
   },
   TPL:{
+    type: Sequelize.INTEGER,
+    allowNull:true,
+    defaultValue:'0'
+  },
+  delete:{
     type: Sequelize.INTEGER,
     allowNull:true,
     defaultValue:'0'

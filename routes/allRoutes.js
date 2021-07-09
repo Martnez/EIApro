@@ -10,8 +10,8 @@ const vehicleControllers = require("../controllers/vehicle");
 
 const claimsControllers = require("../controllers/claims");
 
-const editControllers = require("../controllers/edits");
-
+const editControllers = require("../controllers/edits")
+const creditControllers = require("../controllers/credit")
 const isAuth = require('../middleware/auth');
 
 const router = express.Router();
@@ -20,7 +20,7 @@ router.get('/clients',isAuth,clientsControllers.getClients);
 
 router.get('/new-client',isAuth,clientsControllers.getNewClient);
 
-router.get('/client-profile/:clientId',isAuth,isAuth,clientsControllers.getClientProfile);
+router.get('/client-profile/:clientId',isAuth,clientsControllers.getClientProfile);
 
 router.post('/new-client',clientsControllers.postClient);
 
@@ -75,6 +75,8 @@ router.get('/claims',isAuth,claimsControllers.getClaims);
 
 router.get('/new-claim',isAuth,claimsControllers.getNewClaim);
 
+router.get('/new-claim/:policyType',isAuth,claimsControllers.getNewClaim);
+
 router.post('/new-claim',claimsControllers.postNewClaim);
 
 router.get('/claim-view/:claimId',isAuth,claimsControllers.getClaimView);
@@ -93,10 +95,15 @@ router.post('/nonMotor-edit/:policyId',editControllers.postNonMotorEdit);
 
 router.get('/motor-edit/:policyId',isAuth,editControllers.getMotorEdit);
 
-router.post('/motor-edit/:policyId',isAuth,editControllers.postMotorEdit);
+router.post('/motor-edit/:policyId',editControllers.postMotorEdit);
+// delete items
+router.get('/delete-client/:clientId',isAuth,clientsControllers.getdeleteClient);
 
-
-// router.get('/search',claimsControllers.getSearch);
+router.get('/delete-policy/:clientId',isAuth,underwritingControllers.getdeletePolicy)
+// credit
+router.post('/credit/:policyId',isAuth,creditControllers.postCredit);
+router.get('/credit/:policyId',isAuth,creditControllers.getCredit);
+router.get('/insurancePay/:policyId',isAuth,creditControllers.getInsurancePay);
 
 
 

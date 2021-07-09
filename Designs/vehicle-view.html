@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="./css/main.css" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Roboto:wght@100;300;400;500;700;900&display=swap"
+      rel="stylesheet"
+    />
+    <title>EIA System</title>
+  </head>
+  <body>
+    <div class="dash-container">
+      <div class="hover-hamburger" id="hover_hamburger">
+        <div class="inner-hamburger">
+          <div class="bar"></div>
+          <div class="bar"></div>
+          <div class="bar"></div>
+        </div>
+      </div>
+      <div class="nav-overlay" id="overlay"></div>
+      <div class="side-bar" id="side_bar">
+        <div class="other-hover-hamburger show" id="other_hover_hamburger">
+          <div class="inner-hamburger">
+            <div class="bar"></div>
+            <div class="bar"></div>
+            <div class="bar"></div>
+          </div>
+        </div>
+        <div class="side-bar-content">
+          <div class="top-image-holder dash-img">
+            <img src="./images/eia_logo.png" alt="" />
+          </div>
+          <ul class="links">
+            <li class="list">
+              <a href="dashboard.html" class="link">Home</a>
+            </li>
+            <li class="list">
+              <a href="clients.html" class="link active">Clients</a>
+            </li>
+            <li class="list">
+              <a href="underwriting.html" class="link">Underwriting</a>
+            </li>
+            <li class="list">
+              <a href="claims.html" class="link">Claims</a>
+            </li>
+            <li class="list">
+              <a href="vehicles.html" class="link">Vehicles</a>
+            </li>
+            <li class="list">
+              <a href="" class="link">Credit</a>
+            </li>
+            <li class="list">
+              <a href="" class="link">Reports</a>
+            </li>
+          </ul>
+          <ul class="links lower">
+            <li class="list">
+              <a href="admin.html" class="link">Admin</a>
+            </li>
+            <li class="list">
+              <a href="/logout" class="link logout">Logout</a>
+            </li>
+          </ul>
+        </div>
+      </div>
+      <div class="top-bar">
+        <div class="user-name-space">
+          <div class="user-icon">
+            <div class="image-holder">
+              <img src="./images/user-img.png" alt="" />
+            </div>
+            <h3 class="username-dash">Hello Stephen</h3>
+          </div>
+        </div>
+      </div>
+      <div class="time-bar">
+        <h3 id="date_value"></h3>
+      </div>
+      <div class="dash-main">
+        <div class="dash-content">
+          <div class="client-profile-content">
+            <div class="details-display">
+              <div class="top-nav-options">
+                <a href="" class="nav-options-link active">Client Details</a>
+                <a href="" class="nav-options-link">Image Documents</a>
+              </div>
+              <div class="display-panel">
+                <h2 class="data-input-title">Vehicle Details</h2>
+                <div class="rows">
+                  <div class="data-col">
+                    <div class="client-details-display">
+                      <h4 class="main">Registration Number:</h4>
+                      <h4>KBL 084R</h4>
+                    </div>
+                    <div class="client-details-display">
+                      <h4 class="main">Chassis Number:</h4>
+                      <h4>LKMDVL8920J</h4>
+                    </div>
+                    <div class="client-details-display">
+                      <h4 class="main">Logbook Number:</h4>
+                      <h4>LKMD93KM00</h4>
+                    </div>
+                    <div class="client-details-display">
+                      <h4 class="main">Make</h4>
+                      <h4>Toyota Land Cruiser</h4>
+                    </div>
+                    <div class="client-details-display">
+                      <h4 class="main">Business Nature:</h4>
+                      <h4>Construction</h4>
+                    </div>
+                  </div>
+                  <div class="data-col">
+                    <div class="client-details-display">
+                      <h4 class="main">Physical Address:</h4>
+                      <h4>Nairobi, Kenya</h4>
+                    </div>
+                    <div class="client-details-display">
+                      <h4 class="main">Email:</h4>
+                      <h4>info@chinalskms.com</h4>
+                    </div>
+                    <div class="client-details-display">
+                      <h4 class="main">Phone:</h4>
+                      <h4>0797923201</h4>
+                    </div>
+                    <div class="client-details-display">
+                      <h4 class="main">P. O. Box:</h4>
+                      <h4>43260-00100 Nairobi, Kenya</h4>
+                    </div>
+                  </div>
+                </div>
+
+                <h2 class="data-input-title">Vehicle Policies</h2>
+
+                <div class="dash-table-display">
+                  <table class="info-list-table">
+                    <thead>
+                      <tr>
+                        <th>Reg No.</th>
+                        <th>Client Name</th>
+                        <th>Sum Insured</th>
+                        <th>Cover Type</th>
+                        <th>From</th>
+                        <th>To</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr onclick="document.location='client-profile.html'">
+                        <td>KBL 084R</td>
+                        <td>CHINA HENAN INT'L</td>
+                        <td>Kshs<br />1,000,000.00</td>
+                        <td>Comprehensive</td>
+                        <td>2021-06-09</td>
+                        <td>2021-06-08</td>
+                      </tr>
+                      <tr onclick="document.location='client-profile.html'">
+                        <td>KBL 084R</td>
+                        <td>CHINA HENAN INT'L</td>
+                        <td>Kshs<br />1,000,000.00</td>
+                        <td>Comprehensive</td>
+                        <td>2021-06-09</td>
+                        <td>2021-06-08</td>
+                      </tr>
+                      <tr onclick="document.location='client-profile.html'">
+                        <td>KBL 084R</td>
+                        <td>CHINA HENAN INT'L</td>
+                        <td>Kshs<br />1,000,000.00</td>
+                        <td>Comprehensive</td>
+                        <td>2021-06-09</td>
+                        <td>2021-06-08</td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <script src="./js/time.js"></script>
+    <script src="./js/nav.js"></script>
+  </body>
+</html>

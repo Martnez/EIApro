@@ -36,7 +36,7 @@ const Client = sequelize.define('clients', {
     allowNull:false
   },
   idNumber:{
-    type: Sequelize.INTEGER,
+    type: Sequelize.STRING,
     allowNull:false
   },
   businessType:{
@@ -71,6 +71,12 @@ const Client = sequelize.define('clients', {
     type: Sequelize.STRING,
     allowNull:true
   },
+  delete:{
+    type: Sequelize.INTEGER,
+    allowNull:true,
+    defaultValue:'0'
+  },
+ 
  
   
 });

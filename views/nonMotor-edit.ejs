@@ -60,7 +60,7 @@
             <div class="image-holder">
               <img src="/images/user-img.png" alt="" />
             </div>
-            <h3 class="username-dash">Hello <%= userN.firstName %> </h3>
+            <h3 class="username-dash">Hello <%= user.firstName %> </h3>
           </div>
         </div>
       </div>
@@ -75,8 +75,17 @@
               <div class="form-contents">
                 <div class="rows">
                   <div class="data-col">
-                    <h4>Client's Name</h4>
-                    <div class="input-holder inside">
+                    <div class="input-holder inside" style="flex-wrap: wrap">
+                      <h4
+                        style="
+                          width: 100%;
+                          margin: 0.2rem 0;
+                          font-weight: 400;
+                          font-size: 15px;
+                        "
+                      >
+                      Client Name
+                      </h4>
                       <input
                         list="client_name"
                         class="input-space"
@@ -85,8 +94,17 @@
                         value="<%= policy.client.firstName%> <%= policy.client.lastName%>    "
                       />
                     </div>
-                    <h4>policy Number</h4>
-                    <div class="input-holder inside">
+                    <div class="input-holder inside" style="flex-wrap: wrap">
+                      <h4
+                        style="
+                          width: 100%;
+                          margin: 0.2rem 0;
+                          font-weight: 400;
+                          font-size: 15px;
+                        "
+                      >
+                      Policy Number
+                      </h4>
                       <input
                         type="text"
                         placeholder="Policy Number"
@@ -95,18 +113,36 @@
                         class="input-space"
                       />
                     </div>
-                    <h4>Project Name</h4>
-                    <div class="input-holder inside">
+                    <div class="input-holder inside" style="flex-wrap: wrap">
+                      <h4
+                        style="
+                          width: 100%;
+                          margin: 0.2rem 0;
+                          font-weight: 400;
+                          font-size: 15px;
+                        "
+                      >
+                      Branch/ Project name
+                      </h4>
                       <input
                         type="text"
-                        placeholder="Policy Name/ Project Name"
+                        placeholder="Branch/ Project Name"
                        value="<%= policy.policyName %> "
                         name="policyName"
                         class="input-space"
                       />
                     </div>
-                    <h4>Cover Type</h4>
-                    <div class="input-holder inside">
+                    <div class="input-holder inside" style="flex-wrap: wrap">
+                      <h4
+                        style="
+                          width: 100%;
+                          margin: 0.2rem 0;
+                          font-weight: 400;
+                          font-size: 15px;
+                        "
+                      >
+                      Cover type
+                      </h4>
                       <select
                         name="coverType"
                         class="input-space"
@@ -146,13 +182,27 @@
                         <option value="Goods in transit">
                           Goods in transit
                         </option>
+                        <option value="">--BONDS--</option>
+                        <option value="CB1 A">CB1 A</option>
+                        <option value="CB 3">CB 3</option>
+                        <option value="CB 16">CB 16</option>
+                        <option value="CB 13">CB 13</option>
                       </select>
                     </div>
                     <div
                       class="input-holder inside"
                       id="reg_number_holder"
-                      style="display: none"
-                    >
+                      style="display: none;flex-wrap: wrap">
+                      <h4
+                        style="
+                          width: 100%;
+                          margin: 0.2rem 0;
+                          font-weight: 400;
+                          font-size: 15px;
+                        "
+                      >
+                      Registration Number
+                      </h4>
                       <input
                         type="text"
                         placeholder="Registration Number"
@@ -165,8 +215,17 @@
                     <div
                       class="input-holder inside"
                       id="chasis_number_holder"
-                      style="display: none"
-                    >
+                      style="display: none;flex-wrap: wrap">
+                      <h4
+                        style="
+                          width: 100%;
+                          margin: 0.2rem 0;
+                          font-weight: 400;
+                          font-size: 15px;
+                        "
+                      >
+                      Chassis Number
+                      </h4>
                       <input
                         type="text"
                         id="chasis_number"
@@ -176,14 +235,23 @@
                         class="input-space"
                       />
                     </div>
-                    <h4>Insurer</h4>
-                    <div class="input-holder inside">
+                    <div class="input-holder inside"
+                    style="flex-wrap: wrap">
+                    <h4
+                      style="
+                        width: 100%;
+                        margin: 0.2rem 0;
+                        font-weight: 400;
+                        font-size: 15px;
+                      "
+                    >
+                    Insurer
+                    </h4>
                       <select
                         name="insurer"
                         required
                         class="input-space"
-                        id="class_selection"
-                      >
+                        id="class_selection">
                         <option value="<%= policy.insurer %> " selected><%= policy.insurer %> </option>
                         <option value="APA Insurance Limited">
                           APA Insurance Limited
@@ -209,8 +277,11 @@
                         <option value="Occidental Insurance Co. Ltd">
                           Occidental Insurance Co. Ltd
                         </option>
-                        <option value="MUA Assurance Company">
-                          MUA Assurance Company
+                        <option value="Mua Insurance (Kenya) Limited">
+                          Mua Insurance (Kenya) Limited
+                        </option>
+                        <option value="Intra Africa Assurance">
+                          Intra Africa Assurance
                         </option>
                         <option value="Sanlam General Insurance Ltd">
                           Sanlam General Insurance Ltd
@@ -222,9 +293,56 @@
                     </div>
                   </div>
                   <div class="data-col">
+                    <div class="split-diplay" style="flex-wrap: wrap">
+                      <h4
+                        style="
+                          width: 100%;
+                          margin: 0.2rem 0 0.2rem 1rem ;
+                          font-weight: 400;
+                          font-size: 15px;
+                        "
+                      >
+                      Policy Period
+                      </h4>
+                      <div class="input-holder split">
+                        <input
+                          type="text"
+                          placeholder="Policy Period (From)"
+                          onblur="(this.type='text')"
+                          onfocus="(this. type='date')"
+                          required
+                          value="<%= policy.policyStart %> "
+                          name="policyStart"
+                          id="start_date"
+                          class="input-space"
+                        />
+                      </div>
+                      <div class="input-holder split">
+                        <input
+                          type="text"
+                          placeholder="Policy Period (to)"
+                          onblur="(this.type='text')"
+                          onfocus="(this. type='date')"
+                          id="end_date"
+                          value="<%= policy.policyEnd %> "
+                          required
+                          name="policyEnd"
+                          class="input-space"
+                        />
+                      </div>
+                    </div>
                     <div class="split-diplay">
-                      <div class="input-holder split" id="stamp_duty_holder">
-                        <h4>stamp Duty</h4>
+                      <div class="input-holder split" id="stamp_duty_holder" style="flex-wrap: wrap">
+                        <h4
+                          style="
+                            width: 100%;
+                            margin: 0.2rem 0;
+                            font-weight: 400;
+                            font-size: 15px;
+                          "
+                        >
+                        Stamp Duty
+                        </h4>
                         <input
                           class="input-space"
                           type="text"
@@ -234,8 +352,17 @@
                           id="stamp_duty"
                         />
                       </div>
-                      <div class="input-holder split" id="rate_holder">
-                        <h4>rate</h4>
+                      <div class="input-holder split" id="rate_holder" style="flex-wrap: wrap">
+                        <h4
+                          style="
+                            width: 100%;
+                            margin: 0.2rem 0;
+                            font-weight: 400;
+                            font-size: 15px;
+                          "
+                        >
+                        Rate
+                        </h4>
                         <input
                           class="input-space"
                           type=""
@@ -246,17 +373,68 @@
                         />
                       </div>
                     </div>
-                    <h4>sum Insured</h4>
-                    <div class="input-holder inside">
+                    
+                    
+                    <div class="split-diplay">
+                      <div class="input-holder split" id="sum_insured_better_holders" style="flex-wrap: wrap">
+                        <h4
+                          style="
+                            width: 100%;
+                            margin: 0.2rem 0;
+                            font-weight: 400;
+                            font-size: 15px;
+                          "
+                        >
+                        Sum Insured (Kshs)
+                        </h4>
+                        <input
+                          type="text"
+                          placeholder="Sum Insured (Kshs)"
+                          onkeyup="cashConcut2()"
+                          onblur="cashConcut2()"
+                          onload="cashConcut2()"
+                          id="other_sum_insured_input"
+                          value="<%= policy.sumInsured %>"
+                          name="other_sum_insured_input"
+                          class="input-space"
+                        />
+                      </div>
+                      <%  var item_disp = policy.sumInsured %> 
+                      <% if(policy.coverType=="Work Injury Benefit"||"Group Personal Accident" ||"Personal Accident"){%> 
+                      <% item_disp= policy.basicPremium %> <% } %> 
+                      <div class="input-holder split" id="sum_insured_holders" style="flex-wrap: wrap">
+                        <h4
+                          style="
+                            width: 100%;
+                            margin: 0.2rem 0;
+                            font-weight: 400;
+                            font-size: 15px;
+                          "
+                          id="sum_insured_label"
+                        >
+                        Sum Insured
+                        </h4>
+                        <input
+                          type="text"
+                          placeholder="Sum Insured (Kshs)"
+                          required
+                          onload="cashConcut()"
+                          onkeyup="cashConcut()"
+                          onblur="cashConcut()"
+                          value="<%= item_disp %>"
+                          id="sum_insured_input"
+                          name="sumInsured"
+                          class="input-space"
+                        />
+                      </div>
+                    </div>
+                    <div class="input-holder inside" style="display: none">
                       <input
                         type="text"
-                        placeholder="Sum Insured (Kshs)"
+                        placeholder="Sum Insured Better"
                         value="<%= policy.sumInsured %>"
-                        onkeyup="cashConcut()"
-                        onblur="cashConcut()"
-                        onload="cashConcut()"
-                        id="sum_insured_input"
-                        name="sumInsured"
+                        id="sum_insured_better"
+                        name="sum_insured_better"
                         class="input-space"
                       />
                     </div>
@@ -266,13 +444,22 @@
                         placeholder="Sum Insured Poa"
                         required
                         id="sum_insured_poa"
-                        value="<%= policy.sumInsured %>"
+                        value="<%= item_disp%>"
                         name="sumInsuredPoa"
                         class="input-space"
                       />
                     </div>
-                    <h4>remarks</h4>
-                    <div class="input-holder">
+                    <div class="input-holder" style="flex-wrap: wrap">
+                      <h4
+                        style="
+                          width: 100%;
+                          margin: 0.2rem 0;
+                          font-weight: 400;
+                          font-size: 15px;
+                        "
+                      >
+                      Remarks
+                      </h4>
                       <textarea
                         style="
                           height: auto;

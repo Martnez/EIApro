@@ -1,7 +1,7 @@
 <?php
 ########## MySql details (Replace with yours) #############
 $username = "root"; //mysql usernameaqx
-$password = "password"; //mysql password
+$password = ""; //mysql password
 $hostname = "localhost"; //hostname
 $databasename = 'eia'; //databasename
 $sql_error = "Mysql connection is incorrect";

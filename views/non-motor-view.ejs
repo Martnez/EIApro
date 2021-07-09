@@ -60,7 +60,7 @@
             <div class="image-holder">
               <img src="/images/user-img.png" alt="" />
             </div>
-            <h3 class="username-dash">Hello <%= userN.firstName %> </h3>
+            <h3 class="username-dash">Hello <%= user.firstName %> </h3>
           </div>
         </div>
       </div>
@@ -74,18 +74,14 @@
               <div class="top-nav-options">
                 <a href="" class="nav-options-link active">Policy Details</a>
                 <a href="http://192.168.0.34/EIApro/php_files/policy-documents.php?id=<%=
-                policy.id %>&username=<%= userN.firstName %>" class="nav-options-link" class="nav-options-link">Image Documents</a>
+                policy.id %>&username=<%= user.firstName %>" class="nav-options-link" class="nav-options-link">Image Documents</a>
+                <a href="/credit/<%=policy.id %>" class="nav-options-link">Credit Collection</a>
+                <a href="/insurancePay/<%=policy.id %>" class="nav-options-link">Insurance Payment</a>
               </div>
               <div class="display-panel">
                 <h2 class="data-input-title"><%= policy.client.firstName %> <%= policy.client.lastName %> </h2>
                 <div class="rows">
                   <div class="data-col">
-                    <% if(policy.coverType=="Work Injury Benefit"){ %> <% }else{%>
-                      <div class="client-details-display">
-                        <h4 class="main">Sum Insured:</h4>
-                        <h4>Kshs <%= policy.sumInsured %></h4>
-                      </div>
-                      <% } %> 
                     <div class="client-details-display">
                       <h4 class="main">Policy Number:</h4>
                       <h4><%= policy.policyNumber %> </h4>
@@ -110,26 +106,61 @@
                       <h4 class="main">Remarks:</h4>
                       <h4><%= policy.remarks %></h4>
                     </div>
+                    <div class="client-details-display glows">
+                      <div class="glowing-holder">
+                        <h4 class="main">Paiment Status:</h4>
+                      <% if(pending==0){%>
+                        
+                        <h4>Paid</h4>
+                        <div class="glow-box green"></div>
+                        <%}else if(pending==policy.GrandTotal) {%>
+                           
+                        <h4>Not Paid</h4>
+                        <div class="glow-box red"></div>
+                          <% } else{%>
+                        <h4>Pending</h4>
+                        <div class="glow-box yellow"></div>
+                        <%}  %>
+                      </div>
+                    </div>
+                    <div class="client-details-display">
+                      <h4 class="main">Premium Due:</h4>
+                      <h4>Kshs 10,000</h4>
+                    </div>
                   </div>
                   <div class="data-col premiums">
                     <div class="client-details-display">
                       <h3 style="width: 100%">Premiums</h3>
                     </div>
                     <div class="client-details-display">
+                      <h4 class="main">Sum Insured:</h4>
+                         <% const sumInsured = policy.sumInsured %>
+                         <% const currency_sumInsured = sumInsured.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',') %>
+                      <h4>Kshs <%= currency_sumInsured %></h4>
+                    </div>
+                    <div class="client-details-display">
                       <h4 class="main">PHCF:</h4>
-                      <h4>Kshs <%= policy.PHCF %></h4>
+                      <% const PHCF = policy.PHCF %>
+                      <% const currency_PHCF = PHCF.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',') %>
+                      <h4>Kshs <%= currency_PHCF %></h4>
                     </div>
                     <div class="client-details-display">
                       <h4 class="main">Training Levy:</h4>
-                      <h4>Kshs <%= policy.levy %></h4>
+                      <% const levy = policy.levy %>
+                      <% const currency_levy = levy.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',') %>
+                      <h4>Kshs <%= currency_levy %></h4>
                     </div>
                     <div class="client-details-display">
                       <h4 class="main">Stamp Duty:</h4>
+                      <% const stampDuty = policy.stampDuty %>
+                      <% const currency_stampDuty = stampDuty.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',') %>
                       <h4>Kshs <%= policy.stampDuty %></h4>
                     </div>
                     <div class="client-details-display">
-                      <h4 class="main">Policy Rate:</h4>
+                      <% if(policy.rate=="0"||"") {%> <%}else{ %>
+                        <h4 class="main">Policy Rate:</h4>
                       <h4><%= policy.rate%>%</h4>
+                        <% } %>  
                     </div>
                     <div class="policy-benefits-display">
                       <div class="client-details-display">
@@ -138,7 +169,9 @@
                       <% if(policy.MP=="0"){ %> <%}else{ %>
                         <div class="client-details-display">
                           <h4 class="main">Maintenance Period:</h4>
-                          <h4>Kshs <%= policy.MP %></h4>
+                          <% const MP = MP.stampDuty %>
+                          <% const currency_MP = MP.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',') %>
+                          <h4>Kshs <%= currency_MP %></h4>
                         </div>
                          <% } %> 
                          <% if(policy.PVT=="0"){ %> <%}else{ %>
@@ -146,29 +179,39 @@
                             <h4 class="main">
                               Political Violence & Terrorism Rate (P.V.T):
                             </h4>
-                            <h4>Kshs <%= policy.PVT %></h4>
+                            <% const PVT = policy.PVT %>
+                            <% const currency_PVT = PVT.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',') %>
+                            <h4>Kshs <%= currency_PVT %></h4>
                           </div>
                            <% } %>
                            <% if(policy.TPL=="0"){ %> <%}else{ %>
                             <div class="client-details-display">
                               <h4 class="main">Third Party Liability (T.P.L):</h4>
-                              <h4>Kshs <%= policy.TPL%></h4>
+                              <% const TPL = policy.TPL %>
+                              <% const currency_TPL = TPL.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',') %>
+                              <h4>Kshs <%= currency_TPL%></h4>
                             </div>
                              <% } %>
                              <% if(policy.PAL=="0"){ %> <%}else{ %>
                               <div class="client-details-display">
                                 <h4 class="main">Personal Accident Loading (P.A.L):</h4>
-                                <h4>Kshs <%= policy.PAL %></h4>
+                                <% const PAL = policy.PAL %>
+                                <% const currency_PAL = PAL.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',') %>
+                                <h4>Kshs <%= currency_PAL %></h4>
                               </div>
                                <% } %>
                     </div>
                     <div class="client-details-display">
                       <h4 class="main">Basic Premium:</h4>
-                      <h4>Kshs <%= policy.basicPremium %></h4>
+                      <% const basicPremium = policy.basicPremium %>
+                      <% const currency_basicPremium = basicPremium.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',') %>
+                      <h4>Kshs <%= currency_basicPremium %></h4>
                     </div>
                     <div class="client-details-display">
                       <h4 class="main">Total Premium:</h4>
-                      <h4>Kshs <%= policy.GrandTotal %></h4>
+                      <% const GrandTotal = policy.GrandTotal %>
+                      <% const currency_GrandTotal = GrandTotal.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',') %>
+                      <h4>Kshs <%= currency_GrandTotal %></h4>
                     </div>
                   </div>
                   <div
@@ -179,6 +222,9 @@
                     padding: 0 2rem 0 0;
                   "
                 >
+                <% if(name =="Kelvin"||name=="Stephen"){%>
+                  <a href="/delete-policy/<%= policy.id %> " class="btn add-new" style="margin: 1rem 1rem;background: rgb(146, 40, 40);">Delete</a>
+                <%}else{ %><% } %> 
                   <a href="/nonMotor-edit/<%= policy.id %> " class="btn add-new">Edit</a>
                 </div>
                 </div>
@@ -188,7 +234,7 @@
         </div>
       </div>
     </div>
-    <script src="./js/time.js"></script>
-    <script src="./js/nav.js"></script>
+    <script src="/js/time.js"></script>
+    <script src="/js/nav.js"></script>
   </body>
 </html>

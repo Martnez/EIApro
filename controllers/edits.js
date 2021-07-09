@@ -20,7 +20,7 @@ exports.getVehicleEdit=(req,res,next)=>{
  Vehicles.findOne({where:{id:vehicleId}}).
  then(vehicle=>{
     res.render('edit-vehicle', {
-        userN:user,
+        user:user,
         vehicle:vehicle,
           pageTitle: 'edit vehicle details',
           path: '/edit-vehicle',  
@@ -44,7 +44,7 @@ exports.postVehicleEdit=(req,res,next)=>{
   
   const log= new Logs({
   task: "Edited client details",
-  userId: user._id,
+  userId: user.id,
   time: current_time,
   date:current_date
   });
@@ -86,7 +86,7 @@ exports.postVehicleEdit=(req,res,next)=>{
     Clients.findOne({where:{id:clientId}}).then(client=>{
       
     res.render('client-edit', {
-      userN:user,
+      user:user,
       client:client,
         pageTitle: 'client-edit',
         path: '/client-edit',
@@ -111,7 +111,7 @@ exports.postVehicleEdit=(req,res,next)=>{
   
   const log= new Logs({
   task: "Edited client Details",
-  userId: user._id,
+  userId: user.id,
   time: current_time,
   date:current_date
   });
@@ -170,7 +170,7 @@ exports.postVehicleEdit=(req,res,next)=>{
     Policies.findOne({where:{id:policyId},include:{model:Clients}}).then(
       policy=>{
       res.render('nonMotor-edit', {
-        userN:user,
+        user:user,
         policy:policy,
           pageTitle: 'nonMotor-edit',
           path: '/nonMotor-edit',
@@ -195,7 +195,7 @@ exports.postVehicleEdit=(req,res,next)=>{
   
   const log= new Logs({
   task: "Edited a Non Motor policy",
-  userId: user._id,
+  userId: user.id,
   time: current_time,
   date:current_date
   });
@@ -227,8 +227,8 @@ exports.postVehicleEdit=(req,res,next)=>{
     let newMP = (MP-0) || 0;
     let newPVT= (PVT-0) || 0;
     let newTPL= (TPL-0) || 0;
-    if(coverType=="Work Injury Benefit"){
-      let basicPremium = (newSumInsured);
+    let basicPremium = (newSumInsured *(NewRate/100));
+    if(coverType=="Work Injury Benefit"|| "Personal Accident" || "Group Personal Accident"){basicPremium=newSumInsured};
       let subBasic = (basicPremium +newPAL+newMP+newPVT+newTPL);
       let trainingLevy= (subBasic * 0.002);
       let PHCF = (subBasic * 0.0025);
@@ -263,44 +263,7 @@ exports.postVehicleEdit=(req,res,next)=>{
       
       }).then(result=>{res.redirect(`/policyView/${policyId}`)}).catch(err=>console.log(err))
       
-    }else{
-      let basicPremium = (newSumInsured *(NewRate/100));
-      let subBasic = (basicPremium +newPAL+newMP+newPVT+newTPL);
-      let trainingLevy= (subBasic * 0.002);
-      let PHCF = (subBasic * 0.0025);
-      const GrandTotal = (newStampDuty + trainingLevy + PHCF + subBasic);
-      Policies.findOne({where:{id:policyId}}).then(policy=>{
-        
-        policy.basicPremium=basicPremium,
-        policy.regN=regN,
-        policy.chassis=chassisN,
-        policy.levy=trainingLevy,
-        policy.remarks=remarks,
-        policy.PHCF=PHCF,
-        policy.signature=signature,
-        policy.rate=rate,
-        policy.stampDuty= stampDuty,
-        policy.PVT=PVT,
-        policy.MP=MP,
-        policy.PAL=PAL,
-        policy.TPL=TPL,
-        policy.policytype= policytype,
-        policy.policyName= policyName,
-        policy.coverType= coverType,
-        policy.sumInsured= sumInsured,
-        policy.insurer= insurer,
-        policy.policyNumber= policyNumber,
-        policy.policyStart= policyStart,
-        policy.policyEnd= policyEnd,
-        policy.GrandTotal=GrandTotal,
-     
-        policy.save();
-    
-    }).then(result=>{res.redirect(`/policyView/${policyId}`)}).catch(err=>{console.log(err)})
-      
-    }
-
-  };
+    }               
   // motor edit
   exports.getMotorEdit= (req,res,next) =>{
     const user = req.user;
@@ -308,7 +271,7 @@ exports.postVehicleEdit=(req,res,next)=>{
     Policies.findOne({where:{id:policyId},include:[{model:Clients},{model:Vehicles}]}).then(
       policy=>{
       res.render('motor-edit', {
-        userN:user,
+        user:user,
         policy:policy,
           pageTitle: 'motor-edit',
           path: '/motor-edit',
@@ -320,11 +283,29 @@ exports.postVehicleEdit=(req,res,next)=>{
   exports.postMotorEdit=(req,res,next)=>{
     const policyId = req.params.policyId;
     const user = req.user;
+    let today = new Date()
+    let month = today.getMonth() + 1;
+    let date= today.getDate();
+    let year = today.getFullYear();
+    let hour = today.getHours();
+    let min = today.getMinutes();
+    let secs = today.getSeconds();
+    const current_date = `${month}/${date}/${year}`;
+    const current_time = `${hour}:${min}:${secs}`;
+  
+  const log= new Logs({
+  task: "Edited motor policy",
+  userId: user.id,
+  time: current_time,
+  date:current_date
+  });
+    log.save();
   const policytype= 'Motor vehicles';
   let stampDuty ='40';
   const rate = req.body.rate;
   const signature = user.firstName;
   const remarks = req.body.remarks;
+  const branch= req.body.branch;
   const policyName= req.body.policyName;
   const coverType = req.body.coverType;
   const policyNumber= req.body.policyN;
@@ -355,10 +336,11 @@ exports.postVehicleEdit=(req,res,next)=>{
   if(coverType=="Comprehensive"){expoRate=0.005};
   if(mvClass.includes("Private")){expoRate=0.0025};
     expo=(newSumInsured*expoRate);
-  if(coverType=="Comprehensive"&& expo <=5000){ expo=5000};
+  if(!(mvClass.includes("Private"))&&coverType=="Comprehensive"&& expo <=5000){ expo=5000};
   if(mvClass.includes("Private")&& expo<=2500){ expo=2500};
   if(insurer=="Fidelity Shield  Insurance Co. Ltd" & expo<=5000){ expo=5000};
-   basicPremium =(newSumInsured*NewRate);
+  if(mvClass.includes("Private")&&coverType=="Comprehensive"&& expo<2500){ expo=2500};
+   basicPremium =(newSumInsured*(NewRate/100));
   if(mvClass.includes("Private")&&coverType=="Comprehensive" && basicPremium<=20000){basicPremium=20000};
   if(coverType=="Third Party Fire and Theft"&& basicPremium<=15000){basicPremium=15000};
   if(coverType=="Third Party"){basicPremium = newSumInsured};
@@ -377,6 +359,7 @@ exports.postVehicleEdit=(req,res,next)=>{
               policy.rate=rate,
               policy.stampDuty= stampDuty,
               policy.netProfit=GrandTotal,
+              policy.branch=branch,
               policy.exPro=expo,
               policy.policytype= policytype,
               policy.policyName= policyName,
@@ -398,357 +381,3 @@ exports.postVehicleEdit=(req,res,next)=>{
             }
           ).then(result=>{res.redirect(`/policyView/${policyId}`)}).catch(err=>console.log(err))
   };
-  // exports.postMotorEdit=(req,res,next)=>{
-  //   const user = req.user;
-  //   const policyId = req.params.policyId;
-  //   let today = new Date()
-  //   let month = today.getMonth() + 1;
-  //   let date= today.getDate();
-  //   let year = today.getFullYear();
-  //   let hour = today.getHours();
-  //   let min = today.getMinutes();
-  //   let secs = today.getSeconds();
-  //   const current_date = `${year}/${month}/${date}`;
-  //   const current_time = `${hour}:${min}:${secs}`;
-  
-  // const log= new Logs({
-  // task: "created a  motor policy",
-  // userId: user._id,
-  // time: current_time,
-  // date:current_date
-  // });
-  //   log.save();
-  // const policytype= 'Motor vehicles';
-  // let stampDuty ='40';
-  // const excessProtector = req.body.excessProtector;
-  // const rate = req.body.rate;
-  // const signature = user.firstName;
-  // const remarks = req.body.remarks;
-  // const policyName= req.body.policyName;
-  // const coverType = req.body.coverType;
-  // const policyNumber= req.body.policyN;
-  // const mvClass = req.body.mvClass;
-  // const policyStart= req.body.policyStart;
-  // const policyEnd = req.body.policyEnd;
-  // // const vehicleId = req.body.regN;
-  // const sumInsured= req.body.sumInsuredPoa;
-  // const insurer =req.body.insurer;
-  // let newSumInsured= (sumInsured-0) || 0;
-  // const poliTe = req.body.pvt;
-  // const perAcc= req.body.personalAccident;
-  // const windscreenBenefit=req.body.windscreenBenefit;
-  // const lossOfUse= req.body.lossOfUse;
-  // const passangerLegalLiability =req.body.passangerLegalLiability;
-  // const rescueBenefit =req.body.rescueBenefit;
-  // let newStampDuty = (stampDuty-0) || 0;
-  // let NewRate = (rate-0) || 1;
-  // let newPoliTe= (poliTe-0) || 0;
-  // let newPerAcc= (perAcc-0) || 0;
-  // let wb= (windscreenBenefit-0)||0;
-  // let lof = (lossOfUse-0)||0;
-  // let pll =(passangerLegalLiability-0)||0;
-  // let rb=(rescueBenefit-0)||0;
-  // let newOtherBe = (wb+lof+pll+rb) || 0;
-  // let basicPremium = (newSumInsured *(NewRate/100));
-  // console.log(excessProtector)
-  // if(excessProtector=="excessProtector"){
-  //   if(coverType!="Comprehensive"){
-  //     const XbasicPremium= newSumInsured;
-  //     const xtrainingLevy= (XbasicPremium * 0.002);
-  //     const xPHCF = (XbasicPremium * 0.0025);
-  //     const xGrandTotal = (newStampDuty + xtrainingLevy+ xPHCF + XbasicPremium);
-  //   Policies.findOne({where:{id:policyId}}).then(
-  //     policy=>{
-  //       policy.levy=xtrainingLevy,
-  //       policy.PHCF=xPHCF,
-        
-  //       policy.signature=signature,
-  //       policy.remarks=remarks,
-  //       policy.basicPremium=XbasicPremium,
-  //       policy.rate=rate,
-  //       policy.stampDuty= stampDuty,
-  //       policy.netProfit=xGrandTotal,
-  //       policy.policytype= policytype,
-  //       policy.policyName= policyName,
-  //       policy.coverType= coverType,
-  //       policy.mvClass= mvClass,
-        
-  //       policy.sumInsured= sumInsured,
-  //       policy.insurer= insurer,
-  //       policy.poliTe=poliTe,
-  //       policy.perAcc=perAcc,
-  //       policy.pll=passangerLegalLiability,
-  //       policy.Windscreen= windscreenBenefit,
-  //       policy.rescueBenefit= rescueBenefit,
-  //       policy.lossOfUse =lossOfUse,
-  //       policy.policyNumber= policyNumber,
-  //       policy.policyStart= policyStart,
-  //       policy.policyEnd= policyEnd,
-  //       policy.GrandTotal=xGrandTotal,
-    
-  //       policy.save();
-  //     }
-  //   ).then(result=>{res.redirect(`/policyView/${policyId}`)}).catch(err=>console.log(err))
-    
-
-  //   }else{
-      
-  //   if(mvClass.includes('Private')){
-  //     let Xrate = 0.25;
-  //     const exProt =(newSumInsured *(Xrate/100));
-  //     if(insurer=="Fidelity Shield  Insurance Co. Ltd" && exProt<5000){
-  //       const exProt= 5000;
-  //       const subBasic = (basicPremium + exProt + newPoliTe + newPerAcc + newOtherBe);
-  //      const trainingLevy= (subBasic * 0.002);
-  //      const PHCF = (subBasic * 0.0025);
-  //      const GrandTotal = (newStampDuty + trainingLevy + PHCF + subBasic);
-  //      Policies.findOne({where:{id:policyId}}).then(policy=>{
-  //        policy.levy=trainingLevy,
-  //        policy.PHCF=PHCF,
-         
-         
-  //        policy.signature=signature,
-  //        policy.remarks=remarks,
-  //        policy.basicPremium=basicPremium,
-  //        policy.rate=rate,
-  //        policy.rescueBenefit= rescueBenefit,
-  //        policy.stampDuty= stampDuty,
-  //        policy.netProfit=GrandTotal,
-  //        policy.exPro=exProt,
-  //        policy.poliTe=poliTe,
-  //        policy.perAcc=perAcc,
-  //        policy.policytype= policytype,
-  //        policy.policyName= policyName,
-  //        policy.coverType= coverType,
-         
-  //        policy.mvClass= mvClass,
-         
-  //        policy.sumInsured= sumInsured,
-  //        policy.insurer= insurer,
-  //        policy.pll=passangerLegalLiability,
-  //        policy.Windscreen= windscreenBenefit,
-  //        policy.lossOfUse =lossOfUse,
-  //        policy.policyNumber= policyNumber,
-  //        policy.policyStart= policyStart,
-  //        policy.policyEnd= policyEnd,
-  //        policy.GrandTotal=GrandTotal,
-     
-  //        policy.save();
- 
-  //      }).then(result=>{res.redirect(`/policyView/${policyId}`)}).catch(err=>console.log(err))
-
-  //     }else{ const subBasic = (basicPremium + exProt + newPoliTe + newPerAcc + newOtherBe);
-  //       const trainingLevy= (subBasic * 0.002);
-  //       const PHCF = (subBasic * 0.0025);
-  //       const GrandTotal = (newStampDuty + trainingLevy + PHCF + subBasic);
-  //       if(exProt<= 2500){
-  //        const exProt= 2500;
-  //        const subBasic = (basicPremium + exProt + newPoliTe + newPerAcc + newOtherBe);
-  //       const trainingLevy= (subBasic * 0.002);
-  //       const PHCF = (subBasic * 0.0025);
-  //       const GrandTotal = (newStampDuty + trainingLevy + PHCF + subBasic);
-  //       Policies.findOne({where:{id:policyId}}).then(policy=>{
-  //         policy.levy=trainingLevy,
-  //         policy.PHCF=PHCF,
-  //         policy.signature=signature,
-  //         policy.remarks=remarks,
-  //         policy.basicPremium=basicPremium,
-  //         policy.rate=rate,
-  //         policy.rescueBenefit= rescueBenefit,
-  //         policy.stampDuty= stampDuty,
-  //         policy.netProfit=GrandTotal,
-  //         policy.exPro=exProt,
-  //         policy.poliTe=poliTe,
-  //         policy.perAcc=perAcc,
-  //         policy.policytype= policytype,
-  //         policy.policyName= policyName,
-  //         policy.coverType= coverType,
-          
-  //         policy.mvClass= mvClass,
-          
-  //         policy.sumInsured= sumInsured,
-  //         policy.insurer= insurer,
-  //         policy.pll=passangerLegalLiability,
-  //         policy.Windscreen= windscreenBenefit,
-  //         policy.lossOfUse =lossOfUse,
-  //         policy.policyNumber= policyNumber,
-  //         policy.policyStart= policyStart,
-  //         policy.policyEnd= policyEnd,
-  //         policy.GrandTotal=GrandTotal,
-      
-  //         policy.save();
-  
-  //       }).then(result=>{res.redirect(`/policyView/${policyId}`)}).catch(err=>console.log(err))
-         
-   
-          
-  //       }else{
-  //         const subBasic = (basicPremium + exProt + newPoliTe + newPerAcc + newOtherBe);
-  //       const trainingLevy= (subBasic * 0.002);
-  //       const PHCF = (subBasic * 0.0025);
-  //       const GrandTotal = (newStampDuty + trainingLevy + PHCF + subBasic);
-  //       Policies.findOne({where:{id:policyId}}).then(policy=>{
-  //         policy.levy=trainingLevy,
-  //         policy.PHCF=PHCF,
-          
-          
-  //         policy.signature=signature,
-  //         policy.remarks=remarks,
-  //         policy.basicPremium=basicPremium,
-  //         policy.rate=rate,
-  //         policy.rescueBenefit= rescueBenefit,
-  //         policy.stampDuty= stampDuty,
-  //         policy.netProfit=GrandTotal,
-  //         policy.exPro=exProt,
-  //         policy.poliTe=poliTe,
-  //         policy.perAcc=perAcc,
-  //         policy.policytype= policytype,
-  //         policy.policyName= policyName,
-  //         policy.coverType= coverType,
-          
-  //         policy.mvClass= mvClass,
-          
-  //         policy.sumInsured= sumInsured,
-  //         policy.insurer= insurer,
-  //         policy.pll=passangerLegalLiability,
-  //         policy.Windscreen= windscreenBenefit,
-  //         policy.lossOfUse =lossOfUse,
-  //         policy.policyNumber= policyNumber,
-  //         policy.policyStart= policyStart,
-  //         policy.policyEnd= policyEnd,
-  //         policy.GrandTotal=GrandTotal,
-        
-  //         policy.save();
-  //       }).then(result=>{res.redirect(`/policyView/${policyId}`)}).catch(err=>console.log(err))
-          
-  
-          
-  //       }}
-     
-  //   }else{
-  //     let Xrate =0.5;
-  //     const exProt =(newSumInsured*(Xrate/100))
-  //     const subBasic = (basicPremium + exProt + newPoliTe + newPerAcc + newOtherBe);
-  //     const trainingLevy= (subBasic * 0.002);
-  //     const PHCF = (subBasic * 0.0025);
-  //     const GrandTotal = (newStampDuty + trainingLevy + PHCF + subBasic);
-  //     if(exProt <= 5000){
-  //      const exProt =5000;
-  //      Policies.findOne({where:{id:policyId}}).then(policy=>{
-  //       policy.levy=trainingLevy,
-  //       policy.PHCF=PHCF,
-        
-        
-  //       policy.signature=signature,
-  //       policy.remarks=remarks,
-  //       policy.basicPremium=basicPremium,
-  //       policy.rate=rate,
-  //       policy.rescueBenefit= rescueBenefit,
-  //       policy.stampDuty= stampDuty,
-  //       policy.netProfit=GrandTotal,
-  //       policy.exPro=exProt,
-  //       policy.poliTe=poliTe,
-  //       policy.perAcc=perAcc,
-  //       policy.policytype= policytype,
-  //       policy.policyName= policyName,
-  //       policy.coverType= coverType,
-        
-  //       policy.mvClass= mvClass,
-        
-  //       policy.sumInsured= sumInsured,
-  //       policy.insurer= insurer,
-  //       policy.pll=passangerLegalLiability,
-  //       policy.Windscreen= windscreenBenefit,
-  //       policy.lossOfUse =lossOfUse,
-  //       policy.policyNumber= policyNumber,
-  //       policy.policyStart= policyStart,
-  //       policy.policyEnd= policyEnd,
-  //       policy.GrandTotal=GrandTotal,
-      
-  //       policy.save();
-
-  //      }).then(result=>{res.redirect(`/policyView/${policyId}`)}).catch(err=>console.log(err))
-       
-
-  //     }else{
-  //     const subBasic = (basicPremium + exProt + newPoliTe + newPerAcc + newOtherBe);
-  //     const trainingLevy= (subBasic * 0.002);
-  //     const PHCF = (subBasic * 0.0025);
-  //     const GrandTotal = (newStampDuty + trainingLevy + PHCF + subBasic);
-  //     Policies.findOne({where:{id:policyId}}).then(policy=>{
-  //       policy.levy=trainingLevy,
-  //       policy.PHCF=PHCF,
-        
-        
-  //       policy.signature=signature,
-  //       policy.remarks=remarks,
-  //       policy.basicPremium=basicPremium,
-  //       policy.rate=rate,
-  //       policy.rescueBenefit= rescueBenefit,
-  //       policy.stampDuty= stampDuty,
-  //       policy.netProfit=GrandTotal,
-  //       policy.exPro=exProt,
-  //       policy.poliTe=poliTe,
-  //       policy.perAcc=perAcc,
-  //       policy.policytype= policytype,
-  //       policy.policyName= policyName,
-  //       policy.coverType= coverType, 
-  //       policy.mvClass= mvClass,
-        
-  //       policy.sumInsured= sumInsured,
-  //       policy.insurer= insurer,
-  //       policy.pll=passangerLegalLiability,
-  //       policy.Windscreen= windscreenBenefit,
-  //       policy.lossOfUse =lossOfUse,
-  //       policy.policyNumber= policyNumber,
-  //       policy.policyStart= policyStart,
-  //       policy.policyEnd= policyEnd,
-  //       policy.GrandTotal=GrandTotal,
-    
-  //       policy.save();
-  //     }).then(result=>{res.redirect(`/policyView/${policyId}`)}).catch(err=>console.log(err))
-        
- 
-  
-  //     }
-  //   }
-  //   } 
-  // }else{
-  //   const subBasic = (basicPremium + newPoliTe + newPerAcc + newOtherBe);
-  //   const trainingLevy= (subBasic * 0.002);
-  //   const PHCF = (subBasic * 0.0025);
-  //   const GrandTotal = (newStampDuty + trainingLevy + PHCF + subBasic);
-  //   Policies.findOne({where:{id:policyId}}).then(policy=>{
-  //     policy.levy=trainingLevy,
-  //     policy.PHCF=PHCF,
-      
-  //     policy.signature=signature,
-  //     policy.remarks=remarks,
-  //     policy.basicPremium=basicPremium,
-  //     policy.rate=rate,
-  //     policy.rescueBenefit= rescueBenefit,
-  //     policy.stampDuty= stampDuty,
-  //     policy.netProfit=GrandTotal,
-  //     policy.poliTe=poliTe,
-  //     policy.perAcc=perAcc,
-  //     policy.policytype= policytype,
-  //     policy.policyName= policyName,
-  //     policy.coverType= coverType,
-  //     policy.mvClass= mvClass,
-      
-  //     policy.sumInsured= sumInsured,
-  //     policy.insurer= insurer,
-  //     policy.pll=passangerLegalLiability,
-  //     policy.Windscreen= windscreenBenefit,
-  //     policy.lossOfUse =lossOfUse,
-  //     policy.policyNumber= policyNumber,
-  //     policy.policyStart= policyStart,
-  //     policy.policyEnd= policyEnd,
-  //     policy.GrandTotal=GrandTotal,
-  
-  //     policy.save();
-  //   }).then(result=>{res.redirect(`/policyView/${policyId}`)}).catch(err=>console.log(err))
-      
-  //   }
-  
-  // };

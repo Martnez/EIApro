@@ -17,7 +17,7 @@ exports.getIndex=(req,res,next)=>{
 exports.getDashboard=(req,res,next)=>{
   const user = req.user;
     res.render('dashboard',{
-      userN:user,
+      user:user,
         pageTitle:'dashboard',
         path:'/dashboard',
 
@@ -25,7 +25,7 @@ exports.getDashboard=(req,res,next)=>{
 };
 exports.getNewUser=(req,res,next)=>{
   const user = req.user;
-    User.findAll({limit:3,order: [ [ 'createdAt', 'DESC' ]]})
+    User.findAll({order: [ [ 'createdAt', 'DESC' ]]})
     .then(users=>{
       res.render('new-user', {
         users: users,
@@ -141,7 +141,7 @@ exports.getAdmin=(req,res,next)=>{
 exports.getLogs= (req,res,next) =>{
   const user = req.user
 
-  Logs.findAll({include:[{model:User}],limit:10,order: [ [ 'createdAt', 'DESC' ]]})
+  Logs.findAll({include:[{model:User}],order: [ [ 'createdAt', 'DESC' ]]})
   .then(logs=>{
     // console.log(logs);
     res.render('logs', {
@@ -182,7 +182,7 @@ exports.postLogout =(req,res,next)=>{
   
 };
 exports.getUserProfile= (req,res,next) =>{
-  const userN = req.user
+  const user = req.user
 const userId = req.params.userId;
 
 User.findByPk(userId)
@@ -196,7 +196,7 @@ User.findByPk(userId)
             pageTitle: 'user-profile',
             path:'/user-profile-view',
             user: user,
-            userN:userN,
+            user:user,
             updateSuccess: req.flash('updateSuccess'),
             resetSuccess: req.flash('resetSuccess'),
         });

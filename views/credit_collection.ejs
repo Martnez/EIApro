@@ -1,0 +1,216 @@
+<%- include ('./includes/header.ejs') %>
+  <body>
+    <div class="dash-container">
+      <div class="hover-hamburger" id="hover_hamburger">
+        <div class="inner-hamburger">
+          <div class="bar"></div>
+          <div class="bar"></div>
+          <div class="bar"></div>
+        </div>
+      </div>
+      <div class="nav-overlay" id="overlay"></div>
+      <div class="side-bar" id="side_bar">
+        <div class="other-hover-hamburger show" id="other_hover_hamburger">
+          <div class="inner-hamburger">
+            <div class="bar"></div>
+            <div class="bar"></div>
+            <div class="bar"></div>
+          </div>
+        </div>
+        <div class="side-bar-content">
+          <div class="top-image-holder dash-img">
+            <img src="/images/eia_logo.png" alt="" />
+          </div>
+          <ul class="links">
+            <li class="list">
+              <a href="/dashboard" class="link">Home</a>
+            </li>
+            <li class="list">
+              <a href="/clients" class="link">Clients</a>
+            </li>
+            <li class="list">
+              <a href="/underwriting" class="link active">Underwriting</a>
+            </li>
+            <li class="list">
+              <a href="/claims" class="link">Claims</a>
+            </li>
+            <li class="list">
+              <a href="/vehicles" class="link">Vehicles</a>
+            </li>
+            <li class="list">
+              <a href="" class="link">Credit</a>
+            </li>
+            <li class="list">
+              <a href="" class="link">Reports</a>
+            </li>
+          </ul>
+          <ul class="links lower">
+            <li class="list">
+              <a href="/admin" class="link">Admin</a>
+            </li>
+            <li class="list">
+              <a href="/logout" class="link logout">Logout</a>
+            </li>
+          </ul>
+        </div>
+      </div>
+      <div class="top-bar">
+        <div class="user-name-space">
+          <div class="user-icon">
+            <div class="image-holder">
+              <img src=" /images/user-img.png" alt="" />
+            </div>
+            <h3 class="username-dash">Hello <%= user.firstName %> </h3>
+          </div>
+        </div>
+      </div>
+      <div class="time-bar">
+        <h3 id="date_value"></h3>
+      </div>
+      <div class="dash-main">
+        <div class="dash-content">
+          <div class="client-profile-content">
+            <div class="details-display">
+              <div class="top-nav-options">
+                <a href="/policyView/<%=policyId%>" class="nav-options-link">Policy Details</a>
+                <a href="http://192.168.0.34/EIApro/php_files/policy-documents.php?id=<%=
+                policyId %>&username=<%= user.firstName %>" class="nav-options-link">Image Documents</a>
+                <a href="" class="nav-options-link active">Credit Collection</a>
+                <a href="/insurancePay/<%=policyId %>" class="nav-options-link">Insurance Payment</a>
+              </div>
+              <div class="display-panel">
+                <h2 class="data-input-title"><%= firstName %> <%=lastName %></h2>
+                <div class="rows">
+                  <div class="data-col">
+                    <div class="client-details-display">
+                      <h4 class="main">Total Premium:</h4>
+            
+                      <h4>Kshs <%= GrandTotal %></h4>
+                    </div>
+                    <div class="client-details-display">
+                      <h4 class="main">Pending Premium:</h4>
+                      <h4>Kshs <%= pending%></h4>
+                    </div>
+                  </div>
+                  <div class="data-col">
+                    <div class="client-details-display">
+                      <h3 style="width: 100%">Premiums</h3>
+                    </div>
+                    <% var naming= "sum Insured"; %>
+                    <% if(policy.coverType=="Third Party") {%>
+                      <% naming="basic premium" %> 
+                      <% } %>   
+                    <div class="client-details-display">
+                      <h4 class="main"><%= naming %> :</h4>
+                     
+                      <h4>Kshs <%=sumInsured %></h4>
+                    </div>
+                    <div class="client-details-display">
+                      <h4 class="main">PHCF:</h4>
+                      <h4>Kshs <%= PHCF %></h4>
+                    </div>
+                    <div class="client-details-display">
+                      <h4 class="main">Training Levy:</h4>
+                      <h4>Kshs <%= levy %></h4>
+                    </div>
+                    <div class="client-details-display">
+                      <h4 class="main">Stamp Duty:</h4>
+                      <h4>Kshs <%= stampDuty %></h4>
+                    </div>
+                    </div>
+                </div>
+                <h2 class="data-input-title" style="text-align: left;margin: 2rem 0 0.5rem 2.5rem;font-weight: 300;">New Payment</h2>
+                <div class="rows">
+                  <div class="data-col">
+                      <form action="/credit/<%= policyId    %>" method="post" class="form-action">
+                    <div class="input-holder inside">
+                      <input
+                        type="text"
+                        placeholder="Amount (Kshs)"
+                        required
+                        name="p_paid"
+                        class="input-space"
+                      />
+                    </div>
+                    <div class="input-holder split">
+                      <input
+                        type="text"
+                        placeholder="Date Paid"
+                        onblur="(this.type='text')"
+                        onfocus="(this. type='date')"
+                        id="end_date"
+                        required
+                        name="p_date"
+                        class="input-space"
+                      />
+                    </div>
+                    <div class="input-holder inside">
+                      <select
+                        name="p_mode"
+                        class="input-space"
+                        required
+                        id="cover_type"
+                      >
+                        <option value="" selected>Select Payment Mode</option>
+                        <option value="Cash">Cash</option>
+                        <option value="M-Pesa">M-Pesa</option>
+                        <option value="Bank Trasfer">Bank Trasfer</option>
+                      </select>
+                    </div>
+                    <div class="input-holder inside">
+                      <input
+                        type="text"
+                        placeholder="Ref Number"
+                        required
+                        name="refNumber"
+                        class="input-space"
+                      />
+                    </div>
+                    <div class="button-holder" style="margin-left: 1rem">
+                      <button name="" class="btn add-new">Update</button>
+                    </div>
+                </form>
+                  </div>
+                  <div class="data-col">
+                  </div>
+                </div>
+                <div class="rows">
+                  <div class="data-col">
+                    <div class="dash-table-display">
+                      <table class="info-list-table">
+                        <thead>
+                          <tr>
+                            <th>Date Paid</th>
+                            <th>Amount Paid</th>
+                            <th>Mode</th>
+                            <th>Reference No.</th>
+                            <th>Paiment Doc</th>
+                          </tr>
+                        </thead>
+                        <tbody id="myTable">
+                            <% if(credit.length > 0) {%>
+                                <% for(let singleCredit of credit){%>
+                                    <tr>
+                                      <td><%=singleCredit.p_date  %>  </td>
+                                      <td><%=singleCredit.p_paid %> </td>
+                                      <td><%=singleCredit.p_mode  %> </td>
+                                      <td><%=singleCredit.refNumber %> </td>
+                                      <td><a href="">./mpesa/receipt0809.pdf</a></td>
+                                    </tr> 
+                                     <% } %> 
+                                <% }else{%><% } %>      
+                        </tbody>
+                      </table>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <script src="/js/time.js"></script>
+    <script src="/js/nav.js"></script>
+  </body>
+</html>

@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="./css/main.css" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Roboto:wght@100;300;400;500;700;900&display=swap"
+      rel="stylesheet"
+    />
+    <title>EIA System</title>
+  </head>
+  <body>
+    <div class="dash-container">
+      <div class="hover-hamburger" id="hover_hamburger">
+        <div class="inner-hamburger">
+          <div class="bar"></div>
+          <div class="bar"></div>
+          <div class="bar"></div>
+        </div>
+      </div>
+      <div class="nav-overlay" id="overlay"></div>
+      <div class="side-bar" id="side_bar">
+        <div class="other-hover-hamburger show" id="other_hover_hamburger">
+          <div class="inner-hamburger">
+            <div class="bar"></div>
+            <div class="bar"></div>
+            <div class="bar"></div>
+          </div>
+        </div>
+        <div class="side-bar-content">
+          <div class="top-image-holder dash-img">
+            <img src="./images/eia_logo.png" alt="" />
+          </div>
+          <ul class="links">
+            <li class="list">
+              <a href="dashboard.html" class="link">Home</a>
+            </li>
+            <li class="list">
+              <a href="clients.html" class="link">Clients</a>
+            </li>
+            <li class="list">
+              <a href="underwriting.html" class="link active">Underwriting</a>
+            </li>
+            <li class="list">
+              <a href="claims.html" class="link">Claims</a>
+            </li>
+            <li class="list">
+              <a href="vehicles.html" class="link">Vehicles</a>
+            </li>
+            <li class="list">
+              <a href="" class="link">Credit</a>
+            </li>
+            <li class="list">
+              <a href="" class="link">Reports</a>
+            </li>
+          </ul>
+          <ul class="links lower">
+            <li class="list">
+              <a href="admin.html" class="link">Admin</a>
+            </li>
+            <li class="list">
+              <a href="/logout" class="link logout">Logout</a>
+            </li>
+          </ul>
+        </div>
+      </div>
+      <div class="top-bar">
+        <div class="user-name-space">
+          <div class="user-icon">
+            <div class="image-holder">
+              <img src="./images/user-img.png" alt="" />
+            </div>
+            <h3 class="username-dash">Hello Stephen</h3>
+          </div>
+        </div>
+      </div>
+      <div class="time-bar">
+        <h3 id="date_value"></h3>
+      </div>
+      <div class="dash-main">
+        <div class="dash-content">
+          <div class="client-profile-content">
+            <div class="details-display">
+              <div class="top-nav-options">
+                <a href="" class="nav-options-link active">Client Details</a>
+                <a href="" class="nav-options-link">Image Documents</a>
+              </div>
+              <div class="display-panel">
+                <h2 class="data-input-title">CHINA HENAN INT'L</h2>
+                <div class="rows">
+                  <div class="data-col">
+                    <div class="client-details-display">
+                      <h4 class="main">Policy Number:</h4>
+                      <h4>LSM/WNSK/ASKD</h4>
+                    </div>
+                    <div class="client-details-display">
+                      <h4 class="main">Policy Period:</h4>
+                      <h4>2021-06-09 to 2022-06-08</h4>
+                    </div>
+                    <div class="client-details-display">
+                      <h4 class="main">Insuarer:</h4>
+                      <h4>APA Insurance Limited</h4>
+                    </div>
+                    <div class="client-details-display">
+                      <h4 class="main">Cover Type:</h4>
+                      <h4>Contractor's Plant and Machinery</h4>
+                    </div>
+                    <div class="client-details-display">
+                      <h4 class="main">Created by:</h4>
+                      <h4>Stephen Muraya</h4>
+                    </div>
+                  </div>
+                  <div class="data-col premiums">
+                    <div class="client-details-display">
+                      <h3 style="width: 100%">Premiums</h3>
+                    </div>
+                    <div class="client-details-display">
+                      <h4 class="main">Sum Insured:</h4>
+                      <h4>Kshs 1,000,000</h4>
+                    </div>
+                    <div class="client-details-display">
+                      <h4 class="main">PHCF:</h4>
+                      <h4>Kshs 75</h4>
+                    </div>
+                    <div class="client-details-display">
+                      <h4 class="main">Training Levy:</h4>
+                      <h4>Kshs 75</h4>
+                    </div>
+                    <div class="client-details-display">
+                      <h4 class="main">Stamp Duty:</h4>
+                      <h4>Kshs 75</h4>
+                    </div>
+                    <div class="client-details-display">
+                      <h4 class="main">Policy Rate:</h4>
+                      <h4>0.25</h4>
+                    </div>
+                    <div class="policy-benefits-display">
+                      <div class="client-details-display">
+                        <h3 style="width: 100%">Benefits</h3>
+                      </div>
+                      <div class="client-details-display">
+                        <h4 class="main">Maintenance Period:</h4>
+                        <h4>Kshs 2,500</h4>
+                      </div>
+                      <div class="client-details-display">
+                        <h4 class="main">
+                          Political Violence & Terrorism Rate (P.V.T):
+                        </h4>
+                        <h4>Kshs 2,500</h4>
+                      </div>
+                      <div class="client-details-display">
+                        <h4 class="main">Third Party Liability (T.P.L):</h4>
+                        <h4>Kshs 2,500</h4>
+                      </div>
+                      <div class="client-details-display">
+                        <h4 class="main">Personal Accident Loading (P.A.L):</h4>
+                        <h4>Kshs 2,500</h4>
+                      </div>
+                    </div>
+                    <div class="client-details-display">
+                      <h4 class="main">Basic Premium:</h4>
+                      <h4>Kshs 30,000</h4>
+                    </div>
+                    <div class="client-details-display">
+                      <h4 class="main">Total Premium:</h4>
+                      <h4>Kshs 40,000</h4>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <script src="./js/time.js"></script>
+    <script src="./js/nav.js"></script>
+  </body>
+</html>

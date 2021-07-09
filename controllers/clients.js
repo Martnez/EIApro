@@ -6,10 +6,10 @@ const Logs = require('../models/Logs')
 
 exports.getClients=(req,res,next)=>{
     const user = req.user;
-        Clients.findAll({order: [ [ 'createdAt', 'DESC' ]]})
+        Clients.findAll({where:{delete:'0'},order: [ [ 'createdAt', 'DESC' ]]})
         .then(clients=>{
           res.render('clients', {
-            userN:user ,
+            user:user ,
             clients: clients,
             pageTitle: 'clients page',
             path: '/clients',
@@ -23,7 +23,7 @@ exports.getClients=(req,res,next)=>{
 
     const user = req.user;
       res.render('new-client', {
-        userN:user,
+        user:user,
           pageTitle: 'new client',
           path: '/new-client',
           errorMessage: req.flash('emailError')
@@ -45,7 +45,7 @@ exports.getClients=(req,res,next)=>{
   
   const log= new Logs({
   task: "Created new client",
-  userId: user._id,
+  userId: user.id,
   time: current_time,
   date:current_date
   });
@@ -58,6 +58,7 @@ exports.getClients=(req,res,next)=>{
     const boxOffice= req.body.boxOffice;
     const email = req.body.email;
     const idNumber= req.body.idNumber;
+    console.log(idNumber)
     const businessType= req.body.businessType;
     const businessNature = req.body.businessNature;
     const pin = req.body.pin;
@@ -86,12 +87,9 @@ exports.getClients=(req,res,next)=>{
         idNumber: idNumber,
         businessType:businessType,
         businessNature:businessNature,
-        
         pin:pin,
         regNumber:regNumber,
-       
         level:level,
-        
         contactPerson: contactPerson,
         contactPersonNumber: contactPersonNumber
     
@@ -112,14 +110,15 @@ exports.getClients=(req,res,next)=>{
   };
   exports.getClientProfile=(req,res,next)=>{
     const user = req.user;
-    
+    const name = user.firstName;
     const clientId = req.params.clientId;
     Clients.findOne({where:{id:clientId},include:{model:Policy}})
     .then(clients=>{
       
       const policies =clients.policies;
       res.render('client-profile',{
-        userN:user,
+        user:user,
+        name:name,
           pageTitle: 'client-profile',
           path:'/client-profile',
           clientId:clientId,
@@ -131,3 +130,15 @@ exports.getClients=(req,res,next)=>{
 
 
   }
+  exports.getdeleteClient = (req, res, next) => {
+    const clientId = req.params.clientId;
+    Clients.findByPk(clientId)
+      .then(client => {
+        client.delete="1"
+        client.save()
+      })
+      .then(result => {
+        res.redirect('/clients');
+      })
+      .catch(err => console.log(err));
+  };

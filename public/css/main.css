@@ -656,23 +656,21 @@ img {
   background-color: var(--main-primary-color);
   color: #fff;
 } */
-.nav-options-link:last-child.active {
+.nav-options-link.active {
   background-color: #fff;
   color: var(--main-primary-color);
 }
-.nav-options-link:last-child.active:hover {
+.nav-options-link.active:hover {
   background-color: #fff;
   color: var(--main-primary-color);
 }
-.nav-options-link:last-child:hover {
+.nav-options-link:hover {
   background-color: #eeeded;
   color: var(--main-primary-color);
-  border-radius: 0 0.5rem 0 0;
+  /* border-radius: 0 0.5rem 0 0; */
 }
-.nav-options-link:last-child {
+.nav-options-link {
   background-color: #eeeded;
-  color: var(--main-primary-color);
-  border-radius: 0 0.5rem 0 0;
 }
 /* .nav-options-link.active:hover {
   background-color: #dd0c0c;
@@ -681,19 +679,14 @@ img {
 /* .nav-options-link:hover {
   background-color: #dd0c0c;
 } */
-.nav-options-link.active {
-  background-color: #fff;
-  color: var(--main-accent-color);
-}
 .nav-options-link {
   min-width: 100px;
-  border-radius: 0.5rem 0 0 0;
   background-color: #eeeded;
   display: flex;
   justify-content: center;
   align-items: center;
   padding: 0.8rem 0.3rem;
-  color: var(--main-accent-color);
+  color: rgb(104, 104, 104);
   font-weight: 500;
   border: none;
 }
@@ -987,6 +980,54 @@ img {
 }
 .doc-link:hover {
   color: rgb(51, 51, 255);
+}
+.new-link {
+  background-color: #3b4d74;
+  height: 100%;
+  height: 2.5rem;
+  border-radius: 0;
+  display: flex;
+  align-items: center;
+}
+.new-link:hover {
+  transform: scale(1);
+}
+#sum_insured_better_holder {
+  display: none;
+}
+#cars_registered {
+  background-color: #eee;
+  pointer-events: none;
+  cursor: not-allowed;
+}
+.glowing-holder {
+  /* background-color: teal; */
+  display: flex;
+  align-items: center;
+  margin-top: 1.5rem;
+}
+.glow-box {
+  width: 1rem;
+  height: 1rem;
+  margin: 0 0.5rem 0 0.5rem;
+  border-radius: 50%;
+  position: relative;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.glow-box.green {
+  background-image: radial-gradient(#09ff00, #168a12);
+  box-shadow: 0 0 0.5rem #2bbb26;
+}
+.glow-box.yellow {
+  background-color: rgb(231, 163, 17);
+  background-image: radial-gradient(rgb(255, 251, 0), rgb(199, 202, 0));
+}
+.glow-box.red {
+  box-shadow: 0 0 0.5rem rgb(255, 0, 0);
+  background-image: radial-gradient(rgb(255, 45, 45), #941010);
 }
 
 /* MEDIA QUERIES */

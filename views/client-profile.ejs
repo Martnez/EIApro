@@ -73,7 +73,7 @@
             <div class="image-holder">
               <img src="/images/user-img.png" alt="" />
             </div>
-            <h3 class="username-dash">Hello <%= userN.firstName %> </h3>
+            <h3 class="username-dash">Hello <%= user.firstName %> </h3>
           </div>
         </div>
       </div>
@@ -87,7 +87,7 @@
               <div class="top-nav-options">
                 <a href="" class="nav-options-link active">Client Details</a>
                 <a href="http://192.168.0.34/EIApro/php_files/client-documents.php?id=<%=
-                client.id %>&username=<%= userN.firstName %>" class="nav-options-link">Image Documents</a>
+                client.id %>&username=<%= user.firstName %>" class="nav-options-link">Image Documents</a>
               </div>
               <div class="display-panel">
                 <h2 class="data-input-title">Client Details</h2>
@@ -127,6 +127,15 @@
                       <h4 class="main">P. O. Box:</h4>
                       <h4><%= client.boxOffice%>  <%= client.town %> , Kenya</h4>
                     </div>
+                    <div class="client-details-display">
+                      <% if(client.businessType=="Corporate") {%>
+                        <h4 class="main">Corporate number:</h4>
+                         <%}else{%>
+                          <h4 class="main">ID number:</h4>
+                           <% } %>  
+                      
+                      <h4><%= client.idNumber%>, Kenya</h4>
+                    </div>
                   </div>
                   <div
                   class="button-holder edit"
@@ -136,18 +145,17 @@
                     padding: 0 2rem 0 0;
                   "
                 >
+                  <% if(name =="Kelvin"||name=="Stephen"){%>
+                    <a href="/delete-client/<%= client.id %> " class="btn add-new" style="margin: 1rem 1rem;background: rgb(146, 40, 40);">Delete</a>
+                  <%}else{ %><% } %>   
                   <a href="/client-edit/<%= client.id %> " class="btn add-new">Edit</a>
                 </div>
                 </div>
-
                 <h2 class="data-input-title">Client Policies</h2>
-
                 <div class="dash-table-display">
                   <table class="info-list-table">
                     <thead>
                       <tr>
-                        <th>Reg No.</th>
-                        <th>Client Name</th>
                         <th>Sum Insured</th>
                         <th>Cover Type</th>
                         <th>From</th>
@@ -159,15 +167,6 @@
                         <% for(let policy of policies) { %>
                             <input type="hidden" value="<%=policy.id%>" name="policyId">
                     <tr onclick="document.location='/policyView/<%=policy.id%>'">
-                        <td><% if( policy.policytype =="NonMotor vehicles") { %>
-                            <%= policy.policyName%>
-                               <% } else {%>
-                                <%= policy.regN %> 
-                                <%}%>
-                        </td>
-                        <td>
-                          <%= policy.firstName %> <%= policy.lastName %>
-                        </td>
                         <td><%=policy.sumInsured %></td>
                         <td><%= policy.coverType %></td>
                         <td><%= policy.policyStart %></td>
@@ -186,7 +185,7 @@
         </div>
       </div>
     </div>
-    <script src="./js/time.js"></script>
-    <script src="./js/nav.js"></script>
+    <script src="/js/time.js"></script>
+    <script src="/js/nav.js"></script>
   </body>
 </html>

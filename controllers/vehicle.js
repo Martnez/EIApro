@@ -11,18 +11,19 @@ exports.getVehicles= (req,res,next) =>{
   Vehicles.findAll({order: [ [ 'createdAt', 'DESC' ]]})
   .then(vehicle=>{
     res.render('vehicles', {
-      userN:user ,
+      user:user ,
       vehicles: vehicle,
       pageTitle: 'vehicles page',
       path: '/vehicles',
-  }).catch(err=>{console.log(err)});
+  })
+  .catch(err=>{console.log(err)});
  
 })
   };
   exports.getNewVehicle= (req,res,next) =>{
     const user = req.user;
     res.render("new-vehicle",{
-      userN:user,
+      user:user,
       pageTitle:"vehicle registration",
       path:"/new-vehicle"
     })
@@ -35,7 +36,7 @@ exports.getVehicles= (req,res,next) =>{
     Vehicles.findOne({where:{id:vehicleId},include:{model: Policy,include:{model:Clients}}}).then(
       vehicle=>{
       res.render('vehicle-view', {
-        userN:user,
+        user:user,
         vehicle:vehicle,
           pageTitle: 'vehicle-view',
           path: '/vehicle-view',
@@ -65,8 +66,7 @@ exports.getVehicles= (req,res,next) =>{
   date:current_date
   });
     log.save();
-  
-  const userId =1;
+  const userId= user.id;
   const regN = req.body.regN;
   const chassisN = req.body.chassisN;
   const logbookN = req.body.logbookN;
@@ -76,16 +76,17 @@ exports.getVehicles= (req,res,next) =>{
   const color = req.body.color;
   const loadingCapacity= req.body.loadingCapacity;
   const owner = req.body.owner;
+ 
   const vehicle = new Vehicles({
-      RegN:regN,
-      Chasis:chassisN,
-      LogBook:logbookN,
-      Make:make,
-      MOY:yom,
-      EngNo:engineN,
-      Color:color,
-      LoadingCapacity:loadingCapacity,
-      Owner:owner,
+      RegN:regN.trimEnd(),
+      Chasis:chassisN.trimEnd(),
+      LogBook:logbookN.trimEnd(),
+      Make:make.trimEnd(),
+      MOY:yom.trimEnd(),
+      EngNo:engineN.trimEnd(),
+      Color:color.trimEnd(),
+      LoadingCapacity:loadingCapacity.trimEnd(),
+      Owner:owner.trimEnd(),
       clientId:userId
   })
   vehicle.save();
