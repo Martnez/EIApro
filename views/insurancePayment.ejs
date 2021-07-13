@@ -80,7 +80,241 @@
               </div>
               <div class="display-panel">
                 <h2 class="data-input-title"><%= firstName %> <%=lastName %></h2>
-                <!-- <div class="rows">
+                <div class="rows">
+                  <div class="data-col">
+                    <h2 class="title" style="padding: 0 0 0 1rem ;">Payments Calculations</h2>                      
+                      <input
+                      type="number"
+                      required
+                      id="basic_prem"
+                      disabled
+                      value="<%= basicPremium %>"
+                      name=""
+                      class="input-space"
+                      style="display: none;"
+                    />
+                      <input
+                      type="text"
+                      required
+                      id="PHCF"
+                      disabled
+                      value="<%= PHCF %>"
+                      name=""
+                      class="input-space"
+                      style="display: none;"
+                    />
+                      <input
+                      type="text"
+                      required
+                      id="levy"
+                      disabled
+                      value="<%= levy %>"
+                      name=""
+                      class="input-space"
+                      style="display: none;"
+                    />
+                      <input
+                      type="text"
+                      required
+                      id="stampDuty"
+                      disabled
+                      value="<%= stampDuty %>"
+                      name=""
+                      class="input-space"
+                      style="display: none;"
+                    />
+                      <form action="/insurancePay/<%= policyId %>" method="post" class="form-action">
+                        <div class="input-holder inside">
+                          <input
+                            type="text"
+                            placeholder="Comm. Rate"
+                            onkeyup="calc_rate(<%= basicPremium %>)"
+                            required
+                            id="com_rate"
+                            name="comm_rate"
+                            value="<%= comm_rate %>"
+                            style="max-width: 200px;"
+                            class="input-space"
+                          />
+                        </div>
+                        <div class="input-holder inside">
+                          <input
+                            type="text"
+                            placeholder="Comm. Amount(Kshs)"
+                            required
+                            id="com_amount"
+                            disabled
+                            style="background-color: #d4d4d4;max-width: 200px;"
+                            name=""
+                            class="input-space"
+                          />
+                          <input
+                            type="text"
+                            placeholder="Comm. Amount(poa)"
+                            required
+                            id="com_amount_poa"
+                            style="display: none;"
+                            name="comm_amount"
+                            class="input-space"
+                          />
+                        </div>
+                        <div class="input-holder inside">
+                          <input
+                            type="text"
+                            placeholder="Ovr. Rate"
+                            onkeyup="calc_ovr(<%= basicPremium %>)"
+                            required
+                            value="<%= ovr_rate %>"
+                            id="overide_rate"
+                            style="max-width: 200px;"
+                            name="ovr_rate"
+                            class="input-space"
+                          />
+                        </div>
+                        <div class="input-holder inside">
+                          <input
+                            type="text"
+                            placeholder="Ovr Amount (Kshs)"
+                            disabled
+                            id="overide_amount"
+                            style="background-color: #d4d4d4;max-width: 200px;"
+                            required
+                            name="ovr_rate"
+                            class="input-space"
+                          />
+                          <input
+                            type="text"
+                            placeholder="Ovr Amount (poa)"
+                            id="overide_amount_poa"
+                            style="display: none;"
+                            required
+                            name="ovr_amount"
+                            class="input-space"
+                          />
+                        </div>
+                        <div class="input-holder inside">
+                          <input
+                            type="text"
+                            placeholder="Special Discount"
+                            onkeyup="special_discs(<%= basicPremium %>)"
+                            required
+                            value="<%= special_disc %>"
+                            style="max-width: 200px;"
+                            id="special_discount"
+                            name=""
+                            class="input-space"
+                          />
+                          <input
+                            type="text"
+                            placeholder="Special Discount(Poa)"
+                            required
+                            id="special_discount_poa"
+                            style="display: none;"
+                            name="special_disc"
+                            class="input-space"
+                          />
+                        </div>
+                        <div class="input-holder inside">
+                          <input
+                            type="text"
+                            placeholder="Net Premium(Kshs)"
+                            required
+                            id="net_premium"
+                            disabled
+                            name=""
+                            class="input-space"
+                            style="background-color: #d4d4d4;max-width: 200px;"
+                          />
+                          <input
+                            type="text"
+                            placeholder="Net Premium(Poa)"
+                            required
+                            id="net_premium_poa"
+                            disabled
+                            name=""
+                            class="input-space"
+                            style="display: none;"
+                          />
+                        </div>
+                        <div class="input-holder inside">
+                          <input
+                            type="text"
+                            placeholder="Payment Due(Kshs)"
+                            required
+                            id="payment_due"
+                            disabled
+                            style="background-color: #d4d4d4;max-width: 200px;"
+                            name=""
+                            class="input-space"
+                          />
+                          <input
+                            type="number"
+                            placeholder="Payment Due(Poa)"
+                            required
+                            id="payment_due_poa"
+                            disabled
+                            style="display: none;"
+                            name=""
+                            class="input-space"
+                          />
+                        </div>
+                        <div class="button-holder" style="margin-left: 2rem">
+                          <button name="" class="btn add-new">Update</button>
+                        </div>
+                    </form>
+                    </div>
+                    <div class="data-col" style="background-color: #ebebeb;height: fit-content;margin: 1rem; padding: 1rem;border-radius: 0.5rem;">
+                      <h2 class="title" style="padding: 0 0 0 1rem;">Payment Section</h2>
+                      <form action="/creditPay/<%= policyId %>" method="post" class="form-action">
+                        <div class="input-holder inside">
+                          <input
+                            type="text"
+                            placeholder="Amount (Kshs)"
+                            required
+                            name="p_paid"
+                            class="input-space"
+                          />
+                        </div>
+                        <div class="input-holder split">
+                          <input
+                            type="text"
+                            placeholder="Date Paid"
+                            onblur="(this.type='text')"
+                            onfocus="(this. type='date')"
+                            id="end_date"
+                            required
+                            name="p_date"
+                            class="input-space"
+                          />
+                        </div>
+                        <div class="input-holder inside">
+                          <select
+                            name="p_mode"
+                            class="input-space"
+                            required
+                          >
+                            <option value="" selected>Select Payment Mode</option>
+                            <option value="Cash">Cash</option>
+                            <option value="M-Pesa">M-Pesa</option>
+                            <option value="Bank Trasfer">Bank Trasfer</option>
+                          </select>
+                        </div>
+                        <div class="input-holder inside">
+                          <input
+                            type="text"
+                            placeholder="Ref Number"
+                            required
+                            name="refNumber"
+                            class="input-space"
+                          />
+                        </div>
+                        <div class="button-holder" style="margin-left: 1rem;display: flex;justify-content: center;">
+                          <button name="" class="btn">Make Payment</button>
+                        </div>
+                    </form>
+                    </div>
+                  
+                <div class="rows">
                   <div class="data-col">
                     <div class="dash-table-display">
                       <table class="info-list-table">
@@ -93,18 +327,30 @@
                             <th>Paiment Doc</th>
                           </tr>
                         </thead>
-                        <tbody id="myTable">    
+                        <tbody id="myTable">
+                            <% if(creditPay.length > 0) {%>
+                                <% for(let singleCredit of creditPay){%>
+                                    <tr>
+                                      <td><%=singleCredit.p_date  %>  </td>
+                                      <td><%=singleCredit.p_paid %> </td>
+                                      <td><%=singleCredit.p_mode  %> </td>
+                                      <td><%=singleCredit.refNumber %> </td>
+                                      <td><a href="">./mpesa/receipt0809.pdf</a></td>
+                                    </tr> 
+                                     <% } %> 
+                                <% }else{%><% } %>      
                         </tbody>
                       </table>
                     </div>
                   </div>
-                </div> -->
+                </div>
               </div>
             </div>
           </div>
         </div>
       </div>
     </div>
+    <script src="/js/insurance_calc.js"></script>
     <script src="/js/time.js"></script>
     <script src="/js/nav.js"></script>
   </body>

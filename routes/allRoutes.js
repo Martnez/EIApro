@@ -104,6 +104,8 @@ router.get('/delete-policy/:clientId',isAuth,underwritingControllers.getdeletePo
 router.post('/credit/:policyId',isAuth,creditControllers.postCredit);
 router.get('/credit/:policyId',isAuth,creditControllers.getCredit);
 router.get('/insurancePay/:policyId',isAuth,creditControllers.getInsurancePay);
+router.post('/insurancePay/:policyId',isAuth,creditControllers.postInsurancePay);
+router.post('/creditPay/:policyId',isAuth,creditControllers.postCreditPay);
 
 
 
