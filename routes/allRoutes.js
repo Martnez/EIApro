@@ -12,6 +12,7 @@ const claimsControllers = require("../controllers/claims");
 
 const editControllers = require("../controllers/edits")
 const creditControllers = require("../controllers/credit")
+const reportsControllers = require("../controllers/reports")
 const isAuth = require('../middleware/auth');
 
 const router = express.Router();
@@ -67,6 +68,8 @@ router. get('/logs',isAuth,homeControllers.getLogs);
 
 router.get('/user-profile/:userId',isAuth,homeControllers.getUserProfile);
 
+router.post('/user-profile/:userId',isAuth,homeControllers.getUserProfileEdit);
+
 router.get('/delete-user/:userId',isAuth,homeControllers.postDeleteUser);
 
 router.get('/reset-flag/:userId',isAuth,homeControllers.postResetFlag);
@@ -80,6 +83,7 @@ router.get('/new-claim/:policyType',isAuth,claimsControllers.getNewClaim);
 router.post('/new-claim',claimsControllers.postNewClaim);
 
 router.get('/claim-view/:claimId',isAuth,claimsControllers.getClaimView);
+
 // all edits
 router.get('/edit/:vehicleId',isAuth,editControllers.getVehicleEdit);
 
@@ -102,9 +106,17 @@ router.get('/delete-client/:clientId',isAuth,clientsControllers.getdeleteClient)
 router.get('/delete-policy/:clientId',isAuth,underwritingControllers.getdeletePolicy)
 // credit
 router.post('/credit/:policyId',isAuth,creditControllers.postCredit);
+
 router.get('/credit/:policyId',isAuth,creditControllers.getCredit);
+
 router.get('/insurancePay/:policyId',isAuth,creditControllers.getInsurancePay);
+
+router.get('/credit',isAuth,reportsControllers.getReports);
+
+router.get('/paymentlist',isAuth,reportsControllers.getPaymentList);
+
 router.post('/insurancePay/:policyId',isAuth,creditControllers.postInsurancePay);
+
 router.post('/creditPay/:policyId',isAuth,creditControllers.postCreditPay);
 
 

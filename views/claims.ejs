@@ -38,10 +38,7 @@
               <a href="/vehicles" class="link">Vehicles</a>
             </li>
             <li class="list">
-              <a href="" class="link">Credit</a>
-            </li>
-            <li class="list">
-              <a href="" class="link">Reports</a>
+              <a href="/credit" class="link">Reports</a>
             </li>
           </ul>
           <ul class="links lower">
@@ -103,12 +100,12 @@
                       <% for(let claim of claims) { %>  
                         <!-- <input type="hidden" name="claimId" value="<%= claim.id %> ">    -->
                   <tr onclick="document.location='/claim-view/<%= claim.id %>'">
-                    <td><%=claim.policy.client.firstName%></td>
+                    <td><%=claim.policy.client.lastName%></td>
                     <td><%=claim.claimType%></td>
                     <td><% if( claim.policy.policytype =="NonMotor vehicles") { %>
                       <%= claim.policy.policyName%>
                          <% } else {%>
-                          <%=claim.policy.regN %> 
+                          <%=claim.policy.vehicle.RegN %> 
                           <%}%>
                     </td>
                     <% const sum_insured = claim.policy.sumInsured %>

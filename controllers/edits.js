@@ -203,18 +203,19 @@ exports.postVehicleEdit=(req,res,next)=>{
     const policytype= 'NonMotor vehicles';
     let stampDuty =req.body.stampDuty;
     let rate = req.body.rate;
- console.log(rate)
     const policyName= req.body.policyName;
     const signature = user.firstName;
     const regN= req.body.regN;
     const chassisN= req.body.chassisN;
     const remarks = req.body.remarks;
-    console.log(remarks)
     const coverType = req.body.coverType;
     const policyNumber= req.body.policyNumber;
     const policyStart= req.body.policyStart;
     const policyEnd = req.body.policyEnd;
-    let sumInsured= req.body.sumInsuredPoa;
+    let sumInsuredBetter=req.body.sumInsuredPoa;
+    let basicSum=req.body.sumInsuredPoa
+    if(coverType=="Work Injury Benefit"|| coverType== "Personal Accident"  || coverType=="Group Personal Accident")
+    {sumInsuredBetter=req.body.sum_insured_better};
     const insurer =req.body.insurer;
     let PAL = req.body.PAL;
     let MP = req.body.MP;
@@ -222,13 +223,15 @@ exports.postVehicleEdit=(req,res,next)=>{
     let TPL=req.body.TPL;
     let newStampDuty = (stampDuty-0) || 0;
     let NewRate = (rate-0) || 1;
-    let newSumInsured=(sumInsured-0) || 0;
+    let newSumInsured=(sumInsuredBetter-0) || 0;
+    let newBasicSum=(basicSum-0) || 0;
     let newPAL= (PAL-0) || 0;
     let newMP = (MP-0) || 0;
     let newPVT= (PVT-0) || 0;
     let newTPL= (TPL-0) || 0;
     let basicPremium = (newSumInsured *(NewRate/100));
-    if(coverType=="Work Injury Benefit"|| "Personal Accident" || "Group Personal Accident"){basicPremium=newSumInsured};
+    if(coverType=="Work Injury Benefit"|| coverType== "Personal Accident"  || coverType=="Group Personal Accident"){basicPremium=newBasicSum};
+    console.log(coverType);
       let subBasic = (basicPremium +newPAL+newMP+newPVT+newTPL);
       let trainingLevy= (subBasic * 0.002);
       let PHCF = (subBasic * 0.0025);
@@ -241,7 +244,6 @@ exports.postVehicleEdit=(req,res,next)=>{
           policy.levy=trainingLevy,
           policy.remarks=remarks,
           policy.PHCF=PHCF,
-          policy.signature=signature,
           policy.rate=rate,
           policy.stampDuty= stampDuty,
           policy.PVT=PVT,
@@ -251,7 +253,7 @@ exports.postVehicleEdit=(req,res,next)=>{
           policy.policytype= policytype,
           policy.policyName= policyName,
           policy.coverType= coverType,
-          policy.sumInsured= sumInsured,
+          policy.sumInsured= sumInsuredBetter,
           policy.insurer= insurer,
           policy.policyNumber= policyNumber,
           policy.policyStart= policyStart,
@@ -353,7 +355,6 @@ exports.postVehicleEdit=(req,res,next)=>{
             policy=>{
               policy.levy=trainingLevy,
               policy.PHCF=PHCF,
-              policy.signature=signature,
               policy.remarks=remarks,
               policy.basicPremium=basicPremium,
               policy.rate=rate,

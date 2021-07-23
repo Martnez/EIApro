@@ -1,266 +1,213 @@
-let basic_premium_main = document.getElementById("basic_prem");
-let PHCF = document.getElementById("PHCF");
-let levy = document.getElementById("levy");
-let stampDuty = document.getElementById("stampDuty");
+//INPUT VARIABLES
+let sum_insured = document.getElementById("sum_insured");
+let basic_prem_rate = document.getElementById("basic_prem_rate");
+let basic_prem_amount = document.getElementById("basic_prem_amount");
+let phcf = document.getElementById("phcf");
+let training_levy = document.getElementById("training_levy");
+let comm_rate = document.getElementById("comm_rate");
+let comm_amount = document.getElementById("comm_amount");
+let special_discount = document.getElementById("special_discount");
+let net_premium = document.getElementById("net_premium");
+let loading_prem_amount = document.getElementById("loading_prem_amount");
+let total_prem_amount = document.getElementById("total_prem_amount");
+let basic_total_new = document.getElementById("basic_total_new");
 
-var com_rate = document.getElementById("com_rate");
-var com_amount = document.getElementById("com_amount");
-var com_amount_poa = document.getElementById("com_amount_poa");
+//BENEFITS & GLOBAL VARIABLES
+let exPro = document.getElementById("exPro").value;
+let poliTe = document.getElementById("poliTe").value;
+let perAcc = document.getElementById("perAcc").value;
+let lossOfUse = document.getElementById("lossOfUse").value;
+let pll = document.getElementById("pll").value;
+let rescueBenefit = document.getElementById("rescueBenefit").value;
+let windscreen = document.getElementById("windscreen").value;
+let pvt = document.getElementById("pvt").value;
+let mp = document.getElementById("mp").value;
+let pal = document.getElementById("pal").value;
+let tpl = document.getElementById("tpl").value;
 
-var overide_rate = document.getElementById("overide_rate");
-var overide_amount = document.getElementById("overide_amount");
-var overide_amount_poa = document.getElementById("overide_amount_poa");
+let phcf_val = document.getElementById("phcf_poa");
+let training_levy_val = document.getElementById("training_levy_poa");
+let stamp_duty_val = document.getElementById("stamp_duty_poa");
+let basic_prem_val = document.getElementById("basic_prem_poa");
+let comm_amount_val = document.getElementById("comm_amount_poa");
+let special_discount_val = document.getElementById("special_discount_poa");
+let net_premium_val = document.getElementById("net_premium_poa");
+let total_prem_amount_val = document.getElementById("total_prem_amount_poa");
 
-var special_discount = document.getElementById("special_discount");
-var special_discount_poa = document.getElementById("special_discount_poa");
+let phcf_poa = phcf_val.value;
+let training_levy_poa = training_levy_val.value;
+let stamp_duty_poa = stamp_duty_val.value;
+let basic_prem_poa = basic_prem_val.value;
+let comm_amount_poa = comm_amount_val.value;
+let special_discount_poa = special_discount_val.value;
+let net_premium_poa = net_premium_val.value;
+let total_prem_amount_poa = total_prem_amount_val.value;
 
-var net_premium_poa = document.getElementById("net_premium_poa");
-var payment_due_poa = document.getElementById("payment_due_poa");
-var net_premium_poa = document.getElementById("net_premium_poa");
-var payment_due_poa = document.getElementById("payment_due_poa");
+//GLOBAL WORKINGS
 
-let phcf_poa = PHCF.value;
-let levy_poa = levy.value;
-let stampDuty_poa = stampDuty.value;
-let basic_premium_poa = basic_premium_main.value;
-
-let phcf_clean = phcf_poa.replace(/,/g, "");
-let levy_clean = levy_poa.replace(/,/g, "");
-let stampDuty_clean = stampDuty_poa.replace(/,/g, "");
-let basic_premium_clean = basic_premium_poa.replace(/,/g, "");
-
-if (phcf_clean == "") {
-  phcf_clean = 0;
+if (phcf_poa == "") {
+  phcf_poa = 0;
 }
-if (levy_clean == "") {
-  levy_clean = 0;
+if (training_levy_poa == "") {
+  training_levy_poa = 0;
 }
-if (stampDuty_clean == "") {
-  stampDuty_clean = 0;
+if (stamp_duty_poa == "") {
+  stamp_duty_poa = 0;
 }
-if (basic_premium_clean == "") {
-  basic_premium_clean = 0;
+if (basic_prem_poa == "") {
+  basic_prem_poa = 0;
 }
-
-/////////////////////////////////////////////////////////////////////////
-//////////////////CALC RATE CALCULATIONS CODE REFRESH////////////////////
-/////////////////////////////////////////////////////////////////////////
-let new_com_amount = basic_premium_clean * (com_rate.value / 100);
-
-com_amount.value = "0";
-
-let whole_cash = Math.round(new_com_amount);
-var new_cash = whole_cash.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
-com_amount.value = "Kshs " + new_cash;
-com_amount_poa.value = whole_cash;
-/////////////////////////////////////////////////////////////////////////
-/////////////////////////////////////////////////////////////////////////
-/////////////////////////////////////////////////////////////////////////
-
-/////////////////////////////////////////////////////////////////////////
-////////////////OVVERIDE RATE CALCULATIONS CODE REFRESH//////////////////
-/////////////////////////////////////////////////////////////////////////
-let new_ovr_amount = basic_premium_clean * (overide_rate.value / 100);
-
-overide_amount.value = "0";
-
-let whole_cash_new = Math.round(new_ovr_amount);
-var new_cash = whole_cash_new.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
-overide_amount.value = "Kshs " + new_cash;
-overide_amount_poa.value = whole_cash_new;
-/////////////////////////////////////////////////////////////////////////
-/////////////////////////////////////////////////////////////////////////
-/////////////////////////////////////////////////////////////////////////
-
-/////////////////////////////////////////////////////////////////////////
-////////////////SPECIAL DISC CALCULATIONS CODE REFRESH//////////////////
-/////////////////////////////////////////////////////////////////////////
-var cash = special_discount.value;
-var clean_up = cash.replace("Kshs ", "");
-var clean_up2 = clean_up
-  .replace(/,/g, "")
-  .replace("N", "")
-  .replace("NaN", "")
-  .replace("n", "")
-  .replace("E", "")
-  .replace("e", "")
-  .replace("A", "")
-  .replace("a", "")
-  .replace("Q", "")
-  .replace("q", "");
-
-if (clean_up2 == "") {
-  special_discount.value = "";
-  special_discount_poa.value = "0";
-} else {
-  var no_Nans = clean_up2.replace("NaN", "");
-  var no_zeros = parseInt(no_Nans);
-  var new_cash = no_zeros.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
-  special_discount.value = "Kshs " + new_cash;
-  special_discount_poa.value = no_zeros;
+if (comm_amount_poa == "") {
+  comm_amount_poa = 0;
 }
-/////////////////////////////////////////////////////////////////////////
-/////////////////////////////////////////////////////////////////////////
-//////////////////NET CALCULATIONS CODE REFRESH//////////////////////////
-/////////////////////////////////////////////////////////////////////////
-
-var comm_cash2 = com_amount_poa.value;
-if (comm_cash2 == "") {
-  comm_cash2 = 0;
+if (special_discount_poa == "") {
+  special_discount_poa = 0;
 }
-var over_cash2 = overide_amount_poa.value;
-if (over_cash2 == "") {
-  over_cash2 = 0;
-}
-var special_cash2 = special_discount_poa.value;
-if (special_cash2 == "") {
-  special_cash2 = 0;
+if (net_premium_poa == "") {
+  net_premium_poa = 0;
 }
 
-var totals =
-  parseInt(comm_cash2) + parseInt(over_cash2) + parseInt(special_cash2);
+let total_benefits =
+  parseFloat(exPro) +
+  parseFloat(poliTe) +
+  parseFloat(perAcc) +
+  parseFloat(lossOfUse) +
+  parseFloat(pll) +
+  parseFloat(rescueBenefit) +
+  parseFloat(windscreen) +
+  parseFloat(pvt) +
+  parseFloat(mp) +
+  parseFloat(pal) +
+  parseFloat(tpl);
 
-var net_prem = basic_premium_clean - totals;
-var new_cash = net_prem.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
-net_premium.value = "Kshs " + new_cash;
-net_premium_poa.value = net_prem;
+let kshs_total_benefits = total_benefits
+  .toString()
+  .replace(/\B(?=(\d{3})+(?!\d))/g, ",");
 
-let total_premiums =
-  parseInt(phcf_clean) + parseInt(levy_clean) + parseInt(stampDuty_clean);
+loading_prem_amount.value = "Kshs " + kshs_total_benefits;
 
-let pend_due = net_prem + total_premiums;
-var new_cash = pend_due.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
-payment_due.value = "Kshs " + new_cash;
-payment_due_poa.value = pend_due;
-/////////////////////////////////////////////////////////////////////////
-/////////////////////////////////////////////////////////////////////////
-/////////////////////////////////////////////////////////////////////////
-/////////////////////////////////////////////////////////////////////////
+// ON WINDOW LOAD FUNCTION CALLING
+basicPremCalc();
+special_disc();
+///////////////////////////////////////
+//Functions Begin here-----
+//////////////////////////////////////
 
-function calc_rate(basic_premium) {
-  let new_com_amount = basic_premium * (com_rate.value / 100);
+function basicPremCalc() {
+  let sum_insured_val = sum_insured.value;
+  let basic_prem_rate_val = basic_prem_rate.value;
 
-  com_amount.value = "0";
-  net_premium.value = "0";
-
-  let whole_cash = Math.round(new_com_amount);
-  var new_cash = whole_cash.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
-  com_amount.value = "Kshs " + new_cash;
-  com_amount_poa.value = whole_cash;
-
-  ///////////////////////////////////////////////////////////
-  let phcf_poa = PHCF.value;
-  let levy_poa = levy.value;
-  let stampDuty_poa = stampDuty.value;
-
-  let phcf_clean = phcf_poa.replace(/,/g, "");
-  let levy_clean = levy_poa.replace(/,/g, "");
-  let stampDuty_clean = stampDuty_poa.replace(/,/g, "");
-  if (phcf_clean == "") {
-    phcf_clean = 0;
-  }
-  if (levy_clean == "") {
-    levy_clean = 0;
-  }
-  if (stampDuty_clean == "") {
-    stampDuty_clean = 0;
+  if (basic_prem_rate_val == "") {
+    basic_prem_rate_val = 0;
   }
 
-  var comm_cash2 = com_amount_poa.value;
-  if (comm_cash2 == "") {
-    comm_cash2 = 0;
-  }
-  var over_cash2 = overide_amount_poa.value;
-  if (over_cash2 == "") {
-    over_cash2 = 0;
-  }
-  var special_cash2 = special_discount_poa.value;
-  if (special_cash2 == "") {
-    special_cash2 = 0;
-  }
+  let sum_insured_clean = sum_insured_val.replace(/,/g, "");
+  let sum_insured_clean2 = sum_insured_clean.replace("Kshs ", "");
 
-  var totals =
-    parseInt(comm_cash2) + parseInt(over_cash2) + parseInt(special_cash2);
+  let basic_prem =
+    (parseFloat(sum_insured_clean2) * parseFloat(basic_prem_rate_val)) / 100;
+  let new_basic_prem = (
+    Math.round((basic_prem + Number.EPSILON) * 100) / 100
+  ).toFixed(2);
 
-  var net_prem = basic_premium - totals;
-  var new_cash = net_prem.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
-  net_premium.value = "Kshs " + new_cash;
-  net_premium_poa.value = net_prem;
+  let basic_total = parseFloat(basic_prem) + parseFloat(total_benefits);
+  let basic_total_newer = (
+    Math.round((basic_total + Number.EPSILON) * 100) / 100
+  ).toFixed(2);
 
-  let total_premiums =
-    parseInt(phcf_clean) + parseInt(levy_clean) + parseInt(stampDuty_clean);
-  console.log(total_premiums);
+  let kshs_new_basic_prem = new_basic_prem
+    .toString()
+    .replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+  let kshs_basic_total = basic_total_newer
+    .toString()
+    .replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+  /////////////////////////////////////////////////////////////////////////////
 
-  let pend_due = net_prem + total_premiums;
-  var new_cash = pend_due.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
-  payment_due.value = "Kshs " + new_cash;
-  payment_due_poa.value = pend_due;
+  let sub_basic_prem = parseFloat(new_basic_prem) + parseFloat(total_benefits);
+
+  let kshs_sub_basic_prem = sub_basic_prem
+    .toString()
+    .replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+
+  let phcf_amount = parseFloat(sub_basic_prem) * 0.0025;
+  let training_levy_amount = parseFloat(sub_basic_prem) * 0.002;
+
+  let new_phcf_amount = (
+    Math.round((phcf_amount + Number.EPSILON) * 100) / 100
+  ).toFixed(2);
+  let new_training_levy_amount = (
+    Math.round((training_levy_amount + Number.EPSILON) * 100) / 100
+  ).toFixed(2);
+
+  let kshs_phcf_amount = new_phcf_amount
+    .toString()
+    .replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+  let kshs_training_levy_amount = new_training_levy_amount
+    .toString()
+    .replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+
+  let total_basic_prem = (
+    parseFloat(basic_prem) +
+    parseFloat(phcf_amount) +
+    parseFloat(training_levy_amount) +
+    parseFloat(stamp_duty_val.value)
+  ).toFixed(2);
+
+  let total_basic_prem2 = (
+    parseFloat(basic_prem) +
+    parseFloat(phcf_amount) +
+    parseFloat(training_levy_amount) +
+    parseFloat(total_benefits) +
+    parseFloat(stamp_duty_val.value)
+  ).toFixed(2);
+
+  let kshs_total_basic_prem = total_basic_prem2
+    .toString()
+    .replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+
+  phcf.value = "Kshs " + kshs_phcf_amount;
+  phcf_val.value = new_phcf_amount;
+  training_levy.value = "Kshs " + kshs_training_levy_amount;
+  training_levy_val.value = new_training_levy_amount;
+
+  let basic_prem_newer = total_basic_prem;
+  let better = basic_prem_newer;
+
+  let kshs_basic_prem = better.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+
+  basic_prem_amount.value = "Kshs " + kshs_new_basic_prem;
+  basic_prem_val.value = new_basic_prem;
+
+  basic_total_new.value = "Kshs " + kshs_basic_total;
+
+  total_prem_amount.value = "Kshs " + kshs_total_basic_prem;
+  total_prem_amount_val.value = total_basic_prem2;
+
+  commRateCalc();
+  netPremiumCalc();
 }
 
-function calc_ovr(basic_premium) {
-  let new_ovr_amount = basic_premium * (overide_rate.value / 100);
+function commRateCalc() {
+  let comm_amt =
+    parseFloat(basic_prem_val.value) * parseFloat(comm_rate.value / 100);
 
-  overide_amount.value = "0";
-  net_premium.value = "0";
+  let new_comm_amt = (
+    Math.round((comm_amt + Number.EPSILON) * 100) / 100
+  ).toFixed(2);
 
-  let whole_cash = Math.round(new_ovr_amount);
-  var new_cash = whole_cash.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
-  overide_amount.value = "Kshs " + new_cash;
-  overide_amount_poa.value = whole_cash;
+  let kshs_comm_amt = new_comm_amt
+    .toString()
+    .replace(/\B(?=(\d{3})+(?!\d))/g, ",");
 
-  ///////////////////////////////////////////////////////////
-  let phcf_poa = PHCF.value;
-  let levy_poa = levy.value;
-  let stampDuty_poa = stampDuty.value;
-
-  let phcf_clean = phcf_poa.replace(/,/g, "");
-  let levy_clean = levy_poa.replace(/,/g, "");
-  let stampDuty_clean = stampDuty_poa.replace(/,/g, "");
-  if (phcf_clean == "") {
-    phcf_clean = 0;
-  }
-  if (levy_clean == "") {
-    levy_clean = 0;
-  }
-  if (stampDuty_clean == "") {
-    stampDuty_clean = 0;
-  }
-
-  var comm_cash2 = com_amount_poa.value;
-  if (comm_cash2 == "") {
-    comm_cash2 = 0;
-  }
-  var over_cash2 = overide_amount_poa.value;
-  if (over_cash2 == "") {
-    over_cash2 = 0;
-  }
-  var special_cash2 = special_discount_poa.value;
-  if (special_cash2 == "") {
-    special_cash2 = 0;
-  }
-
-  var totals =
-    parseInt(comm_cash2) + parseInt(over_cash2) + parseInt(special_cash2);
-
-  var net_prem = basic_premium - totals;
-  var new_cash = net_prem.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
-  net_premium.value = "Kshs " + new_cash;
-  net_premium_poa.value = net_prem;
-
-  let total_premiums =
-    parseInt(phcf_clean) + parseInt(levy_clean) + parseInt(stampDuty_clean);
-  console.log(total_premiums);
-
-  let pend_due = net_prem + total_premiums;
-  var new_cash = pend_due.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
-  payment_due.value = "Kshs " + new_cash;
-  payment_due_poa.value = pend_due;
+  comm_amount.value = "Kshs " + kshs_comm_amt;
+  comm_amount_val.value = new_comm_amt;
+  netPremiumCalc();
 }
 
-function special_disc(basic_premium) {
-  var cash = special_discount.value;
-  var clean_up = cash.replace("Kshs ", "");
-  var clean_up2 = clean_up
+function special_disc() {
+  let cash = special_discount.value;
+  let clean_up = cash.replace("Kshs ", "");
+  let clean_up2 = clean_up
     .replace(/,/g, "")
     .replace("N", "")
     .replace("NaN", "")
@@ -271,63 +218,41 @@ function special_disc(basic_premium) {
     .replace("a", "")
     .replace("Q", "")
     .replace("q", "");
-
   if (clean_up2 == "") {
     special_discount.value = "";
-    special_discount_poa.value = "0";
+    special_discount_val.value = "0";
   } else {
-    var no_Nans = clean_up2.replace("NaN", "");
-    var no_zeros = parseInt(no_Nans);
-    var new_cash = no_zeros.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+    let no_Nans = clean_up2.replace("NaN", "");
+    let no_zeros = no_Nans;
+    let new_cash = no_zeros.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
     special_discount.value = "Kshs " + new_cash;
-    special_discount_poa.value = no_zeros;
+    special_discount_val.value = no_zeros;
   }
-  //////////////////////////////////////////////////////////////////
-  let phcf_poa = PHCF.value;
-  let levy_poa = levy.value;
-  let stampDuty_poa = stampDuty.value;
+  netPremiumCalc();
+}
 
-  let phcf_clean = phcf_poa.replace(/,/g, "");
-  let levy_clean = levy_poa.replace(/,/g, "");
-  let stampDuty_clean = stampDuty_poa.replace(/,/g, "");
-  if (phcf_clean == "") {
-    phcf_clean = 0;
-  }
-  if (levy_clean == "") {
-    levy_clean = 0;
-  }
-  if (stampDuty_clean == "") {
-    stampDuty_clean = 0;
-  }
+function netPremiumCalc() {
+  let deductions =
+    parseFloat(comm_amount_val.value) + parseFloat(special_discount_val.value);
+  let additions =
+    parseFloat(phcf_val.value) +
+    parseFloat(training_levy_val.value) +
+    parseFloat(stamp_duty_val.value);
+  let net_prem =
+    parseFloat(total_prem_amount_val.value) - parseFloat(deductions);
 
-  net_premium.value = "0";
-  var comm_cash2 = com_amount_poa.value;
-  if (comm_cash2 == "") {
-    comm_cash2 = 0;
-  }
-  var over_cash2 = overide_amount_poa.value;
-  if (over_cash2 == "") {
-    over_cash2 = 0;
-  }
-  var special_cash2 = special_discount_poa.value;
-  if (special_cash2 == "") {
-    special_cash2 = 0;
-  }
+  let new_net_prem = (
+    Math.round((net_prem + Number.EPSILON) * 100) / 100
+  ).toFixed(2);
 
-  var totals =
-    parseInt(comm_cash2) + parseInt(over_cash2) + parseInt(special_cash2);
+  console.log("total prem is: " + total_prem_amount_val.value);
+  console.log("additions are: " + additions);
+  console.log("Deductions are: " + deductions);
 
-  var net_prem = basic_premium - totals;
-  var new_cash = net_prem.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
-  net_premium.value = "Kshs " + new_cash;
-  net_premium_poa.value = net_prem;
+  let kshs_net_prem = new_net_prem
+    .toString()
+    .replace(/\B(?=(\d{3})+(?!\d))/g, ",");
 
-  let total_premiums =
-    parseInt(phcf_clean) + parseInt(levy_clean) + parseInt(stampDuty_clean);
-  console.log(total_premiums);
-
-  let pend_due = net_prem + total_premiums;
-  var new_cash = pend_due.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
-  payment_due.value = "Kshs " + new_cash;
-  payment_due_poa.value = pend_due;
+  net_premium.value = "Kshs " + kshs_net_prem;
+  net_premium_val.value = new_net_prem;
 }

@@ -1,0 +1,145 @@
+<%- include ('./includes/header') %>
+  <body>
+    <div class="dash-container">
+      <div class="hover-hamburger" id="hover_hamburger">
+        <div class="inner-hamburger">
+          <div class="bar"></div>
+          <div class="bar"></div>
+          <div class="bar"></div>
+        </div>
+      </div>
+      <div class="nav-overlay" id="overlay"></div>
+      <div class="side-bar" id="side_bar">
+        <div class="other-hover-hamburger show" id="other_hover_hamburger">
+          <div class="inner-hamburger">
+            <div class="bar"></div>
+            <div class="bar"></div>
+            <div class="bar"></div>
+          </div>
+        </div>
+        <div class="side-bar-content">
+          <div class="top-image-holder dash-img">
+            <img src="./images/eia_logo.png" alt="" />
+          </div>
+          <ul class="links">
+            <li class="list">
+              <a href="/dashboard" class="link">Home</a>
+            </li>
+            <li class="list">
+              <a href="/clients" class="link">Clients</a>
+            </li>
+            <li class="list">
+              <a href="/underwriting" class="link">Underwriting</a>
+            </li>
+            <li class="list">
+              <a href="/claims" class="link">Claims</a>
+            </li>
+            <li class="list">
+              <a href="/vehicles" class="link">Vehicles</a>
+            </li>
+            <li class="list">
+              <a href="/credit" class="link active">Reports</a>
+            </li>
+          </ul>
+          <ul class="links lower">
+            <li class="list">
+              <a href="/admin" class="link">Admin</a>
+            </li>
+            <li class="list">
+              <a href="/logout" class="link logout">Logout</a>
+            </li>
+          </ul>
+        </div>
+      </div>
+      <div class="top-bar">
+        <div class="user-name-space">
+          <div class="user-icon">
+            <div class="image-holder">
+              <img src="/images/user-img.png" alt="" />
+            </div>
+            <h3 class="username-dash">Hello <%= user.firstName %></h3>
+          </div>
+        </div>
+      </div>
+      <div class="time-bar">
+        <h3 id="date_value"></h3>
+      </div>
+      <div class="dash-main">
+        <div class="dash-content">
+          <div class="client-content">
+            <!-- <div class="top-search-bar">
+              <div class="search-input-holder">
+                <input
+                  type="text"
+                  style="margin: 1rem"
+                  id="search_table"
+                  placeholder="Search"
+                  class="search-input"
+                  onkeyup="myFunction()"
+                />
+              </div>
+            </div> -->
+
+            <div class="dash-table-display">
+              <div class="top-nav-holder">
+                <div class="top-nav-options">
+                  <a
+                    href="/credit"
+                    class="nav-options-link "
+                    style="padding: 0.8rem 1.5rem"
+                    >Debit List</a
+                  >
+                  <a
+                    href="/paymentlist"
+                    class="nav-options-link active"
+                    style="padding: 0.8rem 1.5rem"
+                    >Payment List</a
+                  >
+                </div>
+                <!-- <div class="period-selectors">
+                  <div class="input-holder">
+                    <input
+                      class="input-space"
+                      type="month"
+                      id="period_selector"
+                      placeholder="Type Year"
+                    />
+                  </div>
+                </div> -->
+              </div>
+              <table class="info-list-table" id="example">
+                <thead>
+                  <tr>
+                    <th>Client Name</th>
+                    <th>Type of cover</th>
+                    <th>Policy. No.</th>
+                    <th>Reg. No.</th>
+                    <th>Basic Premium</th>
+                    <th>Special Disc.</th>
+                    <th>Training levy</th>
+                    <th>PHCF</th>
+                    <th>Stamp duty</th>
+                    <th>Grand Toatal</th>
+                    <th>Commision</th>
+                    <th>W.H.T</th>
+                    <th>Net Comm.</th>
+                    <th>Net Premium</th>
+                    <th>Net Overide</th>
+                    <th>After Overide</th>
+                  </tr>
+                </thead>
+                <tbody id="myTable">
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <script src="https://code.jquery.com/jquery-3.5.1.js"></script>
+    <script src="https://cdn.datatables.net/1.10.25/js/jquery.dataTables.min.js"></script>
+    <script src="./js/search_new.js"></script>
+    <script src="./js/time.js"></script>
+    <script src="./js/nav.js"></script>
+  </body>
+</html>

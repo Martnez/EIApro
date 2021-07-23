@@ -38,10 +38,7 @@
               <a href="/vehicles" class="link">Vehicles</a>
             </li>
             <li class="list">
-              <a href="" class="link">Credit</a>
-            </li>
-            <li class="list">
-              <a href="" class="link">Reports</a>
+              <a href="/credit" class="link">Reports</a>
             </li>
           </ul>
           <ul class="links lower">
@@ -82,13 +79,25 @@
                 <h2 class="data-input-title"><%= firstName %> <%=lastName %></h2>
                 <div class="rows">
                   <div class="data-col">
-                    <h2 class="title" style="padding: 0 0 0 1rem ;">Payments Calculations</h2>                      
-                      <input
-                      type="number"
+                    <h2 class="title" style="padding: 0 0 0 1rem ;">Payments Calculations</h2>
+                    <input
+                      type="text"
                       required
-                      id="basic_prem"
+                      placeholder="exPro"
+                      id="exPro"
                       disabled
-                      value="<%= basicPremium %>"
+                      value="<%=exPro%>"
+                      name=""
+                      class="input-space"
+                      style="display: none;"
+                    />
+                    <input
+                      type="text"
+                      required
+                      placeholder="poliTe"
+                      id="poliTe"
+                      disabled
+                      value="<%=poliTe%>"
                       name=""
                       class="input-space"
                       style="display: none;"
@@ -96,9 +105,10 @@
                       <input
                       type="text"
                       required
-                      id="PHCF"
+                      placeholder="perAcc"
+                      id="perAcc"
                       disabled
-                      value="<%= PHCF %>"
+                      value="<%=perAcc%>"
                       name=""
                       class="input-space"
                       style="display: none;"
@@ -106,9 +116,10 @@
                       <input
                       type="text"
                       required
-                      id="levy"
+                      placeholder="lossOfUse"
+                      id="lossOfUse"
                       disabled
-                      value="<%= levy %>"
+                      value="<%=lossOfUse%>"
                       name=""
                       class="input-space"
                       style="display: none;"
@@ -116,156 +127,460 @@
                       <input
                       type="text"
                       required
-                      id="stampDuty"
+                      placeholder="pll"
+                      id="pll"
                       disabled
-                      value="<%= stampDuty %>"
+                      value="<%=pll%>"
                       name=""
                       class="input-space"
                       style="display: none;"
                     />
+                      <input
+                      type="text"
+                      required
+                      placeholder="rescueBenefit"
+                      id="rescueBenefit"
+                      disabled
+                      value="<%=rescueBenefit%>"
+                      name=""
+                      class="input-space"
+                      style="display: none;"
+                    />
+                      <input
+                      type="text"
+                      required
+                      placeholder="Windscreen"
+                      id="windscreen"
+                      disabled
+                      value="<%=Windscreen%>"
+                      name=""
+                      class="input-space"
+                      style="display: none;"
+                    />
+                      <input
+                      type="text"
+                      required
+                      placeholder="PVT"
+                      id="pvt"
+                      disabled
+                      value="<%=PVT%>"
+                      name=""
+                      class="input-space"
+                      style="display: none;"
+                    />
+                      <input
+                      type="text"
+                      required
+                      placeholder="MP"
+                      id="mp"
+                      disabled
+                      value="<%=MP%>"
+                      name=""
+                      class="input-space"
+                      style="display: none;"
+                    />
+                      <input
+                      type="text"
+                      required
+                      placeholder="PAL"
+                      id="pal"
+                      disabled
+                      value="<%=PAL%>"
+                      name=""
+                      class="input-space"
+                      style="display: none;"
+                      />
+                      <input
+                      type="text"
+                      required
+                      placeholder="TPL"
+                      id="tpl"
+                      disabled
+                      value="<%=TPL%>"
+                      name=""
+                      class="input-space"
+                      style="display: none;"
+                      />
                       <form action="/insurancePay/<%= policyId %>" method="post" class="form-action">
-                        <div class="input-holder inside">
-                          <input
-                            type="text"
-                            placeholder="Comm. Rate"
-                            onkeyup="calc_rate(<%= basicPremium %>)"
-                            required
-                            id="com_rate"
-                            name="comm_rate"
-                            value="<%= comm_rate %>"
-                            style="max-width: 200px;"
-                            class="input-space"
-                          />
+                        <div class="split-diplay">
+                          <div class="input-holder split" style="flex-wrap: wrap">
+                            <h4
+                              style="
+                                width: 100%;
+                                margin: 0.2rem 0;
+                                font-weight: 400;
+                                font-size: 15px;
+                              "
+                            >
+                            Sum Insured(Kshs)
+                            </h4>
+                            <input
+                              type="text"
+                              placeholder="Sum Insured (Kshs)"
+                              id="sum_insured"
+                              disabled
+                              value="Kshs <%= sumInsured %>"
+                              style="background-color: #d4d4d4;max-width: 180px;"
+                              name=""
+                              class="input-space"
+                            />
+                            <% let sumInsured_clean = sumInsured.replace(/,/g, "");%>
+                            <input
+                              type="text"
+                              placeholder="sum Insured Poa"
+                              id="sum_insured_poa"
+                              name=""
+                              value="<%= sumInsured_clean %>"
+                              class="input-space"
+                              style="display: none;"
+                            />
+                          </div>
+                          <div class="input-holder split" style="flex-wrap: wrap">
+                            <h4
+                              style="
+                                width: 100%;
+                                margin: 0.2rem 0;
+                                font-weight: 400;
+                                font-size: 15px;
+                              "
+                            >
+                            PHCF (Kshs)
+                            </h4>
+                            <input
+                              type="text"
+                              placeholder="PHCF (Kshs)"
+                              id="phcf"
+                              disabled
+                              style="background-color: #d4d4d4;max-width: 180px;"
+                              name=""
+                              class="input-space"
+                            />
+                            <input
+                              type="text"
+                              placeholder="PHCF Poa"
+                              id="phcf_poa"
+                              name="PHCF"
+                              class="input-space"
+                              style="display: none;"
+                            />
+                          </div>
                         </div>
-                        <div class="input-holder inside">
+                        <div class="split-diplay">
+                          <div class="input-holder split" style="flex-wrap: wrap">
+                            <h4
+                              style="
+                                width: 100%;
+                                margin: 0.2rem 0;
+                                font-weight: 400;
+                                font-size: 15px;
+                              "
+                            >
+                            Basic Prem. Rate (%)
+                            </h4>
+                            <input
+                              type="text"
+                              placeholder="Basic Prem. (%)"
+                              onkeyup="basicPremCalc()"
+                              id="basic_prem_rate"
+                              style="max-width: 180px;"
+                              name="premium_rate"
+                              class="input-space"
+                              value="<%=premium_rate  %>"
+                            />
+                          </div>
+                          <div class="input-holder split" style="flex-wrap: wrap">
+                            <h4
+                              style="
+                                width: 100%;
+                                margin: 0.2rem 0;
+                                font-weight: 400;
+                                font-size: 15px;
+                              "
+                            >
+                            Training Levy (Kshs)
+                            </h4>
+                            <input
+                              type="text"
+                              placeholder="Training Levy (Kshs)"
+                              id="training_levy"
+                              disabled
+                              style="background-color: #d4d4d4;max-width: 180px;"
+                              name=""
+                              class="input-space"
+                            />
+                            <input
+                              type="text"
+                              placeholder="Training Levy Poa"
+                              id="training_levy_poa"
+                              name="levy"
+                              class="input-space"
+                              style="display: none;"
+                            />
+                          </div>
+                        </div>
+                        <div class="split-diplay">
+                          <div class="input-holder split" style="flex-wrap: wrap">
+                            <h4
+                              style="
+                                width: 100%;
+                                margin: 0.2rem 0;
+                                font-weight: 400;
+                                font-size: 15px;
+                              "
+                            >
+                            Basic Prem. (Kshs)
+                            </h4>
+                            <input
+                              type="text"
+                              placeholder="Basic Prem. (Kshs)"
+                              id="basic_prem_amount"
+                              disabled
+                              style="background-color: #d4d4d4;max-width: 180px;"
+                              name=""
+                              class="input-space"
+                            />
+                            <input
+                              type="text"
+                              placeholder="Basic Premium Poa"
+                              id="basic_prem_poa"
+                              name="basicPremium"
+                              class="input-space"
+                              style="display: none;"
+                            />
+                          </div>
+                          <div class="input-holder split" style="flex-wrap: wrap">
+                            <h4
+                              style="
+                                width: 100%;
+                                margin: 0.2rem 0;
+                                font-weight: 400;
+                                font-size: 15px;
+                              "
+                            >
+                            Stamp Duty (Kshs)
+                            </h4>
+                            <input
+                              type="text"
+                              placeholder="Stamp Duty (Kshs)"
+                              id="stamp_duty"
+                              disabled
+                              value="Kshs <%= stampDuty %>"
+                              style="background-color: #d4d4d4;max-width: 180px;"
+                              name=""
+                              class="input-space"
+                            />
+                            <input
+                              type="text"
+                              placeholder="Stamp Duty Poa"
+                              id="stamp_duty_poa"
+                              value="<%= stampDuty %>"
+                              name="stampDuty"
+                              class="input-space"
+                              style="display: none;"
+                            />
+                          </div>
+                        </div>
+                        <div class="split-diplay">
+                          <div class="input-holder split" style="flex-wrap: wrap">
+                            <h4
+                              style="
+                                width: 100%;
+                                margin: 0.2rem 0;
+                                font-weight: 400;
+                                font-size: 15px;
+                              "
+                            >
+                            Loading Prem. (Kshs)
+                            </h4>
+                            <input
+                              type="text"
+                              placeholder="Loading Prem. (Kshs)"
+                              required
+                              value=""
+                              disabled
+                              style="background-color: #d4d4d4;max-width: 180px;"
+                              id="loading_prem_amount"
+                              name=""
+                              class="input-space"
+                            />
+                          </div>
+                          <div class="input-holder split" style="flex-wrap: wrap">
+                            <h4
+                              style="
+                                width: 100%;
+                                margin: 0.2rem 0;
+                                font-weight: 400;
+                                font-size: 15px;
+                              "
+                            >
+                            Basic Total (Kshs)
+                            </h4>
+                            <input
+                              type="text"
+                              placeholder="Basic Total (Kshs)"
+                              required
+                              id="basic_total_new"
+                              disabled
+                              style="background-color: #d4d4d4;max-width: 180px;"
+                              name=""
+                              class="input-space"
+                            />
+                          </div>
+                        </div>
+                        <div class="input-holder inside" style="flex-wrap: wrap">
+                          <h4
+                            style="
+                              width: 100%;
+                              margin: 0.2rem 0;
+                              font-weight: 400;
+                              font-size: 15px;
+                            "
+                          >
+                          Total Prem. Amount (Kshs)
+                          </h4>
                           <input
                             type="text"
-                            placeholder="Comm. Amount(Kshs)"
+                            placeholder="Total Prem. (Kshs)"
                             required
-                            id="com_amount"
+                            value=""
                             disabled
-                            style="background-color: #d4d4d4;max-width: 200px;"
+                            style="background-color: #d4d4d4;max-width: 180px;"
+                            id="total_prem_amount"
                             name=""
                             class="input-space"
                           />
                           <input
                             type="text"
-                            placeholder="Comm. Amount(poa)"
+                            placeholder="Total Prem Poa. (Kshs)"
                             required
-                            id="com_amount_poa"
-                            style="display: none;"
+                            value=""
+                            disabled
+                            style="background-color: #d4d4d4;max-width: 180px;display: none;"
+                            id="total_prem_amount_poa"
+                            name=""
+                            class="input-space"
+                          />
+                        </div>
+                        <br><br>
+                        <div class="input-holder inside" style="flex-wrap: wrap">
+                          <h4
+                            style="
+                              width: 100%;
+                              margin: 0.2rem 0;
+                              font-weight: 400;
+                              font-size: 15px;
+                            "
+                          >
+                          Comm. Rate (%)
+                          </h4>
+                          <input
+                            type="text"
+                            placeholder="Comm. Rate (%)"
+                            onkeyup="commRateCalc()"
+                            value="<%= comm_rate %>"
+                            style="max-width: 180px;"
+                            id="comm_rate"
+                            name="comm_rate"
+                            class="input-space"
+                          />
+                        </div>
+                        <div class="input-holder inside" style="flex-wrap: wrap">
+                          <h4
+                            style="
+                              width: 100%;
+                              margin: 0.2rem 0;
+                              font-weight: 400;
+                              font-size: 15px;
+                            "
+                          >
+                          Comm. Amount (Kshs)
+                          </h4>
+                          <input
+                            type="text"
+                            placeholder="Comm. Amount (Kshs)"
+                            value=""
+                            disabled
+                            style="background-color: #d4d4d4;max-width: 180px;"
+                            id="comm_amount"
+                            name=""
+                            class="input-space"
+                          />
+                          <input
+                            type="text"
+                            placeholder="Comm. Amount Poa"
+                            id="comm_amount_poa"
                             name="comm_amount"
                             class="input-space"
-                          />
-                        </div>
-                        <div class="input-holder inside">
-                          <input
-                            type="text"
-                            placeholder="Ovr. Rate"
-                            onkeyup="calc_ovr(<%= basicPremium %>)"
-                            required
-                            value="<%= ovr_rate %>"
-                            id="overide_rate"
-                            style="max-width: 200px;"
-                            name="ovr_rate"
-                            class="input-space"
-                          />
-                        </div>
-                        <div class="input-holder inside">
-                          <input
-                            type="text"
-                            placeholder="Ovr Amount (Kshs)"
-                            disabled
-                            id="overide_amount"
-                            style="background-color: #d4d4d4;max-width: 200px;"
-                            required
-                            name="ovr_rate"
-                            class="input-space"
-                          />
-                          <input
-                            type="text"
-                            placeholder="Ovr Amount (poa)"
-                            id="overide_amount_poa"
                             style="display: none;"
-                            required
-                            name="ovr_amount"
-                            class="input-space"
                           />
                         </div>
-                        <div class="input-holder inside">
+                        <div class="input-holder inside" style="flex-wrap: wrap">
+                          <h4
+                            style="
+                              width: 100%;
+                              margin: 0.2rem 0;
+                              font-weight: 400;
+                              font-size: 15px;
+                            "
+                          >
+                          Special Discount (Kshs)
+                          </h4>
                           <input
                             type="text"
-                            placeholder="Special Discount"
-                            onkeyup="special_discs(<%= basicPremium %>)"
-                            required
-                            value="<%= special_disc %>"
-                            style="max-width: 200px;"
+                            placeholder="Special Discount (Kshs)"
+                            onkeyup="special_disc()"
+                            value="<%=special_discount%>"
+                            style="max-width: 180px;"
                             id="special_discount"
                             name=""
                             class="input-space"
                           />
                           <input
                             type="text"
-                            placeholder="Special Discount(Poa)"
-                            required
+                            placeholder="Special Discount Poa"
                             id="special_discount_poa"
-                            style="display: none;"
-                            name="special_disc"
+                            name="special_discount"
                             class="input-space"
+                            style="display: none;"
                           />
                         </div>
-                        <div class="input-holder inside">
+                        <div class="input-holder inside" style="flex-wrap: wrap">
+                          <h4
+                            style="
+                              width: 100%;
+                              margin: 0.2rem 0;
+                              font-weight: 400;
+                              font-size: 15px;
+                            "
+                          >
+                          Net Premium (Kshs)
+                          </h4>
                           <input
                             type="text"
-                            placeholder="Net Premium(Kshs)"
-                            required
+                            placeholder="Net Premium (Kshs)"
                             id="net_premium"
                             disabled
+                            style="background-color: #d4d4d4;max-width: 180px;"
                             name=""
                             class="input-space"
-                            style="background-color: #d4d4d4;max-width: 200px;"
                           />
                           <input
                             type="text"
-                            placeholder="Net Premium(Poa)"
-                            required
+                            placeholder="Net Premium Poa"
                             id="net_premium_poa"
-                            disabled
-                            name=""
+                            name="netPremium"
                             class="input-space"
                             style="display: none;"
-                          />
-                        </div>
-                        <div class="input-holder inside">
-                          <input
-                            type="text"
-                            placeholder="Payment Due(Kshs)"
-                            required
-                            id="payment_due"
-                            disabled
-                            style="background-color: #d4d4d4;max-width: 200px;"
-                            name=""
-                            class="input-space"
-                          />
-                          <input
-                            type="number"
-                            placeholder="Payment Due(Poa)"
-                            required
-                            id="payment_due_poa"
-                            disabled
-                            style="display: none;"
-                            name=""
-                            class="input-space"
                           />
                         </div>
                         <div class="button-holder" style="margin-left: 2rem">
-                          <button name="" class="btn add-new">Update</button>
+                          <button name="" class="btn add-new">Set rates</button>
                         </div>
                     </form>
                     </div>
                     <div class="data-col" style="background-color: #ebebeb;height: fit-content;margin: 1rem; padding: 1rem;border-radius: 0.5rem;">
                       <h2 class="title" style="padding: 0 0 0 1rem;">Payment Section</h2>
-                      <form action="/creditPay/<%= policyId %>" method="post" class="form-action">
+                      <form action="/creditPay/<%= policyId %>" method="post" class="form-action" enctype="multipart/form-data">
                         <div class="input-holder inside">
                           <input
                             type="text"
@@ -308,6 +623,13 @@
                             class="input-space"
                           />
                         </div>
+                        <div class="input-holder inside">
+                          <input
+                            type="file"
+                            name="creditPayFile"
+                            class="input-space"
+                          />
+                        </div>
                         <div class="button-holder" style="margin-left: 1rem;display: flex;justify-content: center;">
                           <button name="" class="btn">Make Payment</button>
                         </div>
@@ -335,7 +657,7 @@
                                       <td><%=singleCredit.p_paid %> </td>
                                       <td><%=singleCredit.p_mode  %> </td>
                                       <td><%=singleCredit.refNumber %> </td>
-                                      <td><a href="">./mpesa/receipt0809.pdf</a></td>
+                                      <td><a href="http://192.168.0.34/EIApro/public/files/creditPay/<%=singleCredit.creditPayFile %>" download target="_blank"><%=singleCredit.creditPayFile %></a></td>
                                     </tr> 
                                      <% } %> 
                                 <% }else{%><% } %>      
@@ -350,6 +672,7 @@
         </div>
       </div>
     </div>
+    <!-- <script src="../js/new_insurance_calc.js"></script> -->
     <script src="/js/insurance_calc.js"></script>
     <script src="/js/time.js"></script>
     <script src="/js/nav.js"></script>

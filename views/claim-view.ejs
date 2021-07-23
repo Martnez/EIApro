@@ -38,10 +38,7 @@
               <a href="/vehicles" class="link">Vehicles</a>
             </li>
             <li class="list">
-              <a href="" class="link">Credit</a>
-            </li>
-            <li class="list">
-              <a href="" class="link">Reports</a>
+              <a href="/credit" class="link">Reports</a>
             </li>
           </ul>
           <ul class="links lower">
@@ -76,9 +73,11 @@
                 <a href="http://192.168.0.34/eiapro/php_files/claim-documents.php?id=<%=
                 claim.id %>&username=<%= user.firstName %>&policy=<%= claim.policy.policytype %>&cover=<%= claim.policy.coverType %>"
                 class="nav-options-link" class="nav-options-link">Image Documents</a>
+                <!-- <a href="/claim-documents/ " class="nav-options-link" class="nav-options-link">Amoh Image Documents</a> -->
               </div>
+              
               <div class="display-panel">
-                <h2 class="data-input-title">Claim Details</h2>
+                <h2 class="data-input-title"> <%= claim.policy.client.lastName %></h2>
                 <div class="rows">
                   <div class="data-col">
                     <div class="client-details-display">
@@ -109,11 +108,11 @@
                   <div class="data-col">
                     <div class="client-details-display">
                       <h4 class="main">Claim Amount:</h4>
-                      <h4>Kshs <%= claim.claimAmount %></h4>
+                      <h4>Kshs <%= claim.claimAmount.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',') %></h4>
                     </div>
                     <div class="client-details-display">
                       <h4 class="main">Offer Amount:</h4>
-                      <h4>Kshs <%= claim.offerAmount %></h4>
+                      <h4>Kshs <%= claim.offerAmount.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',') %></h4>
                     </div>
                     <div class="client-details-display">
                       <h4 class="main">Offer Date:</h4>
@@ -123,6 +122,7 @@
                       <h4 class="main">Compensation Date:</h4>
                       <h4><%= claim.compDate %></h4>
                     </div>
+                    <% if(claim.policy.policytype=="Motor vehicles"){%> 
                     <div class="client-details-display">
                       <h4 class="main">Garaged At :</h4>
                       <h4><%= claim.garagedAt %></h4>
@@ -131,6 +131,7 @@
                       <h4 class="main">Garage Contact:</h4>
                       <h4><%= claim.garageContact %></h4>
                     </div>
+                    <% } %> 
                   </div>
                 </div>
               </div>

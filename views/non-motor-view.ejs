@@ -38,10 +38,7 @@
               <a href="/vehicles" class="link">Vehicles</a>
             </li>
             <li class="list">
-              <a href="" class="link">Credit</a>
-            </li>
-            <li class="list">
-              <a href="" class="link">Reports</a>
+              <a href="/credit" class="link">Reports</a>
             </li>
           </ul>
           <ul class="links lower">
@@ -106,6 +103,8 @@
                       <h4 class="main">Remarks:</h4>
                       <h4><%= policy.remarks %></h4>
                     </div>
+                    <% const GrandTotal = policy.GrandTotal %>
+                    <% const currency_GrandTotal = GrandTotal.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',') %>
                     <div class="client-details-display glows">
                       <div class="glowing-holder">
                         <h4 class="main">Paiment Status:</h4>
@@ -113,7 +112,7 @@
                         
                         <h4>Paid</h4>
                         <div class="glow-box green"></div>
-                        <%}else if(pending==policy.GrandTotal) {%>
+                        <%}else if(pending==currency_GrandTotal) {%>
                            
                         <h4>Not Paid</h4>
                         <div class="glow-box red"></div>
@@ -125,7 +124,7 @@
                     </div>
                     <div class="client-details-display">
                       <h4 class="main">Premium Due:</h4>
-                      <h4>Kshs 10,000</h4>
+                      <h4>Kshs <%=pending  %> </h4>
                     </div>
                   </div>
                   <div class="data-col premiums">
@@ -154,7 +153,7 @@
                       <h4 class="main">Stamp Duty:</h4>
                       <% const stampDuty = policy.stampDuty %>
                       <% const currency_stampDuty = stampDuty.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',') %>
-                      <h4>Kshs <%= policy.stampDuty %></h4>
+                      <h4>Kshs <%= currency_stampDuty %></h4>
                     </div>
                     <div class="client-details-display">
                       <% if(policy.rate=="0"||"") {%> <%}else{ %>
@@ -202,15 +201,13 @@
                                <% } %>
                     </div>
                     <div class="client-details-display">
-                      <h4 class="main">Basic Premium:</h4>
+                      <h4 class="main">Basic Total:</h4>
                       <% const basicPremium = policy.basicPremium %>
                       <% const currency_basicPremium = basicPremium.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',') %>
                       <h4>Kshs <%= currency_basicPremium %></h4>
                     </div>
                     <div class="client-details-display">
                       <h4 class="main">Total Premium:</h4>
-                      <% const GrandTotal = policy.GrandTotal %>
-                      <% const currency_GrandTotal = GrandTotal.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',') %>
                       <h4>Kshs <%= currency_GrandTotal %></h4>
                     </div>
                   </div>

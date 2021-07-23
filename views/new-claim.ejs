@@ -38,10 +38,7 @@
               <a href="/vehicles" class="link">Vehicles</a>
             </li>
             <li class="list">
-              <a href="" class="link">Credit</a>
-            </li>
-            <li class="list">
-              <a href="" class="link">Reports</a>
+              <a href="/credit" class="link">Reports</a>
             </li>
           </ul>
           <ul class="links lower">
@@ -97,7 +94,10 @@
                       <datalist id="policy_lists">
                         <% if(policies.length > 0) { %> 
                           <% for(let policy of policies) { %>
-                            
+                          <%let vehicle = ""; %>
+                           <%   if (policy.vehicle != undefined) { 
+                              vehicle = policy.vehicle.RegN;  %> 
+                          <%}%>
                         <option  data-value="<%= policy.id%>|<%= policy.policyNumber %>|<%= policy.policytype%>|<%= policy.insurer%>|<%= policy.sumInsured%>|<%= policy.client.firstName%> <%= policy.client.lastName%>|<%= policy.coverType%>|<%= policy.policyStart%>|<%= policy.policyEnd%>"><%= policy.policyNumber %></option>
                         
                       <% } %>

@@ -22,7 +22,7 @@
         <div class="user-name-space">
           <div class="user-icon">
             <div class="image-holder">
-              <img src="./images/user-img.png" alt="" />
+              <img src="/images/user-img.png" alt="" />
             </div>
             <h3 class="username-dash">Hello <%= user.firstName %> </h3>
           </div>
@@ -39,7 +39,7 @@
                 <h2>Change User Account</h2>
                 <p>You can change the details in the below spaces</p>
                 <div class="new-user-dash">
-                  <form action="" method="post" class="form-action">
+                  <form action="/user-profile/<%= user.id %> " method="post" class="form-action">
                     <div class="form-contents">
                       <div class="split-diplay">
                         <div class="input-holder split">
@@ -49,7 +49,7 @@
                             required
                             name="firstName"
                             class="input-space"
-                            value="<%= user.firstName %> "
+                            value="<%= user.firstName %>"
                           />
                         </div>
                         <div class="input-holder split">
@@ -59,7 +59,7 @@
                             required
                             name="lastName"
                             class="input-space"
-                            value="<%= user.lastName %> "
+                            value="<%= user.lastName %>"
                           />
                         </div>
                       </div>
@@ -70,7 +70,7 @@
                           required
                           name="email"
                           class="input-space"
-                          value="<%= user.email %> "
+                          value="<%= user.email %>"
                         />
                       </div>
                       <div class="input-holder inside">
@@ -80,12 +80,12 @@
                           required
                           name="phoneNumber"
                           class="input-space"
-                          value="<%= user.phoneNumber %> "
+                          value="<%= user.phoneNumber %>"
                         />
                       </div>
                       <div class="input-holder inside">
-                        <select name="" class="input-space" required id="">
-                          <option value="" selected><%= user.userLevel %> </option>
+                        <select name="userLevel" class="input-space" required id="">
+                          <option value="<%= user.userLevel %>" selected><%= user.userLevel %> </option>
                           <option value="Admin">Admin</option>
                           <option value="Staff">Staff</option>
                         </select>
@@ -115,7 +115,7 @@
         </div>
       </div>
     </div>
-    <script src="./js/time.js"></script>
-    <script src="./js/nav.js"></script>
+    <script src="/js/time.js"></script>
+    <script src="/js/nav.js"></script>
   </body>
 </html>

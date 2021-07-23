@@ -15,15 +15,34 @@ const insurancePayment = sequelize.define('insurancePayment', {
     allowNull:true,
     defaultValue:'0'
   },
+  stampDuty:{
+    type: Sequelize.STRING,
+    allowNull:true,
+    defaultValue:'0'
+  },
+  levy:{
+    type: Sequelize.STRING,
+    allowNull:true,
+    defaultValue:'0'
+  },
+  phcf:{
+    type: Sequelize.STRING,
+    allowNull:true,
+    defaultValue:'0'
+  },
   comm_amount:{
     type: Sequelize.STRING,
     allowNull:true
   },
-  ovr_rate:{
+  basicPremium:{
     type: Sequelize.STRING,
     allowNull:true
   },
-  ovr_amount:{
+  netPremium:{
+    type: Sequelize.STRING,
+    allowNull:true
+  },
+  premium_rate:{
     type: Sequelize.STRING,
     allowNull:true
   },

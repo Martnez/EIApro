@@ -38,10 +38,7 @@
               <a href="/vehicles" class="link">Vehicles</a>
             </li>
             <li class="list">
-              <a href="" class="link">Credit</a>
-            </li>
-            <li class="list">
-              <a href="" class="link">Reports</a>
+              <a href="/credit" class="link">Reports</a>
             </li>
           </ul>
           <ul class="links lower">
@@ -243,7 +240,7 @@
                                     <% } %> 
                     </div>
                     <div class="client-details-display">
-                      <h4 class="main">Basic Premium:</h4>
+                      <h4 class="main">Basic Total:</h4>
                       <% const basicPremium = policy.basicPremium %>
                       <% const currency_basicPremium = basicPremium.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',') %>
                       <h4>Kshs <%= currency_basicPremium %></h4>

@@ -98,7 +98,7 @@
                 ?>
                     <div class="documents-holder">
                         <div class="doc-info">
-                            <h4>Policy Abstract</h4>
+                            <h4>Police Abstract</h4>
                         </div>
                         <div class="doc-info">
                         <?php

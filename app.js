@@ -10,6 +10,8 @@ const Sequelize = require('./util/database');
 
 const path = require('path');
 
+const multer= require("multer");
+
 const SequelizeStore = require('connect-session-sequelize')(session.Store);
 
 const User =require('./models/User');
@@ -44,7 +46,21 @@ app.set('view engine', 'ejs');
 app.set('views', 'views');
 
 app.use(bodyParser.urlencoded({extended:false}));
+var storage = multer.diskStorage({
+  destination: function (req, file, cb) {
+    if(file.fieldname=="creditPayFile"){ cb(null,path.join(__dirname, "./public/files/creditPay"));};
+    if(file.fieldname=="creditCollectFile"){ cb(null,path.join(__dirname, "./public/files/creditCollection"));}; 
+  },
+  filename: function (req, file, cb) {
+    cb(null,file.originalname);
+  },
+});
 
+var upload = multer({ storage: storage });
+
+var uploadMultiple = upload.fields([{ name: 'creditPayFile'}, { name: 'creditCollectFile'}])
+
+app.use(uploadMultiple);
 app.use(
     session({
       secret: "endeavors",
@@ -104,7 +120,7 @@ Clients.hasMany(Vehicle);
 Credit.belongsTo(Policies,({constraints: true, onDelete:"CASCADE"}));
 Policies.hasMany(Credit);
 insurancePayment.belongsTo(Policies,({constraints: true, onDelete:"CASCADE"}));
-Policies.hasMany(insurancePayment);
+Policies.hasOne(insurancePayment);
 creditPayment.belongsTo(Policies,({constraints: true, onDelete:"CASCADE"}));
 Policies.hasMany(creditPayment);
 

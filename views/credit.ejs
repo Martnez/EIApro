@@ -1,0 +1,204 @@
+<%- include ('./includes/header') %>
+  <body>
+    <div class="dash-container">
+      <div class="hover-hamburger" id="hover_hamburger">
+        <div class="inner-hamburger">
+          <div class="bar"></div>
+          <div class="bar"></div>
+          <div class="bar"></div>
+        </div>
+      </div>
+      <div class="nav-overlay" id="overlay"></div>
+      <div class="side-bar" id="side_bar">
+        <div class="other-hover-hamburger show" id="other_hover_hamburger">
+          <div class="inner-hamburger">
+            <div class="bar"></div>
+            <div class="bar"></div>
+            <div class="bar"></div>
+          </div>
+        </div>
+        <div class="side-bar-content">
+          <div class="top-image-holder dash-img">
+            <img src="./images/eia_logo.png" alt="" />
+          </div>
+          <ul class="links">
+            <li class="list">
+              <a href="/dashboard" class="link">Home</a>
+            </li>
+            <li class="list">
+              <a href="/clients" class="link">Clients</a>
+            </li>
+            <li class="list">
+              <a href="/underwriting" class="link">Underwriting</a>
+            </li>
+            <li class="list">
+              <a href="/claims" class="link">Claims</a>
+            </li>
+            <li class="list">
+              <a href="/vehicles" class="link">Vehicles</a>
+            </li>
+            <li class="list">
+              <a href="/credit" class="link active">Credit</a>
+            </li>
+          </ul>
+          <ul class="links lower">
+            <li class="list">
+              <a href="/admin" class="link">Admin</a>
+            </li>
+            <li class="list">
+              <a href="/logout" class="link logout">Logout</a>
+            </li>
+          </ul>
+        </div>
+      </div>
+      <div class="top-bar">
+        <div class="user-name-space">
+          <div class="user-icon">
+            <div class="image-holder">
+              <img src="/images/user-img.png" alt="" />
+            </div>
+            <h3 class="username-dash">Hello <%= user.firstName %></h3>
+          </div>
+        </div>
+      </div>
+      <div class="time-bar">
+        <div class="green-btn-holder">
+          <button onclick="exportTableToExcel('example','EIA_report')" class="btn green-btn">Export to excel</button>
+        </div>
+        <div class="time-holder">
+          <h3 id="date_value"></h3>
+        </div>
+      </div>
+      <div class="dash-main">
+        <div class="dash-content">
+          <div class="client-content">
+            <!-- <div class="top-search-bar">
+              <div class="search-input-holder">
+                <input
+                  type="text"
+                  style="margin: 1rem"
+                  id="search_table"
+                  placeholder="Search"
+                  class="search-input"
+                  onkeyup="myFunction()"
+                />
+              </div>
+            </div> -->
+
+            <div class="dash-table-display reports_prev">
+              <!-- <div class="top-nav-holder">
+                <div class="top-nav-options">
+                  <a
+                    href="/credit"
+                    class="nav-options-link active"
+                    style="padding: 0.8rem 1.5rem"
+                    >Debit List</a
+                  >
+                  <a
+                    href="/paymentlist"
+                    class="nav-options-link"
+                    style="padding: 0.8rem 1.5rem"
+                    >Payment List</a
+                  >
+                </div>
+                <div class="period-selectors">
+                  <div class="input-holder">
+                    <input
+                      class="input-space"
+                      type="month"
+                      id="period_selector"
+                      placeholder="Type Year"
+                    />
+                  </div>
+                </div>
+              </div> -->
+              <table class="info-list-table" id="example">
+                <thead>
+                  <tr>
+                    <th>Client Name</th>
+                    <th>Cover Type</th>
+                    <th>Reg No.</th>
+                    <th>Policy No.</th>
+                    <th>Collection Prem.</th>
+                    <th>Payment Prem.</th>
+                    <th>Rate B(%)</th>
+                    <th>Basic Prem(B)</th>
+                    <th>Levy(B)</th>
+                    <th>PHCF(B)</th>
+                    <th>Stamp Duty</th>
+                  </tr>
+                </thead>
+                <tbody id="myTable">
+                <% if(policies.length>0 ) {%> 
+                    <% for(policy of policies){%> 
+                  <tr>
+                    <td><%= policy.client.firstName %> <%= policy.client.lastName %> </td>
+                    <td><%= policy.coverType %> </td>
+                    <td>
+                      <% if( policy.policytype =="NonMotor vehicles") { %>
+                          <%= policy.policyName%>
+                      <% } else {%>
+                          <%= policy.vehicle.RegN %>                              
+                      <%}%>
+                   </td>
+                   <td><%= policy.policyNumber %></td>
+                    <td><%= policy.GrandTotal%> </td>
+                    <% let payment =""%>
+                    <% if(policy.insurancePayment!=undefined){payment=policy.insurancePayment.netPremium %> <%}%>  
+                    <td><%= payment %></td>
+                    <% let rateB =""%>
+                    <% if(policy.insurancePayment!=undefined){rateB=policy.insurancePayment.premium_rate%> <%}%>
+                    <td><%= rateB %> </td>
+                    <% let premiumB =""%>
+                    <% if(policy.insurancePayment!=undefined){ premiumB=policy.insurancePayment.basicPremium%> <%}%>
+                    <td><%= premiumB %> </td>
+                    <% let levyB =""%>
+                    <% if(policy.insurancePayment!=undefined){ levyB=policy.insurancePayment.basicPremium%> <%}%>
+                    <td><%= levyB %></td>
+                    <% let phcfB =""%>
+                    <% if(policy.insurancePayment!=undefined){ phcfB=policy.insurancePayment.basicPremium%> <%}%>
+                    <td><%= phcfB %> </td>
+                    <td><%= policy.stampDuty %></td>
+                  </tr>
+                  <% } %> 
+                  <% }%>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <script>
+      function exportTableToExcel(tableID, filename=''){
+        var downloadLink;
+        var dataType= 'application/vnd.ms-excel';
+        var tableSelect= document.getElementById(tableID);
+        var tableHTML= tableSelect.outerHTML.replace(/ /g,'%20');
+        // specify file name
+        filename = filename?filename +'.xls':'excel_data.xls';
+        //create download link element
+        downloadLink=document.createElement("a");
+        document.body.appendChild(downloadLink);
+        if(navigator.msSaveOrOpenBlob){
+          var blob = new Blob(['\ufeff',tableHTML],{
+            type:dataType
+          });
+          navigator.msSaveOrOpenBlob(blob,filename);
+        }else{
+          //create a link to the file
+          downloadLink.href ='data:'+dataType+','+tableHTML;
+          //setting the file name
+          downloadLink.download=filename;
+          //triggering the function
+          downloadLink.click();
+        }
+      }
+    </script>
+    <script src="https://code.jquery.com/jquery-3.5.1.js"></script>
+    <script src="https://cdn.datatables.net/1.10.25/js/jquery.dataTables.min.js"></script>
+    <script src="./js/search_new.js"></script>
+    <script src="./js/time.js"></script>
+    <script src="./js/nav.js"></script>
+  </body>
+</html>

@@ -188,7 +188,10 @@ exports.getUnderwriting= (req,res,next) =>{
     const policyNumber= req.body.policyNumber;
     const policyStart= req.body.policyStart;
     const policyEnd = req.body.policyEnd;
-    let sumInsured= req.body.sumInsuredPoa;
+    let sumInsuredBetter=req.body.sumInsuredPoa;
+    let basicSum=req.body.sumInsuredPoa
+    if(coverType=="Work Injury Benefit"|| coverType== "Personal Accident"  || coverType=="Group Personal Accident")
+    {sumInsuredBetter=req.body.sum_insured_better};
     const insurer =req.body.insurer;
     let PAL = req.body.PAL;
     let MP = req.body.MP;
@@ -196,13 +199,15 @@ exports.getUnderwriting= (req,res,next) =>{
     let TPL=req.body.TPL;
     let newStampDuty = (stampDuty-0) || 0;
     let NewRate = (rate-0) || 1;
-    let newSumInsured=(sumInsured-0) || 0;
+    let newSumInsured=(sumInsuredBetter-0) || 0;
+    let newBasicSum=(basicSum-0) || 0;
     let newPAL= (PAL-0) || 0;
     let newMP = (MP-0) || 0;
     let newPVT= (PVT-0) || 0;
     let newTPL= (TPL-0) || 0;
     let basicPremium = (newSumInsured *(NewRate/100));
-    if(coverType=="Work Injury Benefit"|| "Personal Accident" || "Group Personal Accident"){basicPremium=newSumInsured};
+    if(coverType=="Work Injury Benefit"|| coverType== "Personal Accident"  || coverType=="Group Personal Accident"){basicPremium=newBasicSum};
+    
       let subBasic = (basicPremium +newPAL+newMP+newPVT+newTPL);
       let trainingLevy= (subBasic * 0.002);
       let PHCF = (subBasic * 0.0025);
@@ -225,7 +230,7 @@ exports.getUnderwriting= (req,res,next) =>{
         policytype: policytype,
         policyName: policyName,
         coverType: coverType,
-        sumInsured: sumInsured,
+        sumInsured: sumInsuredBetter,
         insurer: insurer,
         policyNumber: policyNumber,
         policyStart: policyStart,

@@ -27,6 +27,10 @@ const creditPayment = sequelize.define('creditPayment', {
     type: Sequelize.STRING,
     allowNull:true
   },
+  creditPayFile:{
+    type: Sequelize.STRING,
+    allowNull:true
+  },
   
   
  

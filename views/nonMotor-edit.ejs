@@ -38,10 +38,7 @@
               <a href="/vehicles" class="link">Vehicles</a>
             </li>
             <li class="list">
-              <a href="" class="link">Credit</a>
-            </li>
-            <li class="list">
-              <a href="" class="link">Reports</a>
+              <a href="/credit" class="link">Reports</a>
             </li>
           </ul>
           <ul class="links lower">
@@ -400,7 +397,7 @@
                         />
                       </div>
                       <%  var item_disp = policy.sumInsured %> 
-                      <% if(policy.coverType=="Work Injury Benefit"||"Group Personal Accident" ||"Personal Accident"){%> 
+                      <% if(policy.coverType=="Work Injury Benefit"||policy.coverType=="Group Personal Accident" ||policy.coverType=="Personal Accident"){%> 
                       <% item_disp= policy.basicPremium %> <% } %> 
                       <div class="input-holder split" id="sum_insured_holders" style="flex-wrap: wrap">
                         <h4

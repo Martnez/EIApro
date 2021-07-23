@@ -4,13 +4,14 @@ const Policies= require('../models/policy');
 
 const Logs = require('../models/Logs');
 
-
+const insurancePay= require('../models/insurancePayment');
 
 const Clients =require('../models/Client');
+const Vehicles = require('../models/Vehicle');
 
 exports.getClaims= (req,res,next) =>{ 
     const user = req.user;
-Claim.findAll({order: [ [ 'createdAt', 'DESC']],include:{model:Policies,include:{model:Clients}}}).then(claims=>{
+Claim.findAll({order: [ [ 'createdAt', 'DESC']],include:{model:Policies,include:[{model:Clients},{model:Vehicles}]}}).then(claims=>{
     
     res.render('claims', {
         user:user,
@@ -24,7 +25,7 @@ Claim.findAll({order: [ [ 'createdAt', 'DESC']],include:{model:Policies,include:
   exports.getNewClaim= (req,res,next) =>{
     policyType =req.params.policyType
     const user = req.user;
-  Policies.findAll({include:{model:Clients}}).then(policies=>{
+  Policies.findAll({include:[{model:Clients},{model:Vehicles}]}).then(policies=>{
     res.render('new-claim', {
         user:user,
           pageTitle: 'new-claim',
@@ -69,12 +70,8 @@ date:current_date
   const reporterContact = req.body.reporterContact;
   const garagedAt = req.body.garagedAt;
   const garageContact = req.body.garageContact;
-//   const clientName = req.body.clientName
-
-  
-  
-   const claim = new Claim({
-     
+//   const clientName = req.body.clientName 
+   const claim = new Claim({ 
      reportDate:reportDate,
      lossDate:lossDate,
      signature:signature,
@@ -90,8 +87,6 @@ date:current_date
      garageContact:garageContact,
      description:description,
      policyId:policyId,
-
-
    })
    claim.save()
    res.redirect('/claims')
@@ -101,15 +96,26 @@ exports.getClaimView= (req,res,next) =>{
     const user = req.user;
     const claimId = req.params.claimId;
     Claim.findOne({where:{id:claimId},include:[{model:Policies,include:{model:Clients}}]}).then(claim=>{
+  
     res.render('claim-view', {
       user:user,
       claim:claim,
         pageTitle: 'claim-view',
-        path: '/claim-view',
-        isAuthenticated: req.session.isLoggedIn,
+        path: '/claim-view'
         
   })
    
   });
   
   };
+  exports.getClaimDocument= (req,res,next)=>{
+    const claimId=req.params.claimId;
+    const user = req.user;
+    res.render('claim-documents', {
+      user:user,
+      claimId:claimId,
+        pageTitle: 'claim-documents',
+        path: '/claim-documents'
+        
+  })
+  }

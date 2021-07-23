@@ -38,10 +38,7 @@
               <a href="/vehicles" class="link">Vehicles</a>
             </li>
             <li class="list">
-              <a href="" class="link">Credit</a>
-            </li>
-            <li class="list">
-              <a href="" class="link">Reports</a>
+              <a href="/credit" class="link">Reports</a>
             </li>
           </ul>
           <ul class="links lower">
@@ -89,7 +86,7 @@
                     </div>
                     <div class="client-details-display">
                       <h4 class="main">Pending Premium:</h4>
-                      <h4>Kshs <%= pending%></h4>
+                      <h4 id="payment_pending">Kshs <%= pending%></h4>
                     </div>
                   </div>
                   <div class="data-col">
@@ -119,10 +116,10 @@
                     </div>
                     </div>
                 </div>
-                <h2 class="data-input-title" style="text-align: left;margin: 2rem 0 0.5rem 2.5rem;font-weight: 300;">New Payment</h2>
-                <div class="rows">
+                <div class="rows" id="payment_making">
+                  <h2 class="data-input-title" style="text-align: left;margin: 2rem 0 0.5rem 2.5rem;font-weight: 300;">New Payment</h2>
                   <div class="data-col">
-                      <form action="/credit/<%= policyId    %>" method="post" class="form-action">
+                      <form action="/credit/<%= policyId    %>" method="post" class="form-action" enctype="multipart/form-data">
                         <div class="input-holder inside">
                           <input
                             type="text"
@@ -166,6 +163,13 @@
                             class="input-space"
                           />
                         </div>
+                        <div class="input-holder inside">
+                          <input
+                            type="file"
+                            name="creditCollectFile"
+                            class="input-space"
+                          />
+                        </div>
                         <div class="button-holder" style="margin-left: 1rem">
                           <button name="" class="btn add-new">Update</button>
                         </div>
@@ -195,7 +199,7 @@
                                       <td><%=singleCredit.p_paid %> </td>
                                       <td><%=singleCredit.p_mode  %> </td>
                                       <td><%=singleCredit.refNumber %> </td>
-                                      <td><a href="">./mpesa/receipt0809.pdf</a></td>
+                                      <td><a href="http://192.168.0.34/EIApro/public/files/creditCollection/<%=singleCredit.crediCollectionFile %>" download target="_blank"><%=singleCredit.crediCollectionFile %></a></td>
                                     </tr> 
                                      <% } %> 
                                 <% }else{%><% } %>      
@@ -210,6 +214,7 @@
         </div>
       </div>
     </div>
+    <script src="/js/payment_disapper.js"></script>
     <script src="/js/time.js"></script>
     <script src="/js/nav.js"></script>
   </body>

@@ -34,7 +34,7 @@ exports.getNewUser=(req,res,next)=>{
         path: '/new-user',
         errorMessage: req.flash('email-error')
     })
-    .catch(err=>{console.log(err)});
+    
    
   })
 };
@@ -69,6 +69,23 @@ User.findOne({where:{email:email}}).then(user=>{
   }).catch(err => {
     console.log(err);
   });
+};
+exports.getUserProfileEdit=(req,res,next)=>{
+  const userId = req.params.userId;
+    const email =req.body.email;
+    const firstName= req.body.firstName;
+    const lastName = req.body.lastName;
+    const phone = req.body.phoneNumber;
+    const level = req.body.userLevel;
+User.findOne({where:{id:userId}}).then(user=>{
+        user.email= email;
+        user.phoneNumber=phone;
+        user.firstName=firstName;
+        user.lastName=lastName;
+        user.userLevel=level;
+        user.save();
+        res.redirect('/new-user');
+      });
 };
 exports.postIndex = (req,res,next)=>{
     const email = req.body.email;

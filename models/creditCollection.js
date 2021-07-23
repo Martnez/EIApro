@@ -27,6 +27,10 @@ const creditCollection = sequelize.define('creditCollection', {
     type: Sequelize.STRING,
     allowNull:true
   },
+  crediCollectionFile:{
+    type: Sequelize.STRING,
+    allowNull:true
+  },
   
   
  

@@ -1029,6 +1029,58 @@ img {
   box-shadow: 0 0 0.5rem rgb(255, 0, 0);
   background-image: radial-gradient(rgb(255, 45, 45), #941010);
 }
+.top-nav-holder {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+}
+.period-selectors {
+  width: 100%;
+  display: flex;
+  justify-content: flex-end;
+}
+.period-selectors .input-holder {
+  max-width: 250px;
+}
+.period-selectors {
+  width: 100%;
+  display: flex;
+  justify-content: flex-end;
+}
+.dataTables_wrapper {
+  width: 100%;
+}
+#example_length {
+  margin: 1rem 0;
+}
+#example_filter {
+  margin: 1rem 0 !important;
+}
+
+.reports_prev table thead th {
+  font-size: 12px;
+}
+.reports_prev table tbody tr {
+  font-size: 12px;
+}
+.green-btn-holder {
+  width: 100%;
+  flex: 2;
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+}
+.time-holder {
+  width: 100%;
+  flex: 1;
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  justify-content: flex-end;
+}
+.green-btn {
+  background-color: #3bb363;
+}
 
 /* MEDIA QUERIES */
 
