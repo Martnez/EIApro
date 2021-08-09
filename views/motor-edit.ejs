@@ -38,7 +38,10 @@
               <a href="/vehicles" class="link">Vehicles</a>
             </li>
             <li class="list">
-              <a href="/credit" class="link">Reports</a>
+              <a href="" class="link">Credit</a>
+            </li>
+            <li class="list">
+              <a href="" class="link">Reports</a>
             </li>
           </ul>
           <ul class="links lower">
@@ -311,40 +314,61 @@
                         />
                       </div>
                     </div>
-                    <div class="input-holder inside" style="flex-wrap: wrap">
-                      <h4
-                        style="
-                          width: 100%;
-                          margin: 0.2rem 0;
-                          font-weight: 400;
-                          font-size: 15px;
-                        "
-                        id="sum_insured_label"
-                      >
-                      Sum Insured
-                      </h4>
-                      <input
-                        type="text"
-                        placeholder="Sum Insured (Kshs)"
-                        required
-                        onkeyup="cashConcut()"
-                        onblur="cashConcut()"
-                        value="<%= policy.sumInsured %>"
-                        id="sum_insured_input"
-                        name="sumInsured"
-                        class="input-space"
-                      />
-                    </div>
-                    <div class="input-holder inside" style="display: none">
-                      <input
-                        type="text"
-                        placeholder="Sum Insured Poa"
-                        required
-                        id="sum_insured_poa"
-                        name="sumInsuredPoa"
-                        value="<%= policy.sumInsured %>"
-                        class="input-space"
-                      />
+                    <div class="split-diplay">
+                      <div class="input-holder split" style="flex-wrap: wrap">
+                        <h4
+                          style="
+                            width: 100%;
+                            margin: 0.2rem 0;
+                            font-weight: 400;
+                            font-size: 15px;
+                          "
+                          id="sum_insured_label"
+                        >
+                        Sum Insured
+                        </h4>
+                        <input
+                          type="text"
+                          placeholder="Sum Insured (Kshs)"
+                          required
+                          onkeyup="cashConcut()"
+                          onblur="cashConcut()"
+                          value="<%= policy.sumInsured %>"
+                          id="sum_insured_input"
+                          name="sumInsured"
+                          class="input-space"
+                        />
+                      </div>
+                      <div class="input-holder inside" style="display: none">
+                        <input
+                          type="text"
+                          placeholder="Sum Insured Poa"
+                          required
+                          id="sum_insured_poa"
+                          name="sumInsuredPoa"
+                          class="input-space"
+                        />
+                      </div>
+                      <div class="input-holder split" style="flex-wrap: wrap">
+                        <h4
+                          style="
+                            width: 100%;
+                            margin: 0.2rem 0;
+                            font-weight: 400;
+                            font-size: 15px;
+                          "
+                        >
+                        Stamp Duty (Kshs)
+                        </h4>
+                        <input
+                          type="text"
+                          placeholder="stampDuty"
+                          required
+                          value="<%= policy.stampDuty %>"
+                          name="stampDuty"
+                          class="input-space"
+                        />
+                      </div>
                     </div>
                     <div class="input-holder inside" style="flex-wrap: wrap">
                       <h4
@@ -406,21 +430,15 @@
                             style="align-items: center"
                           >
                             <div class="checkbox-holder">
-                              <label for="excess_protector" class="check-box"
+                              <label  for="excess_protector" class="check-box"
                                 >Excess Protector (E.P)</label
                               >
-                              <input
-                                type="checkbox"
-                                class="check-box"
-                                id="excess_protector"
-                              />
                             </div>
                             <div class="check-box-holder-data">
                               <input
                                 type=""
                                 placeholder="Basic Premium(Kshs)"
                                 name="excessProtector"
-                                disabled
                                 value="<%= policy.exPro %>"
                                 id="ep_basic_premium"
                                 class="input-space"
@@ -436,19 +454,12 @@
                                 >Political Violence &amp; Terrorism Rate
                                 (P.V.T)</label
                               >
-                              <input
-                                type="checkbox"
-                                class="check-box"
-                                name=""
-                                id="pvt"
-                              />
                             </div>
                             <div class="check-box-holder-data">
                               <input
                                 type="number"
                                 placeholder="Basic Premium(Kshs)"
                                 name="pvt"
-                                disabled
                                 value="<%= policy.poliTe %>"
                                 id="pvt_basic_premium"
                                 class="input-space"
@@ -463,19 +474,12 @@
                               <label for="windscreen_benefit" class="check-box"
                                 >Windscreen Benefit</label
                               >
-                              <input
-                                type="checkbox"
-                                class="check-box"
-                                name=""
-                                id="windscreen_benefit"
-                              />
                             </div>
                             <div class="check-box-holder-data">
                               <input
                                 type="number"
                                 placeholder="Basic Premium(Kshs)"
                                 name="windscreenBenefit"
-                                disabled
                                 value="<%= policy.Windscreen %>"
                                 id="windscreen_benefit_basic_premium"
                                 class="input-space"
@@ -490,20 +494,33 @@
                               <label for="loss_of_use" class="check-box"
                                 >Loss of Use</label
                               >
-                              <input
-                                type="checkbox"
-                                class="check-box"
-                                name=""
-                                id="loss_of_use"
-                              />
                             </div>
                             <div class="check-box-holder-data">
                               <input
                                 type="number"
                                 placeholder="Basic Premium(Kshs)"
                                 name="lossOfUse"
-                                disabled
                                 value="<%= policy.lossOfUse %>"
+                                id="loss_of_use_basic_premium"
+                                class="input-space"
+                              />
+                            </div>
+                          </div>
+                          <div
+                            class="split-diplay other"
+                            style="align-items: center"
+                          >
+                            <div class="checkbox-holder">
+                              <label for="loss_of_use" class="check-box"
+                                >other Charges</label
+                              >
+                            </div>
+                            <div class="check-box-holder-data">
+                              <input
+                                type="number"
+                                placeholder="Other Charges(Kshs)"
+                                name="otherCharges"
+                                value="<%= policy.otherCharges %>"
                                 id="loss_of_use_basic_premium"
                                 class="input-space"
                               />
@@ -521,19 +538,12 @@
                           <label for="pll" class="check-box"
                             >Passanger Legal Liability (P.L.L)</label
                           >
-                          <input
-                            type="checkbox"
-                            class="check-box"
-                            name=""
-                            id="pll"
-                          />
                         </div>
                         <div class="check-box-holder-data">
                           <input
                             type="number"
                             placeholder="Basic Premium(Kshs)"
                             name="passangerLegalLiability"
-                            disabled
                             value="<%= policy.pll %>"
                             id="pll_benefit_basic_premium"
                             class="input-space"
@@ -548,19 +558,12 @@
                           <label for="rescue_benefit" class="check-box"
                             >Rescue Benefit</label
                           >
-                          <input
-                            type="checkbox"
-                            class="check-box"
-                            name=""
-                            id="rescue_benefit"
-                          />
                         </div>
                         <div class="check-box-holder-data">
                           <input
                             type="number"
                             placeholder="Basic Premium(Kshs)"
                             name="rescueBenefit"
-                            disabled
                             value="<%= policy.rescueBenefit %>"
                             id="rescue_benefit_basic_premium"
                             class="input-space"
@@ -575,19 +578,12 @@
                           <label for="personal_accident" class="check-box"
                             >Personal Accident (P.A)</label
                           >
-                          <input
-                            type="checkbox"
-                            class="check-box"
-                            name=""
-                            id="personal_accident"
-                          />
                         </div>
                         <div class="check-box-holder-data">
                           <input
                             type="number"
                             placeholder="Basic Premium(Kshs)"
                             name="personalAccident"
-                            disabled
                             value="<%= policy.PAL %>"
                             id="personal_accident_basic_premium"
                             class="input-space"

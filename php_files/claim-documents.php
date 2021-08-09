@@ -88,6 +88,7 @@
                 <a href="" class="nav-options-link active"
                   >Image Documents</a
                 >
+                <a href="http://192.168.0.34:3000/claim-action/<?php echo $id?>" class="nav-options-link">Action Log</a>
               </div>
               <div class="display-panel">
                 <h2 class="data-input-title">Claim Documents</h2>

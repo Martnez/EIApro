@@ -1,0 +1,209 @@
+<%- include ('./includes/header.ejs') %>
+  <body>
+    <div class="dash-container">
+      <div class="hover-hamburger" id="hover_hamburger">
+        <div class="inner-hamburger">
+          <div class="bar"></div>
+          <div class="bar"></div>
+          <div class="bar"></div>
+        </div>
+      </div>
+      <div class="nav-overlay" id="overlay"></div>
+      <div class="side-bar" id="side_bar">
+        <div class="other-hover-hamburger show" id="other_hover_hamburger">
+          <div class="inner-hamburger">
+            <div class="bar"></div>
+            <div class="bar"></div>
+            <div class="bar"></div>
+          </div>
+        </div>
+        <div class="side-bar-content">
+          <div class="top-image-holder dash-img">
+            <img src="/images/eia_logo.png" alt="" />
+          </div>
+          <ul class="links">
+            <li class="list">
+              <a href="/dashboard" class="link">Home</a>
+            </li>
+            <li class="list">
+              <a href="/clients" class="link">Clients</a>
+            </li>
+            <li class="list">
+              <a href="/underwriting" class="link">Underwriting</a>
+            </li>
+            <li class="list">
+              <a href="/claims" class="link active">Claims</a>
+            </li>
+            <li class="list">
+              <a href="/vehicles" class="link">Vehicles</a>
+            </li>
+            <li class="list">
+              <a href="/credit" class="link">Reports</a>
+            </li>
+          </ul>
+          <ul class="links lower">
+            <li class="list">
+              <a href="/admin/" class="link">Admin</a>
+            </li>
+            <li class="list">
+              <a href="/logout" class="link logout">Logout</a>
+            </li>
+          </ul>
+        </div>
+      </div>
+      <div class="top-bar">
+        <div class="user-name-space">
+          <div class="user-icon">
+            <div class="image-holder">
+              <img src="/images/user-img.png" alt="" />
+            </div>
+            <h3 class="username-dash">Hello <%= user.firstName %> </h3>
+          </div>
+        </div>
+      </div>
+      <div class="time-bar">
+        <h3 id="date_value"></h3>
+      </div>
+      <div class="dash-main">
+        <div class="dash-content">
+          <div class="client-profile-content">
+            <div class="details-display">
+              
+              <div class="display-panel">
+                <h2 class="data-input-title"> <%= claim.policy.client.lastName %></h2>
+                <div class="rows">
+                  <div class="data-col">
+                    <div class="client-details-display">
+                      <h4 class="main">Report Date:</h4>
+                      <h4><%= claim.reportDate %></h4>
+                    </div>
+                    <div class="client-details-display">
+                      <h4 class="main">Loss Date:</h4>
+                      <h4><%= claim.lossDate %></h4>
+                    </div>
+                    <div class="client-details-display">
+                      <h4 class="main">Claim Reporter :</h4>
+                      <h4><%= claim.reporter %></h4>
+                    </div>
+                    <div class="client-details-display">
+                      <h4 class="main">Reporter No:</h4>
+                      <h4><%= claim.reporterContact %></h4>
+                    </div>
+                    <div class="client-details-display">
+                      <h4 class="main">Signature:</h4>
+                      <h4><%= claim.signature %></h4>
+                    </div>
+                    <% if(claim.policy.policytype=="Motor vehicles"){%> 
+                    <div class="client-details-display">
+                      <h4 class="main">Garaged At :</h4>
+                      <h4><%= claim.garagedAt %></h4>
+                    </div>
+                    <div class="client-details-display">
+                      <h4 class="main">Garage Contact:</h4>
+                      <h4><%= claim.garageContact %></h4>
+                    </div>
+                    <% } %> 
+                  </div>
+                  <div class="data-col">
+                    <form action="/claim-edit/<%= claim.id %> " method="post" class="form-action">
+                      <div class="client-details-display">
+                        <h4 class="main" style="flex: 1;">Claim  Type:</h4>
+                        <input
+                        type="text"
+                        placeholder="Claim  Type"
+                        style="flex: 2;margin: 0 5px"
+                        value="<%= claim.claimType %>"
+                        name="claimType"
+                        class="input-space"
+                      />
+                      </div>
+                      <div class="client-details-display">
+                        <h4 class="main" style="flex: 1;">Claim Description:</h4>
+                        <textarea
+                        type="text"
+                        rows="10"
+                        placeholder="Claim Description"
+                        style="flex: 2;margin: 0 5px;height: auto;max-height: 100px;"
+                        name="description"
+                        class="input-space"
+                        ><%= claim.description %></textarea>
+                      </div>
+                    <div class="client-details-display">
+                      <h4 class="main" style="flex: 1;">Claim Amount:</h4>
+                      <input
+                      type="text"
+                      placeholder="Claim Amount"
+                      required 
+                      style="flex: 2;margin: 0 5px"
+                      value="<%= claim.claimAmount %>"
+                      name="claimAmount"
+                      class="input-space"
+                    />
+                    </div>
+                    <div class="client-details-display">
+                      <h4 class="main" style="flex: 1;">Offer Amount:</h4>
+                      <input
+                      type="text"
+                      placeholder="Offer Amount"
+                      required 
+                      style="flex: 2;margin: 0 5px"
+                      value="<%= claim.offerAmount %>"
+                      name="offerAmount"
+                      class="input-space"
+                    />
+                    </div>
+                    <div class="client-details-display">
+                      <h4 class="main" style="flex: 1;">Offer Date:</h4>
+                      <input
+                      type="text"
+                      placeholder="Offer Date"
+                      onblur="(this.type='text')"
+                      onfocus="(this. type='date')"
+                      required 
+                      style="flex: 2;margin: 0 5px"
+                      value="<%= claim.offerDate %>"
+                      name="offerDate"
+                      class="input-space"
+                    />
+                    </div>
+                    <div class="client-details-display">
+                      <h4 class="main" style="flex: 1;">Compensation Date:</h4>
+                        <input
+                        type="text"
+                        placeholder="Compensation Date"
+                        onblur="(this.type='text')"
+                        onfocus="(this. type='date')"
+                        required 
+                        style="flex: 2;margin: 0 5px"
+                        value="<%= claim.compDate %>"
+                        name="compDate"
+                        class="input-space"
+                      />
+                    </div>
+                    <div class="client-details-display">
+                      <h4 class="main" style="flex: 1;">Claim Status:</h4>
+                        <select name="status" class="input-space"
+                        style="flex: 2;margin: 0 5px">
+                          <option value="<%= claim.status_ %>" selected><%= claim.status_ %> </option>
+                          <option value="Open">Open</option>
+                          <option value="Settled">Settled</option>
+                          <option value="Declined">Declined</option>
+                          <option value="Repudated">Repudated</option>
+                        </select>
+                    </div>
+                    <div class="client-details-display">
+                      <button class="btn add-new">Update</button>
+                    </div>
+                    </form>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <script src="./js/time.js"></script>
+    <script src="./js/nav.js"></script>
+  </body>
+</html>

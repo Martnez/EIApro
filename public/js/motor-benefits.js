@@ -65,29 +65,30 @@ cover.addEventListener("change", function () {
   }
 });
 
-if (
-  cover.options[cover.selectedIndex].value == "" ||
-  cover.options[cover.selectedIndex].value == "Comprehensive"
-) {
-  benefits_list.style.display = "flex";
-} else {
-  benefits_list.style.display = "none";
-}
+// if (
+//   cover.options[cover.selectedIndex].value == "" ||
+//   cover.options[cover.selectedIndex].value == "Comprehensive"
+// ) {
+//   benefits_list.style.display = "flex";
+// } else {
+//   benefits_list.style.display = "none";
+// }
 
-cover.addEventListener("change", function () {
-  if (
-    cover.options[cover.selectedIndex].value == "" ||
-    cover.options[cover.selectedIndex].value == "Comprehensive"
-  ) {
-    benefits_list.style.display = "flex";
-  } else {
-    benefits_list.style.display = "none";
-  }
-});
+// cover.addEventListener("change", function () {
+//   if (
+//     cover.options[cover.selectedIndex].value == "" ||
+//     cover.options[cover.selectedIndex].value == "Comprehensive"
+//   ) {
+//     benefits_list.style.display = "flex";
+//   } else {
+//     benefits_list.style.display = "none";
+//   }
+// });
 
 //////////////////////////////////////////////////////////
 // CASH CONCUTINATION JS
 /////////////////////////////////////////////////////////
+cashConcut();
 function cashConcut() {
   var cash = sum_insured.value;
   var clean_up = cash.replace("Kshs ", "");
@@ -123,11 +124,6 @@ var selected = mv_class.options[mv_class.selectedIndex].value;
 var benefits_list = document.getElementById("benefits_list");
 
 if (mv_class.options[mv_class.selectedIndex].value == "") {
-  benefits_list.style.display = "none";
-} else if (
-  cover.options[cover.selectedIndex].value == "Third Party Fire and Theft" ||
-  cover.options[cover.selectedIndex].value == "Third Party"
-) {
   benefits_list.style.display = "none";
 } else {
   benefits_list.style.display = "flex";

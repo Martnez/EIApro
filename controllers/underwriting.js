@@ -54,10 +54,8 @@ exports.getUnderwriting= (req,res,next) =>{
     log.save();
     const clientId= req.body.clientName;
   const policytype= 'Motor vehicles';
-  let stampDuty ='40';
-  const excessProtector = req.body.excessProtector;
+  let stampDuty =req.body.stamp_duty;
   const rate = req.body.rate;
-  console.log(rate)
   const signature = user.firstName;
   const branch = req.body.branch;
   const remarks = req.body.remarks;
@@ -70,6 +68,7 @@ exports.getUnderwriting= (req,res,next) =>{
   const vehicleId = req.body.regN;
   const sumInsured= req.body.sumInsuredPoa;
   const insurer =req.body.insurer;
+  const otherCharges=req.body.otherCharges;
   let newSumInsured= (sumInsured-0) || 0;
   console.log(newSumInsured);
   const poliTe = req.body.pvt;
@@ -79,6 +78,7 @@ exports.getUnderwriting= (req,res,next) =>{
   const passangerLegalLiability =req.body.passangerLegalLiability;
   const rescueBenefit =req.body.rescueBenefit;
   let newStampDuty = (stampDuty-0) || 0;
+  let newOtherCharges =(otherCharges-0)|| 0;
   let NewRate = (rate-0) || 1;
   let newPoliTe= (poliTe-0) || 0;
   let newPerAcc= (perAcc-0) || 0;
@@ -87,29 +87,31 @@ exports.getUnderwriting= (req,res,next) =>{
   let pll =(passangerLegalLiability-0)||0;
   let rb=(rescueBenefit-0)||0;
   let newOtherBe = (wb+lof+pll+rb) || 0;
-  let expoRate =1;
-  let expo = 0;
+  // let expoRate =1;
+  let excessProtector = req.body.excessProtector;
+     expo=(excessProtector-0)||0;
   let basicPremium = 5000;
-  if(coverType=="Comprehensive"){expoRate=0.005};
-  if(mvClass.includes("Private")){expoRate=0.0025};
-    expo=(newSumInsured*expoRate);
-    if(!(mvClass.includes("Private"))&&coverType=="Comprehensive"&& expo <=5000){ expo=5000};
-  if(mvClass.includes("Private")&& expo<=2500){ expo=2500};
-  if(mvClass.includes("Private")&&coverType=="Comprehensive"&& expo<=2500){ expo=2500};
-  if(insurer=="Fidelity Shield  Insurance Co. Ltd" & expo<=5000){ expo=5000};
+  // if(coverType=="Comprehensive"){expoRate=0.005};
+  // if(mvClass.includes("Private")){expoRate=0.0025};
+    // expo=(newSumInsured*expoRate);
+    // if(!(mvClass.includes("Private"))&&coverType=="Comprehensive"&& expo <=5000){ expo=5000};
+  // if(mvClass.includes("Private")&& expo<=2500){ expo=2500};
+  // if(mvClass.includes("Private")&&coverType=="Comprehensive"&& expo<=2500){ expo=2500};
+  // if(insurer=="Fidelity Shield  Insurance Co. Ltd" & expo<=5000){ expo=5000};
    basicPremium =(newSumInsured*(NewRate/100));
   if(mvClass.includes("Private")&&coverType=="Comprehensive" && basicPremium<=20000){basicPremium=20000};
   if(coverType=="Third Party Fire and Theft"&& basicPremium<=15000){basicPremium=15000};
   if(coverType=="Third Party"){basicPremium = newSumInsured};
-  if(coverType=="Third Party"||coverType=="Third Party Fire and Theft"){expo=0}
+  // if(coverType=="Third Party"||coverType=="Third Party Fire and Theft"){expo=0}
       const subBasic = (basicPremium + expo + newPoliTe + newPerAcc + newOtherBe);
       const trainingLevy= (subBasic * 0.002);
       const PHCF = (subBasic * 0.0025);
       const GrandTotal = (newStampDuty + trainingLevy + PHCF + subBasic);
       const  policy= new Policies({
+        otherCharges:otherCharges,
         levy:trainingLevy,
         PHCF:PHCF,
-        exPro:expo,
+        exPro:excessProtector,
         clientId:clientId,
         signature:signature,
         remarks:remarks,
@@ -256,21 +258,40 @@ exports.getUnderwriting= (req,res,next) =>{
              t_paid+=credits[x].p_paid;
         }
         const pending=GrandTotal-t_paid;
-        const  PVT=policy.PVT;
-        const   MP=policy.MP;
-        const   PAL=policy.PAL;
-        const   TPL=policy.TPL; 
-        const   poliTe=policy.poliTe;
-        const   perAcc=policy.perAcc;
-        const   pll=policy.pll;
-        const   Windscreen= policy.windscreen;
-        const   rescueBenefit= policy.rescueBenefit;
-        const   lossOfUse =policy.lossOfUse;  
+        let otherCharges=policy.otherCharges;
+        let  PVT=policy.PVT;
+        let   MP=policy.MP;
+        let   PAL=policy.PAL;
+        let   TPL=policy.TPL; 
+        let   poliTe=policy.poliTe;
+        let   perAcc=policy.perAcc;
+        let   pll=policy.pll;
+        let   Windscreen= policy.windscreen;
+        let   rescueBenefit= policy.rescueBenefit;
+        let   lossOfUse =policy.lossOfUse; 
+        let  basicPremium =policy.basicPremium;
+        let exPro =policy.exPro
+        newbasicPremium=(basicPremium-0)||0;
+        otherCharges=(otherCharges-0)||0;
+        lossOfUse=(lossOfUse-0)||0;
+        Windscreen=(Windscreen-0)||0;
+        pll=(pll-0)||0;
+        perAcc=(perAcc-0)||0;
+        poliTe=(poliTe-0)||0;
+        TPL=(TPL-0)||0;
+        PAL=(PAL-0)||0;
+        MP=(MP-0)||0;
+        PVT=(PVT-0)||0;
+        exPro=(exPro-0)||0;
         if(policy.policytype == 'Motor vehicles'){
+        const subBasic = (newbasicPremium +poliTe+perAcc+pll+Windscreen+rescueBenefit+lossOfUse+exPro);
+        
         res.render('motor-view',{
           user:user,
           poliTe:poliTe,
           perAcc:perAcc,
+          otherCharges:otherCharges,
+          subBasic:subBasic,
           pll:pll,
           pending:pending.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ','),
           name:name,
@@ -282,12 +303,15 @@ exports.getUnderwriting= (req,res,next) =>{
             path:'/motor-view',
         });
         }else{
+          
+        const subBasic = (newbasicPremium +PAL+MP+PVT+TPL);
           res.render('non-motor-view',{
             user:user,
             PVT:PVT,
             MP:MP,
             PAL:PAL,
             name:name,
+            subBasic:subBasic,
             pending:pending.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ','),
             TPL:TPL,
             user:user ,

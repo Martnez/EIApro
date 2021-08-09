@@ -174,7 +174,11 @@ const Policy = sequelize.define('policy', {
     allowNull:true,
     defaultValue:'0'
   },
- 
+  otherCharges:{
+    type: Sequelize.INTEGER,
+    allowNull:true,
+    defaultValue:'0'
+  },
 
   
  

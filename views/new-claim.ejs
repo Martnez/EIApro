@@ -98,7 +98,7 @@
                            <%   if (policy.vehicle != undefined) { 
                               vehicle = policy.vehicle.RegN;  %> 
                           <%}%>
-                        <option  data-value="<%= policy.id%>|<%= policy.policyNumber %>|<%= policy.policytype%>|<%= policy.insurer%>|<%= policy.sumInsured%>|<%= policy.client.firstName%> <%= policy.client.lastName%>|<%= policy.coverType%>|<%= policy.policyStart%>|<%= policy.policyEnd%>"><%= policy.policyNumber %></option>
+                        <option  data-value="<%= policy.id%>|<%= policy.policyNumber %>|<%= policy.policytype%>|<%= policy.insurer%>|<%= policy.sumInsured%>|<%= policy.client.firstName%> <%= policy.client.lastName%>|<%= policy.coverType%>|<%= policy.policyStart%>|<%= policy.policyEnd%>"><%= policy.policyNumber %>, <%= vehicle %></option>
                         
                       <% } %>
                       <% } else { %>
@@ -304,6 +304,15 @@
                         <option value="" selected>Select Compensation</option>
                         <option value="Comprehensive">Cash-In-Lieu</option>
                         <option value="Third Party">Authorize Repair</option>
+                      </select>
+                    </div>
+                    <div class="input-holder inside" id="claim_compensation">
+                      <select name="status" class="input-space">
+                        <option value="" selected>Claim Status</option>
+                        <option value="Open">Open</option>
+                        <option value="Settled">Settled</option>
+                        <option value="Declined">Declined</option>
+                        <option value="Repudated">Repudated</option>
                       </select>
                     </div>
                   </div>

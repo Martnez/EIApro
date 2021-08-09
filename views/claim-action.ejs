@@ -1,0 +1,166 @@
+<%- include ('./includes/header.ejs') %>
+  <body>
+    <div class="dash-container">
+      <div class="hover-hamburger" id="hover_hamburger">
+        <div class="inner-hamburger">
+          <div class="bar"></div>
+          <div class="bar"></div>
+          <div class="bar"></div>
+        </div>
+      </div>
+      <div class="nav-overlay" id="overlay"></div>
+      <div class="side-bar" id="side_bar">
+        <div class="other-hover-hamburger show" id="other_hover_hamburger">
+          <div class="inner-hamburger">
+            <div class="bar"></div>
+            <div class="bar"></div>
+            <div class="bar"></div>
+          </div>
+        </div>
+        <div class="side-bar-content">
+          <div class="top-image-holder dash-img">
+            <img src="/images/eia_logo.png" alt="" />
+          </div>
+          <ul class="links">
+            <li class="list">
+              <a href="/dashboard" class="link">Home</a>
+            </li>
+            <li class="list">
+              <a href="/clients" class="link">Clients</a>
+            </li>
+            <li class="list">
+              <a href="/underwriting" class="link">Underwriting</a>
+            </li>
+            <li class="list">
+              <a href="/claims" class="link active">Claims</a>
+            </li>
+            <li class="list">
+              <a href="/vehicles" class="link">Vehicles</a>
+            </li>
+            <li class="list">
+              <a href="/credit" class="link">Reports</a>
+            </li>
+          </ul>
+          <ul class="links lower">
+            <li class="list">
+              <a href="/admin/" class="link">Admin</a>
+            </li>
+            <li class="list">
+              <a href="/logout" class="link logout">Logout</a>
+            </li>
+          </ul>
+        </div>
+      </div>
+      <div class="top-bar">
+        <div class="user-name-space">
+          <div class="user-icon">
+            <div class="image-holder">
+              <img src="/images/user-img.png" alt="" />
+            </div>
+            <h3 class="username-dash">Hello <%= user.firstName %> </h3>
+          </div>
+        </div>
+      </div>
+      <div class="time-bar">
+        <h3 id="date_value"></h3>
+      </div>
+      <div class="dash-main">
+        <div class="dash-content">
+          <div class="client-profile-content">
+            <div class="details-display">
+              <div class="top-nav-options">
+                <a href="/claim-view/<%= claim.id %>" class="nav-options-link">Claim Details</a>
+                <a href="http://192.168.0.34/eiapro/php_files/claim-documents.php?id=<%=
+                claim.id %>&username=<%= user.firstName %>&policy=<%= claim.policy.policytype %>&cover=<%= claim.policy.coverType %>"
+                class="nav-options-link" class="nav-options-link">Image Documents</a>
+                <a href="/claim-action/<%= claim.id %>" class="nav-options-link active">Action Log</a>
+              </div>
+              
+              <div class="display-panel">
+                <h2 class="data-input-title"> <%= claim.policy.client.lastName %></h2>
+                <div class="rows">
+                  <div class="data-col">
+                    <form  method="post" class="form-action">  
+                      <div class="input-holder inside">
+                        <input
+                          type="text"
+                          placeholder="Set Date"
+                          onblur="(this.type='text')"
+                          onfocus="(this. type='date')"
+                          required
+                          name="setdate"
+                          id="start_date"
+                          class="input-space"
+                        />
+                      </div>
+                      <div class="input-holder inside">
+                        <input
+                          type="text"
+                          placeholder="Contact"
+                          required
+                          name="reporter"
+                          class="input-space"
+                        />
+                      </div>
+                      <div class="input-holder inside">
+                        <textarea
+                        style="
+                          height: auto;
+                          padding: 1rem 0 0 1rem;
+                          max-height: 100px;
+                        "
+                          type="text"
+                          rows="5"
+                          placeholder="Claim Action"
+                          required
+                          name="action"
+                          class="input-space"
+                        ></textarea>
+                      </div>
+                      <button class="btn add-new" style="margin: 1rem auto 1rem 1rem;">Add</button>
+                    </form>
+                  </div>
+                  <div class="data-col">
+                  </div>
+                </div>
+                
+                <div class="dash-table-display" style="margin-top: 2rem;">
+                  <table class="info-list-table">
+                    <thead>
+                      <tr>
+                        <th>Date</th>
+                        <th>Action</th>
+                        <th>Contact</th>
+                        <th>Option</th>
+                      </tr>
+                    </thead>
+                    <tbody id="myTable">
+                        <% if(claimActions.length > 0) { %> 
+                            <% for(let claimAction of claimActions) { %>
+                              
+                        <tr >
+                            <td><%= claimAction.setdate%></td>
+                            <td><%= claimAction.action%></td>
+                            <td><%= claimAction.reporter%></td>
+                            <td class="option"><a href="/deleteAction/<%= claimAction.id %>/<%= claim.id %> " class="delete-action">Delete</a></td>
+                            
+                            
+                        </tr>
+                        <% } %>
+                        <% } else { %>
+                        <% } %>
+                           
+                    </tbody>
+                  </table>
+                </div>
+
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <script src="/js/time.js"></script>
+    <script src="/js/nav.js"></script>
+  </body>
+</html>

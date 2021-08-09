@@ -94,6 +94,28 @@
                     <input
                       type="text"
                       required
+                      placeholder="coverType"
+                      id="coverType"
+                      disabled
+                      value="<%=coverType%>"
+                      name=""
+                      class="input-space"
+                      style="display: none;"
+                    />
+                    <input
+                      type="text"
+                      required
+                      placeholder="policytype"
+                      id="policytype"
+                      disabled
+                      value="<%=policytype%>"
+                      name=""
+                      class="input-space"
+                      style="display: none;"
+                    />
+                    <input
+                      type="text"
+                      required
                       placeholder="poliTe"
                       id="poliTe"
                       disabled
@@ -266,7 +288,7 @@
                           </div>
                         </div>
                         <div class="split-diplay">
-                          <div class="input-holder split" style="flex-wrap: wrap">
+                          <div class="input-holder split" style="flex-wrap: wrap" id="basic_rate_holder">
                             <h4
                               style="
                                 width: 100%;
@@ -333,8 +355,8 @@
                             <input
                               type="text"
                               placeholder="Basic Prem. (Kshs)"
+                              onkeyup="noRateCalc()"
                               id="basic_prem_amount"
-                              disabled
                               style="background-color: #d4d4d4;max-width: 180px;"
                               name=""
                               class="input-space"
@@ -422,6 +444,16 @@
                               id="basic_total_new"
                               disabled
                               style="background-color: #d4d4d4;max-width: 180px;"
+                              name=""
+                              class="input-space"
+                            />
+                            <input
+                              type="text"
+                              placeholder="Basic Total Poa(Kshs)"
+                              required
+                              id="basic_total_new_poa"
+                              disabled
+                              style="background-color: #d4d4d4;max-width: 180px;display: none;"
                               name=""
                               class="input-space"
                             />

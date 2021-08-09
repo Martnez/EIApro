@@ -2,9 +2,19 @@ const User = require('../models/User');
 
 const Logs = require('../models/Logs')
 
+const Claims = require('../models/Claims');
+
+const Vehicles = require('../models/Vehicle');
+
 const bcrypt= require('bcrypt');
 
+const Clients =require('../models/Client');
+
 const crypto = require('crypto');
+
+const Policy = require('../models/policy');
+
+const {Op}=require('sequelize')
 
 exports.getIndex=(req,res,next)=>{
     res.render('index',{
@@ -14,9 +24,42 @@ exports.getIndex=(req,res,next)=>{
 
     })
 };
-exports.getDashboard=(req,res,next)=>{
+exports.getDashboard= async (req,res,next)=>{
   const user = req.user;
+ const claims= await Claims.findAll();
+ const Policies_= await Policy.findAll();
+ const Vehicles_= await Vehicles.findAll();
+ const Clients_= await Clients.findAll();
+ const log_= await Logs.findAll();
+ const logLen= log_.length;
+ const policies= await  Policy.findAll({where:{delete:'0'}, limit:3,order: [ [ 'createdAt', 'DESC' ]],include:[{model:Clients},{model:Vehicles}]});
+ const claims_= await Claims.findAll({where:{delete:'0'},limit:3,order: [ [ 'createdAt', 'DESC']],include:{model:Policy,include:[{model:Clients},{model:Vehicles}]}});
+ const allUsers =await User.findAll({where:{email:{[Op.ne]:['amohdkaranja@gmail.com']}},include:{model:Logs,where:{}}});
+ console.log(allUsers[0].logs.length);
+ const totalClaims =claims.length;
+ const totalPolicies =Policies_.length;
+ const totalVehicles =Vehicles_.length;
+ const totalClients =Clients_.length;
+const totalFeeds= (totalClaims+totalPolicies+totalVehicles+totalClients);
+const policyPerecent=parseInt(((totalPolicies-0)/(totalFeeds-0))*100)
+const claimsPerecent=parseInt((totalClaims/totalFeeds)*100);
+const clientPerecent=parseInt((totalClients/totalFeeds)*100);
+const vehiclesPerecent=parseInt((totalVehicles/totalFeeds)*100);
+
     res.render('dashboard',{
+      totalClaims:totalClaims,
+      totalPolicies:totalPolicies,
+      totalVehicles:totalVehicles,
+      totalClients:totalClients,
+      totalFeeds:totalFeeds,
+      policies:policies,
+      allUsers:allUsers,
+      logLen:logLen,
+      claims:claims_,
+      policyPerecent:policyPerecent,
+      claimsPerecent:claimsPerecent,
+      clientPerecent:clientPerecent,
+      vehiclesPerecent:vehiclesPerecent,
       user:user,
         pageTitle:'dashboard',
         path:'/dashboard',

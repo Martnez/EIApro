@@ -21,8 +21,12 @@ const Claims =require('./models/Claims');
 const Clients =require('./models/Client');
 
 const Credit = require('./models/creditCollection');
+
 const insurancePayment = require('./models/insurancePayment');
+
 const creditPayment = require('./models/creditPayment');
+
+const claimAction = require('./models/claimAction');
 
 const Logs =require('./models/Logs');
 
@@ -123,6 +127,8 @@ insurancePayment.belongsTo(Policies,({constraints: true, onDelete:"CASCADE"}));
 Policies.hasOne(insurancePayment);
 creditPayment.belongsTo(Policies,({constraints: true, onDelete:"CASCADE"}));
 Policies.hasMany(creditPayment);
+claimAction.belongsTo(Claims,({constraints: true, onDelete:"CASCADE"}));
+Claims.hasMany(claimAction);
 
 
 Sequelize

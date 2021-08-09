@@ -14,7 +14,7 @@ Policies.findOne({where:{id:policyId},include:{model:Clients}}).then(policy=>{
     Credit.findAll({include:{model:Policies,where:{id:policyId},include:{model:Clients}}}).then(credit=>{
         const firstName = policy.client.firstName;
         const lastName = policy.client.lastName;
-        const GrandTotal = policy.GrandTotal;
+        const GrandTotal = policy.GrandTotal+policy.otherCharges;
         const sumInsured= policy.sumInsured;
         const PHCF= policy.PHCF;
         const levy= policy.levy;
@@ -88,27 +88,14 @@ credit.save()
    res.redirect(`/credit/${policyId}`)
 
 }
-exports.getInsurancePay = (req, res, next) => {
+exports.getInsurancePay = async (req, res, next) => {
   const policyId = req.params.policyId;
   const user = req.user;
-  Policies.findOne({
-    where: { id: policyId },
-    include: { model: creditPayment },
-  })
-    .then((xpolicy) => {
-      const creditPay = xpolicy.creditPayments;
-      Policies.findOne({ where: { id: policyId }, include: { model: Clients } })
-        .then((policy) => {
-          insurancePayment
-            .findAll({
-              
-              include: {
-                model: Policies,
-                where: { id: policyId },
-                include: { model: Clients },
-              },
-            })
-            .then((insurancePay) => {
+  try{
+  const xpolicy= await Policies.findOne({where: { id: policyId },include: { model: creditPayment },});
+  const creditPay = xpolicy.creditPayments;
+  const policy= await Policies.findOne({ where: { id: policyId }, include: { model: Clients } });   
+  const insurancePay =  await    insurancePayment.findAll({include: {model: Policies,where: { id: policyId }, include: { model: Clients },},});
               let comm_rate = "";
               if (insurancePay[0] != undefined) {
                 comm_rate = insurancePay[0].comm_rate;
@@ -125,6 +112,16 @@ exports.getInsurancePay = (req, res, next) => {
               if (insurancePay[0] != undefined) {
                 special_disc = insurancePay[0].special_disc;
               }
+              let basicPremium_b = "";
+              if (insurancePay[0] != undefined) {
+                basicPremium_b = insurancePay[0].basicPremium;
+              };
+              let basicPremium_ = "";
+              if(
+                policy.coverType == "Work Injury Benefit" ||
+                policy.coverType == "Personal Accident" ||
+                policy.coverType == "Group Personal Accident" ||
+                policy.coverType == "Third Party"){ basicPremium_=basicPremium_b}
               const firstName = policy.client.firstName;
               const lastName = policy.client.lastName;
               const GrandTotal = policy.GrandTotal;
@@ -142,7 +139,7 @@ exports.getInsurancePay = (req, res, next) => {
               const PAL = policy.PAL;
               const TPL = policy.TPL;
               const stampDuty = policy.stampDuty;
-
+              console.log(basicPremium_b);
               res.render("insurancePayment", {
                 user: user,
                 policy: Policy,
@@ -161,6 +158,9 @@ exports.getInsurancePay = (req, res, next) => {
                 MP: MP,
                 PAL: PAL,
                 TPL: TPL,
+                policytype: policy.policytype,
+                basicPremium_b: basicPremium_,
+                coverType:policy.coverType,
                 creditPay: creditPay,
                 lastName: lastName,
                 firstName: firstName,
@@ -176,12 +176,8 @@ exports.getInsurancePay = (req, res, next) => {
                 pageTitle: "credit collection",
                 path: "/insurancePayment",
               });
-            })
-            .catch((err) => console.log(err));
-        })
-        .catch((err) => console.log(err));
-    })
-    .catch((err) => console.log(err));
+            }catch{err=>{console.log(err)}
+            }
 };
 exports.postInsurancePay =(req,res,next)=>{
     const user = req.user;

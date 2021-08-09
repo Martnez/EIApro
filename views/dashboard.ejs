@@ -32,7 +32,149 @@
         <h3 id="date_value"></h3>
       </div>
       <div class="dash-main">
-        <div class="dash-content"></div>
+        <div class="dash-content">
+          <div class="dash-content">
+            <div class="dashboard-holder">
+              <div class="dash-row">
+                <div class="total-tally-card">
+                  <div class="tally-header">
+                    <h3><%=totalFeeds%> Records in System</h3>
+                  </div>
+                  <div class="tally-body">
+                    <div class="tally-row">
+                      <div class="item-col">
+                        <h5><%=totalClients%>/<%=totalFeeds%></h5>
+                        <div class="record-bar client" style="height:<%=clientPerecent%>%;"><%=clientPerecent%>%</div>
+                        <h5>Clients</h5>
+                      </div>
+                      <div class="item-col">
+                        <h5><%=totalPolicies%>/<%=totalFeeds%> </h5>
+                        <div class="record-bar policy" style="height:<%=policyPerecent%>%;"><%=policyPerecent%>%</div>
+                        <h5>Policies</h5>
+                      </div>
+                      <div class="item-col">
+                        <h5><%=totalVehicles%>/<%=totalFeeds%> </h5>
+                        <div class="record-bar vehicle"  style="height:<%=vehiclesPerecent%>%;"><%=vehiclesPerecent%>%</div>
+                        <h5>vehicles</h5>
+                      </div>
+                      <div class="item-col">
+                        <h5><%=totalClaims%>/<%=totalFeeds%> </h5>
+                        <div class="record-bar claim" style="height:<%=claimsPerecent%>%;"><%=claimsPerecent%>%</div>
+                        <h5>Claims</h5>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="double-card">
+                  <div class="latest-policies">
+                    <div class="tally-header">
+                      <h3>Latest Policies</h3>
+                    </div>
+                    <div class="dash-table-display home">
+                      <table class="info-list-table">
+                        <thead>
+                          <tr>
+                            <th style="font-size: 0.8em;">Reg No. | Branch</th>
+                            <th style="font-size: 0.8em;">Client Name</th>
+                            <th style="font-size: 0.8em;">Sum Insured</th>
+                            <th style="font-size: 0.8em;">Cover Type</th>
+                          </tr>
+                        </thead>
+                        <tbody id="myTable">
+                          <% if(policies.length > 0) { %> 
+                            <% for(let policy of policies) { %>
+                              <tr >
+                                  <td style="font-size: 0.8em;">
+                                    <% if( policy.policytype =="NonMotor vehicles") { %>
+                                        <%= policy.policyName%>
+                                    <% } else {%>
+                                        <%= policy.vehicle.RegN %>                              
+                                    <%}%>
+                                 </td>
+                                <td style="font-size: 0.8em;"><%= policy.client.firstName %>  </td>
+                                <% const sum_insured = policy.sumInsured %>
+                                <% const currency_sum_insured = sum_insured.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',') %>
+                                <td style="font-size: 0.8em;">Kshs<br /><%= currency_sum_insured %></td>
+                                <td style="font-size: 0.8em;"><%= policy.coverType %> </td>
+                               
+                              </tr>
+                        <% } %>
+                        <% } else { %>
+                        <% } %>  
+                        </tbody>
+                      </table>
+                    </div>
+                  </div>
+                  <div class="latest-policies" style="margin-top: 0.5rem;">
+                    <div class="tally-header">
+                      <h3>Latest Claims</h3>
+                    </div>
+                    <div class="dash-table-display home">
+                      <table class="info-list-table">
+                        <thead>
+                          <tr>
+                            <th style="font-size: 0.8em;">Client Name</th>
+                            <th style="font-size: 0.8em;">Claim Type</th>
+                            <th style="font-size: 0.8em;">ProjectName</th>
+                            <th style="font-size: 0.8em;">Claim status</th>
+                          </tr>
+                        </thead>
+                        <tbody id="myTable">
+                          <% if(claims.length > 0){ %>
+                            <% for(let claim of claims) { %>  
+                              <!-- <input type="hidden" name="claimId" value="<%= claim.id %> ">    -->
+                        <tr onclick="document.location='/claim-view/<%= claim.id %>'">
+                          <td><%=claim.policy.client.lastName%></td>
+                          <td><%=claim.claimType%></td>
+                          <td><% if( claim.policy.policytype =="NonMotor vehicles") { %>
+                            <%= claim.policy.policyName%>
+                               <% } else {%>
+                                <%=claim.policy.vehicle.RegN %> 
+                                <%}%>
+                          </td>
+                          <td><%= claim.status_ %> </td>
+                        </tr>
+                        <% } %> 
+                        <% }else{ %> <% } %> 
+                        </tbody>
+                      </table>
+                    </div>
+                  </div>
+
+                </div>
+              </div>
+              <div class="dash-row">
+                <div class="user-tasks">
+                  <div class="tasks-row">
+                    <% if(allUsers.length > 0) { %> 
+                      <% for(let user of allUsers) { %>
+                        <% const degrees =parseInt((user.logs.length/logLen)*180) %> 
+                        <div class="main-circle">
+                          <div
+                            class="half-circle-cover"
+                            style="transform: rotate(<%= degrees %>Deg)"
+                          ></div>
+                          <div class="glow-moving-half-circle"></div>
+                          <div class="inner-circle">
+                            <div class="task-content">
+                              <div class="user-name"><%=  user.firstName %></div>
+                              <div class="tasks"><%=  user.logs.length %></div>
+                              <div class="other">Tasks</div>
+                            </div>
+                          </div>
+                        </div>
+                     
+                  <% } %>
+                  <% } else { %>
+                  <% } %> 
+    
+
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
     <script src="./js/nav.js"></script>

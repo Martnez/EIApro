@@ -202,7 +202,7 @@
                     </div>
                     <div class="client-details-display">
                       <h4 class="main">Basic Total:</h4>
-                      <% const basicPremium = policy.basicPremium %>
+                      <% const basicPremium = subBasic %>
                       <% const currency_basicPremium = basicPremium.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',') %>
                       <h4>Kshs <%= currency_basicPremium %></h4>
                     </div>

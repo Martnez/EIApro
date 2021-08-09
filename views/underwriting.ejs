@@ -93,6 +93,7 @@
               <table class="info-list-table">
                 <thead>
                   <tr>
+                    <th>Policy Number</th>
                     <th>Reg No. | Branch</th>
                     <th>Client Name</th>
                     <th>Sum Insured</th>
@@ -105,6 +106,7 @@
                   <% if(policies.length > 0) { %> 
                     <% for(let policy of policies) { %>
                       <tr onclick="document.location='/policyView/<%=policy.id%>'">
+                        <td><%= policy.policyNumber %> </td>
                           <td>
                             <% if( policy.policytype =="NonMotor vehicles") { %>
                                 <%= policy.policyName%>
@@ -112,7 +114,7 @@
                                 <%= policy.vehicle.RegN %>                              
                             <%}%>
                          </td>
-                        <td><%= policy.client.firstName %> <%= policy.client.lastName %> </td>
+                        <td><%= policy.client.firstName %>  </td>
                         <% const sum_insured = policy.sumInsured %>
                         <% const currency_sum_insured = sum_insured.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',') %>
                         <td>Kshs<br /><%= currency_sum_insured %></td>

@@ -66,7 +66,7 @@ function cashConcut2() {
 var policy_remarks = document.getElementById("policy_remarks");
 var mv_class = document.getElementById("class_selection");
 var selected = mv_class.options[mv_class.selectedIndex].value;
-var sum_insured_label = document.getElementById("sum_insured_label"); 
+var sum_insured_label = document.getElementById("sum_insured_label");
 
 var benefits_list = document.getElementById("benefits_list");
 
@@ -96,7 +96,9 @@ var tpl_holder = document.getElementById("tpl_holder");
 var rate_holder = document.getElementById("rate_holder");
 var stamp_duty_holder = document.getElementById("stamp_duty_holder");
 var sum_insured_yake = document.getElementById("sum_insured_input");
-var sum_insured_better_holder = document.getElementById("sum_insured_better_holders");
+var sum_insured_better_holder = document.getElementById(
+  "sum_insured_better_holders"
+);
 var sum_insured_holders = document.getElementById("sum_insured_holders");
 
 if (mv_class.options[mv_class.selectedIndex].value == "Work Injury Benefit") {
@@ -122,7 +124,7 @@ if (mv_class.options[mv_class.selectedIndex].value == "Work Injury Benefit") {
   pvt_holder.style.display = "none";
   tpl_holder.style.display = "none";
 
-  if(sum_insured_label!=null){
+  if (sum_insured_label != null) {
     sum_insured_label.innerHTML = "Basic Premium(Kshs)";
   }
 } else if (
@@ -141,7 +143,7 @@ if (mv_class.options[mv_class.selectedIndex].value == "Work Injury Benefit") {
   stamp_duty_holder.classList.add("split");
   sum_insured_yake.placeholder = "Sum Insured (Kshs)";
 
-  if(sum_insured_label!=null){
+  if (sum_insured_label != null) {
     sum_insured_label.innerHTML = "Sum Insured(Kshs)";
   }
 
@@ -171,7 +173,7 @@ if (mv_class.options[mv_class.selectedIndex].value == "Work Injury Benefit") {
   stamp_duty_holder.classList.add("split");
   sum_insured_yake.placeholder = "Sum Insured (Kshs)";
 
-  if(sum_insured_label!=null){
+  if (sum_insured_label != null) {
     sum_insured_label.innerHTML = "Sum Insured (Kshs)";
   }
 
@@ -184,68 +186,66 @@ if (mv_class.options[mv_class.selectedIndex].value == "Work Injury Benefit") {
   mp_holder.style.display = "none";
   pvt_holder.style.display = "none";
   tpl_holder.style.display = "flex";
-}else if(
-  mv_class.options[mv_class.selectedIndex].value ==
-  "Group Personal Accident"){
-    chasis_number_holder.style.display = "none";
-    reg_number_holder.style.display = "none";
-    chasis_number.required = false;
-    reg_number.required = false;
-    policy_remarks.rows = "8";
-    policy_remarks.style.maxHeight = "90px";
-    rate_holder.style.display = "none";
-    rate_holder.style.margin = "0";
-  
-    sum_insured_better_holder.style.display = "flex";
-    sum_insured_better_holder.style.margin = "0.1rem 0";
-    sum_insured_holders.classList.add("split");
-    sum_insured_holders.classList.remove("inside");
-  
-    stamp_duty_holder.classList.remove("split");
-    stamp_duty_holder.classList.add("inside");
-    sum_insured_yake.placeholder = "Basic Premium (Kshs)";
+} else if (
+  mv_class.options[mv_class.selectedIndex].value == "Group Personal Accident"
+) {
+  chasis_number_holder.style.display = "none";
+  reg_number_holder.style.display = "none";
+  chasis_number.required = false;
+  reg_number.required = false;
+  policy_remarks.rows = "8";
+  policy_remarks.style.maxHeight = "90px";
+  rate_holder.style.display = "none";
+  rate_holder.style.margin = "0";
 
-    if(sum_insured_label!=null){
-      sum_insured_label.innerHTML = "Basic Premium (Kshs)";
-    }
-    
-    benefits_list.style.display = "none";
-    pal_holder.style.display = "none";
-    mp_holder.style.display = "none";
-    pvt_holder.style.display = "none";
-    tpl_holder.style.display = "none";
+  sum_insured_better_holder.style.display = "flex";
+  sum_insured_better_holder.style.margin = "0.1rem 0";
+  sum_insured_holders.classList.add("split");
+  sum_insured_holders.classList.remove("inside");
 
-}else if(
-  mv_class.options[mv_class.selectedIndex].value ==
-  "Personal Accident"){
-    chasis_number_holder.style.display = "none";
-    reg_number_holder.style.display = "none";
-    chasis_number.required = false;
-    reg_number.required = false;
-    policy_remarks.rows = "8";
-    policy_remarks.style.maxHeight = "90px";
-    rate_holder.style.display = "none";
-    rate_holder.style.margin = "0";
-  
-    sum_insured_better_holder.style.display = "flex";
-    sum_insured_better_holder.style.margin = "0.1rem 0";
-    sum_insured_holders.classList.add("split");
-    sum_insured_holders.classList.remove("inside");
-  
-    stamp_duty_holder.classList.remove("split");
-    stamp_duty_holder.classList.add("inside");
-    sum_insured_yake.placeholder = "Basic Premium (Kshs)";
+  stamp_duty_holder.classList.remove("split");
+  stamp_duty_holder.classList.add("inside");
+  sum_insured_yake.placeholder = "Basic Premium (Kshs)";
 
-    if(sum_insured_label!=null){
-      sum_insured_label.innerHTML = "Basic Premium (Kshs)";
-    }
-    
-    benefits_list.style.display = "none";
-    pal_holder.style.display = "none";
-    mp_holder.style.display = "none";
-    pvt_holder.style.display = "none";
-    tpl_holder.style.display = "none";
+  if (sum_insured_label != null) {
+    sum_insured_label.innerHTML = "Basic Premium (Kshs)";
+  }
 
+  benefits_list.style.display = "none";
+  pal_holder.style.display = "none";
+  mp_holder.style.display = "none";
+  pvt_holder.style.display = "none";
+  tpl_holder.style.display = "none";
+} else if (
+  mv_class.options[mv_class.selectedIndex].value == "Personal Accident"
+) {
+  chasis_number_holder.style.display = "none";
+  reg_number_holder.style.display = "none";
+  chasis_number.required = false;
+  reg_number.required = false;
+  policy_remarks.rows = "8";
+  policy_remarks.style.maxHeight = "90px";
+  rate_holder.style.display = "none";
+  rate_holder.style.margin = "0";
+
+  sum_insured_better_holder.style.display = "flex";
+  sum_insured_better_holder.style.margin = "0.1rem 0";
+  sum_insured_holders.classList.add("split");
+  sum_insured_holders.classList.remove("inside");
+
+  stamp_duty_holder.classList.remove("split");
+  stamp_duty_holder.classList.add("inside");
+  sum_insured_yake.placeholder = "Basic Premium (Kshs)";
+
+  if (sum_insured_label != null) {
+    sum_insured_label.innerHTML = "Basic Premium (Kshs)";
+  }
+
+  benefits_list.style.display = "none";
+  pal_holder.style.display = "none";
+  mp_holder.style.display = "none";
+  pvt_holder.style.display = "none";
+  tpl_holder.style.display = "none";
 } else {
   chasis_number_holder.style.display = "none";
   reg_number_holder.style.display = "none";
@@ -253,21 +253,21 @@ if (mv_class.options[mv_class.selectedIndex].value == "Work Injury Benefit") {
   reg_number.required = false;
   policy_remarks.rows = "8";
   policy_remarks.style.maxHeight = "90px";
-  rate_holder.style.display = "flex";
-  sum_insured_better_holder.style.display = "none";
-  rate_holder.style.margin = "0.1rem 0";
-  stamp_duty_holder.classList.remove("inside");
-  stamp_duty_holder.classList.add("split");
-  sum_insured_yake.placeholder = "Sum Insured (Kshs)";
+  rate_holder.style.display = "none";
+  rate_holder.style.margin = "0";
 
-  if(sum_insured_label!=null){
-    sum_insured_label.innerHTML = "Sum Insured (Kshs)";
+  sum_insured_better_holder.style.display = "flex";
+  sum_insured_better_holder.style.margin = "0.1rem 0";
+  sum_insured_holders.classList.add("split");
+  sum_insured_holders.classList.remove("inside");
+
+  stamp_duty_holder.classList.remove("split");
+  stamp_duty_holder.classList.add("inside");
+  sum_insured_yake.placeholder = "Basic Premium (Kshs)";
+
+  if (sum_insured_label != null) {
+    sum_insured_label.innerHTML = "Basic Premium (Kshs)";
   }
-
-  sum_insured_better_holder.style.display = "none";
-  sum_insured_better_holder.style.margin = "0";
-  sum_insured_holders.classList.add("inside");
-  sum_insured_holders.classList.remove("split");
 
   benefits_list.style.display = "none";
   pal_holder.style.display = "none";
@@ -286,7 +286,7 @@ mv_class.addEventListener("change", function () {
     policy_remarks.style.maxHeight = "90px";
     rate_holder.style.display = "none";
     rate_holder.style.margin = "0";
-    
+
     sum_insured_better_holder.style.display = "flex";
     sum_insured_better_holder.style.margin = "0.1rem 0";
     sum_insured_holders.classList.add("split");
@@ -296,7 +296,7 @@ mv_class.addEventListener("change", function () {
     stamp_duty_holder.classList.add("inside");
     sum_insured_yake.placeholder = "Basic Premium (Kshs)";
 
-    if(sum_insured_label!=null){
+    if (sum_insured_label != null) {
       sum_insured_label.innerHTML = "Basic Premium (Kshs)";
     }
 
@@ -304,68 +304,66 @@ mv_class.addEventListener("change", function () {
     mp_holder.style.display = "none";
     pvt_holder.style.display = "none";
     tpl_holder.style.display = "none";
-  }else if(
-    mv_class.options[mv_class.selectedIndex].value ==
-    "Personal Accident"){
-      chasis_number_holder.style.display = "none";
-      reg_number_holder.style.display = "none";
-      chasis_number.required = false;
-      reg_number.required = false;
-      policy_remarks.rows = "8";
-      policy_remarks.style.maxHeight = "90px";
-      rate_holder.style.display = "none";
-      rate_holder.style.margin = "0";
-    
-      sum_insured_better_holder.style.display = "flex";
-      sum_insured_better_holder.style.margin = "0.1rem 0";
-      sum_insured_holders.classList.add("split");
-      sum_insured_holders.classList.remove("inside");
-    
-      stamp_duty_holder.classList.remove("split");
-      stamp_duty_holder.classList.add("inside");
-      sum_insured_yake.placeholder = "Basic Premium (Kshs)";
+  } else if (
+    mv_class.options[mv_class.selectedIndex].value == "Personal Accident"
+  ) {
+    chasis_number_holder.style.display = "none";
+    reg_number_holder.style.display = "none";
+    chasis_number.required = false;
+    reg_number.required = false;
+    policy_remarks.rows = "8";
+    policy_remarks.style.maxHeight = "90px";
+    rate_holder.style.display = "none";
+    rate_holder.style.margin = "0";
 
-      if(sum_insured_label!=null){
-        sum_insured_label.innerHTML = "Basic Premium (Kshs)";
-      }
-      
-      benefits_list.style.display = "none";
-      pal_holder.style.display = "none";
-      mp_holder.style.display = "none";
-      pvt_holder.style.display = "none";
-      tpl_holder.style.display = "none";
-  
-  }else if(
-    mv_class.options[mv_class.selectedIndex].value ==
-    "Group Personal Accident"){
-      chasis_number_holder.style.display = "none";
-      reg_number_holder.style.display = "none";
-      chasis_number.required = false;
-      reg_number.required = false;
-      policy_remarks.rows = "8";
-      policy_remarks.style.maxHeight = "90px";
-      rate_holder.style.display = "none";
-      rate_holder.style.margin = "0";
-    
-      sum_insured_better_holder.style.display = "flex";
-      sum_insured_better_holder.style.margin = "0.1rem 0";
-      sum_insured_holders.classList.add("split");
-      sum_insured_holders.classList.remove("inside");
-    
-      stamp_duty_holder.classList.remove("split");
-      stamp_duty_holder.classList.add("inside");
-      sum_insured_yake.placeholder = "Basic Premium (Kshs)";
+    sum_insured_better_holder.style.display = "flex";
+    sum_insured_better_holder.style.margin = "0.1rem 0";
+    sum_insured_holders.classList.add("split");
+    sum_insured_holders.classList.remove("inside");
 
-      if(sum_insured_label!=null){
-        sum_insured_label.innerHTML = "Basic Premium (Kshs)";
-      }
-      
-      benefits_list.style.display = "none";
-      pal_holder.style.display = "none";
-      mp_holder.style.display = "none";
-      pvt_holder.style.display = "none";
-      tpl_holder.style.display = "none";
-  
+    stamp_duty_holder.classList.remove("split");
+    stamp_duty_holder.classList.add("inside");
+    sum_insured_yake.placeholder = "Basic Premium (Kshs)";
+
+    if (sum_insured_label != null) {
+      sum_insured_label.innerHTML = "Basic Premium (Kshs)";
+    }
+
+    benefits_list.style.display = "none";
+    pal_holder.style.display = "none";
+    mp_holder.style.display = "none";
+    pvt_holder.style.display = "none";
+    tpl_holder.style.display = "none";
+  } else if (
+    mv_class.options[mv_class.selectedIndex].value == "Group Personal Accident"
+  ) {
+    chasis_number_holder.style.display = "none";
+    reg_number_holder.style.display = "none";
+    chasis_number.required = false;
+    reg_number.required = false;
+    policy_remarks.rows = "8";
+    policy_remarks.style.maxHeight = "90px";
+    rate_holder.style.display = "none";
+    rate_holder.style.margin = "0";
+
+    sum_insured_better_holder.style.display = "flex";
+    sum_insured_better_holder.style.margin = "0.1rem 0";
+    sum_insured_holders.classList.add("split");
+    sum_insured_holders.classList.remove("inside");
+
+    stamp_duty_holder.classList.remove("split");
+    stamp_duty_holder.classList.add("inside");
+    sum_insured_yake.placeholder = "Basic Premium (Kshs)";
+
+    if (sum_insured_label != null) {
+      sum_insured_label.innerHTML = "Basic Premium (Kshs)";
+    }
+
+    benefits_list.style.display = "none";
+    pal_holder.style.display = "none";
+    mp_holder.style.display = "none";
+    pvt_holder.style.display = "none";
+    tpl_holder.style.display = "none";
   } else if (
     mv_class.options[mv_class.selectedIndex].value == "Contrators all risk"
   ) {
@@ -375,20 +373,21 @@ mv_class.addEventListener("change", function () {
     reg_number.required = false;
     policy_remarks.rows = "8";
     policy_remarks.style.maxHeight = "90px";
-    rate_holder.style.display = "flex";
-    rate_holder.style.margin = "0.1rem 0";
-    stamp_duty_holder.classList.remove("inside");
-    stamp_duty_holder.classList.add("split");
-    sum_insured_yake.placeholder = "Sum Insured (Kshs)";
+    rate_holder.style.display = "none";
+    rate_holder.style.margin = "0";
 
-    if(sum_insured_label!=null){
+    sum_insured_better_holder.style.display = "flex";
+    sum_insured_better_holder.style.margin = "0.1rem 0";
+    sum_insured_holders.classList.add("split");
+    sum_insured_holders.classList.remove("inside");
+
+    stamp_duty_holder.classList.remove("split");
+    stamp_duty_holder.classList.add("inside");
+    sum_insured_yake.placeholder = "Basic Premium (Kshs)";
+
+    if (sum_insured_label != null) {
       sum_insured_label.innerHTML = "Sum Insured (Kshs)";
     }
-    
-    sum_insured_better_holder.style.display = "none";
-    sum_insured_better_holder.style.margin = "0";
-    sum_insured_holders.classList.add("inside");
-    sum_insured_holders.classList.remove("split");
 
     pal_holder.style.display = "none";
     mp_holder.style.display = "flex";
@@ -402,22 +401,24 @@ mv_class.addEventListener("change", function () {
     reg_number_holder.style.display = "flex";
     chasis_number.required = true;
     reg_number.required = true;
+
     policy_remarks.rows = "13";
     policy_remarks.style.maxHeight = "190px";
-    rate_holder.style.display = "flex";
-    rate_holder.style.margin = "0.1rem 0";
-    stamp_duty_holder.classList.remove("inside");
-    stamp_duty_holder.classList.add("split");
-    sum_insured_yake.placeholder = "Sum Insured (Kshs)";
+    rate_holder.style.display = "none";
+    rate_holder.style.margin = "0";
 
-    if(sum_insured_label!=null){
+    sum_insured_better_holder.style.display = "flex";
+    sum_insured_better_holder.style.margin = "0.1rem 0";
+    sum_insured_holders.classList.add("split");
+    sum_insured_holders.classList.remove("inside");
+
+    stamp_duty_holder.classList.remove("split");
+    stamp_duty_holder.classList.add("inside");
+    sum_insured_yake.placeholder = "Basic Premium (Kshs)";
+
+    if (sum_insured_label != null) {
       sum_insured_label.innerHTML = "Sum Insured (Kshs)";
     }
-
-    sum_insured_better_holder.style.display = "none";
-    sum_insured_better_holder.style.margin = "0";
-    sum_insured_holders.classList.add("inside");
-    sum_insured_holders.classList.remove("split");
 
     pal_holder.style.display = "flex";
     mp_holder.style.display = "none";
@@ -430,20 +431,21 @@ mv_class.addEventListener("change", function () {
     reg_number.required = false;
     policy_remarks.rows = "8";
     policy_remarks.style.maxHeight = "90px";
-    rate_holder.style.display = "flex";
-    rate_holder.style.margin = "0.1rem 0";
-    stamp_duty_holder.classList.remove("inside");
-    stamp_duty_holder.classList.add("split");
-    sum_insured_yake.placeholder = "Sum Insured (Kshs)";
+    rate_holder.style.display = "none";
+    rate_holder.style.margin = "0";
 
-    if(sum_insured_label!=null){
-      sum_insured_label.innerHTML = "Sum Insured (Kshs)";
+    sum_insured_better_holder.style.display = "flex";
+    sum_insured_better_holder.style.margin = "0.1rem 0";
+    sum_insured_holders.classList.add("split");
+    sum_insured_holders.classList.remove("inside");
+
+    stamp_duty_holder.classList.remove("split");
+    stamp_duty_holder.classList.add("inside");
+    sum_insured_yake.placeholder = "Basic Premium (Kshs)";
+
+    if (sum_insured_label != null) {
+      sum_insured_label.innerHTML = "Basic Premium (Kshs)";
     }
-
-    sum_insured_better_holder.style.display = "none";
-    sum_insured_better_holder.style.margin = "0";
-    sum_insured_holders.classList.add("inside");
-    sum_insured_holders.classList.remove("split");
 
     benefits_list.style.display = "none";
     pal_holder.style.display = "none";

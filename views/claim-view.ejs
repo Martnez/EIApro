@@ -73,7 +73,7 @@
                 <a href="http://192.168.0.34/eiapro/php_files/claim-documents.php?id=<%=
                 claim.id %>&username=<%= user.firstName %>&policy=<%= claim.policy.policytype %>&cover=<%= claim.policy.coverType %>"
                 class="nav-options-link" class="nav-options-link">Image Documents</a>
-                <!-- <a href="/claim-documents/ " class="nav-options-link" class="nav-options-link">Amoh Image Documents</a> -->
+                <a href="/claim-action/<%= claim.id %> " class="nav-options-link">Action Log</a>
               </div>
               
               <div class="display-panel">
@@ -104,6 +104,10 @@
                       <h4 class="main">Reporter No:</h4>
                       <h4><%= claim.reporterContact %></h4>
                     </div>
+                    <div class="client-details-display">
+                      <h4 class="main">Claim Status:</h4>
+                      <h4><%= status%></h4>
+                    </div>
                   </div>
                   <div class="data-col">
                     <div class="client-details-display">
@@ -122,6 +126,10 @@
                       <h4 class="main">Compensation Date:</h4>
                       <h4><%= claim.compDate %></h4>
                     </div>
+                    <div class="client-details-display">
+                      <h4 class="main">Signature:</h4>
+                      <h4><%= claim.signature %></h4>
+                    </div>
                     <% if(claim.policy.policytype=="Motor vehicles"){%> 
                     <div class="client-details-display">
                       <h4 class="main">Garaged At :</h4>
@@ -132,6 +140,18 @@
                       <h4><%= claim.garageContact %></h4>
                     </div>
                     <% } %> 
+                    <div class="client-details-display" style="flex-wrap: nowrap;
+                    align-items: center;">
+                      <a href="/edit-claim/<%= claim.id %>" class="btn add-new">Edit</a>
+                      <% if(name =="Kelvin"||name=="tester"){%>
+                        <a href="/delete-claim/<%= claim.id %>" class="btn" style="
+                          margin: 0 0.5rem;
+                          flex: 1;
+                          display: flex;
+                          justify-content: center;
+                          height: fit-content;">Delete</a>
+                      <%}else{ %><% } %> 
+                    </div>
                   </div>
                 </div>
               </div>
@@ -140,7 +160,7 @@
         </div>
       </div>
     </div>
-    <script src="./js/time.js"></script>
-    <script src="./js/nav.js"></script>
+    <script src="/js/time.js"></script>
+    <script src="/js/nav.js"></script>
   </body>
 </html>

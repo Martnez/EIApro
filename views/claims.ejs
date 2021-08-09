@@ -87,12 +87,13 @@
                 <thead>
                   <tr>
                     <th>Client Name</th>
-                    <th>Cover Type</th>
+                    <th>Claim Type</th>
                     <th>Project Name/Reg. No</th>
                     <th>Sum Insured</th>
                     <th>PaidAmount</th>
                     <th>Date of Loss</th>
                     <th>Date of Offer</th>
+                    <th>Claim Status</th>
                   </tr>
                 </thead>
                 <tbody id="myTable">
@@ -116,6 +117,7 @@
                     <td>Kshs<br /><%= currency_offerAmount %></td>
                     <td><%= claim.lossDate %></td>
                     <td><%= claim.offerDate %> </td>
+                    <td><%= claim.status_ %> </td>
                   </tr>
                   <% } %> 
                   <% }else{ %> <% } %> 

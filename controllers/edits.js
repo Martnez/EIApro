@@ -303,8 +303,9 @@ exports.postVehicleEdit=(req,res,next)=>{
   });
     log.save();
   const policytype= 'Motor vehicles';
-  let stampDuty ='40';
+  let stampDuty =req.body.stampDuty;
   const rate = req.body.rate;
+  let otherCharges= req.body.otherCharges;
   const signature = user.firstName;
   const remarks = req.body.remarks;
   const branch= req.body.branch;
@@ -324,7 +325,9 @@ exports.postVehicleEdit=(req,res,next)=>{
   const passangerLegalLiability =req.body.passangerLegalLiability;
   const rescueBenefit =req.body.rescueBenefit;
   let newStampDuty = (stampDuty-0) || 0;
+  let newOtherCharges=(otherCharges-0)||0;
   let NewRate = (rate-0) || 1;
+  console.log(NewRate);
   let newPoliTe= (poliTe-0) || 0;
   let newPerAcc= (perAcc-0) || 0;
   let wb= (windscreenBenefit-0)||0;
@@ -332,18 +335,22 @@ exports.postVehicleEdit=(req,res,next)=>{
   let pll =(passangerLegalLiability-0)||0;
   let rb=(rescueBenefit-0)||0;
   let newOtherBe = (wb+lof+pll+rb) || 0;
-  let expoRate =1;
-  let expo = 0;
+  // let expoRate =1;
+  let excessProtector = req.body.excessProtector;
+     expo=(excessProtector-0)||0;
   let basicPremium = 5000;
-  if(coverType=="Comprehensive"){expoRate=0.005};
-  if(mvClass.includes("Private")){expoRate=0.0025};
-    expo=(newSumInsured*expoRate);
-  if(!(mvClass.includes("Private"))&&coverType=="Comprehensive"&& expo <=5000){ expo=5000};
-  if(mvClass.includes("Private")&& expo<=2500){ expo=2500};
-  if(insurer=="Fidelity Shield  Insurance Co. Ltd" & expo<=5000){ expo=5000};
-  if(mvClass.includes("Private")&&coverType=="Comprehensive"&& expo<2500){ expo=2500};
+  // if(coverType=="Comprehensive"){expoRate=0.005};
+  // if(mvClass.includes("Private")){expoRate=0.0025};
+    // expo=(newSumInsured*expoRate);
+  // if(!(mvClass.includes("Private"))&&coverType=="Comprehensive"&& expo <=5000){ expo=5000};
+  // if(mvClass.includes("Private")&& expo<=2500){ expo=2500};
+  // if(insurer=="Fidelity Shield  Insurance Co. Ltd" & expo<=5000){ expo=5000};
+  // console.log(expo);
+  // if(mvClass.includes("Private")&&coverType=="Comprehensive"&& expo<2500){ expo=2500};
+
    basicPremium =(newSumInsured*(NewRate/100));
-  if(mvClass.includes("Private")&&coverType=="Comprehensive" && basicPremium<=20000){basicPremium=20000};
+   if(mvClass.includes("Private Motor Vehicle")&&coverType=="Comprehensive" && basicPremium<=20000){basicPremium=20000};
+   if(mvClass.includes("Private Motorcycle")&&coverType=="Comprehensive" && basicPremium<=5000){basicPremium=5000};
   if(coverType=="Third Party Fire and Theft"&& basicPremium<=15000){basicPremium=15000};
   if(coverType=="Third Party"){basicPremium = newSumInsured};
   if(coverType=="Third Party"||coverType=="Third Party Fire and Theft"){expo=0}
@@ -360,8 +367,9 @@ exports.postVehicleEdit=(req,res,next)=>{
               policy.rate=rate,
               policy.stampDuty= stampDuty,
               policy.netProfit=GrandTotal,
+              policy.otherCharges=otherCharges,
               policy.branch=branch,
-              policy.exPro=expo,
+              policy.exPro=excessProtector,
               policy.policytype= policytype,
               policy.policyName= policyName,
               policy.coverType= coverType,
@@ -371,7 +379,7 @@ exports.postVehicleEdit=(req,res,next)=>{
               policy.poliTe=poliTe,
               policy.perAcc=perAcc,
               policy.pll=passangerLegalLiability,
-              policy.Windscreen= windscreenBenefit,
+              policy.Windscreen= wb,
               policy.rescueBenefit= rescueBenefit,
               policy.lossOfUse =lossOfUse,
               policy.policyNumber= policyNumber,

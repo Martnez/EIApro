@@ -252,6 +252,16 @@
                     </div>
                     <div class="input-holder inside">
                       <input
+                        type=""
+                        placeholder="Rate"
+                        name="rate"
+                        id="rate_input"
+                        class="input-space"
+                      />
+                    </div>
+                    <div class="split-diplay">
+                      <div class="input-holder split">
+                        <input
                         type="text"
                         placeholder="Sum Insured (Kshs)"
                         required
@@ -261,6 +271,16 @@
                         name="sumInsured"
                         class="input-space"
                       />
+                      </div>
+                      <div class="input-holder split">
+                        <input
+                          type="text"
+                          placeholder="Stamp Duty (Kshs)"
+                          id=""
+                          name="stamp_duty"
+                          class="input-space"
+                        />
+                      </div>
                     </div>
                     <div class="input-holder inside" style="display: none">
                       <input
@@ -269,15 +289,6 @@
                         required
                         id="sum_insured_poa"
                         name="sumInsuredPoa"
-                        class="input-space"
-                      />
-                    </div>
-                    <div class="input-holder inside">
-                      <input
-                        type=""
-                        placeholder="Rate"
-                        name="rate"
-                        id="rate_input"
                         class="input-space"
                       />
                     </div>
@@ -310,22 +321,14 @@
                             style="align-items: center"
                           >
                             <div class="checkbox-holder">
-                              <label for="excess_protector" class="check-box"
+                              <label  for="excess_protector" class="check-box"
                                 >Excess Protector (E.P)</label
                               >
-                              <input
-                                type="checkbox"
-                                class="check-box"
-                                id="excess_protector"
-                              />
                             </div>
                             <div class="check-box-holder-data">
                               <input
-                                type="hidden"
                                 placeholder="Basic Premium(Kshs)"
                                 name="excessProtector"
-                                disabled
-                                value="excessProtector"
                                 id="ep_basic_premium"
                                 class="input-space"
                               />
@@ -340,19 +343,12 @@
                                 >Political Violence &amp; Terrorism Rate
                                 (P.V.T)</label
                               >
-                              <input
-                                type="checkbox"
-                                class="check-box"
-                                name=""
-                                id="pvt"
-                              />
                             </div>
                             <div class="check-box-holder-data">
                               <input
                                 type="number"
                                 placeholder="Basic Premium(Kshs)"
                                 name="pvt"
-                                disabled
                                 id="pvt_basic_premium"
                                 class="input-space"
                               />
@@ -366,19 +362,12 @@
                               <label for="windscreen_benefit" class="check-box"
                                 >Windscreen Benefit</label
                               >
-                              <input
-                                type="checkbox"
-                                class="check-box"
-                                name=""
-                                id="windscreen_benefit"
-                              />
                             </div>
                             <div class="check-box-holder-data">
                               <input
                                 type="number"
                                 placeholder="Basic Premium(Kshs)"
                                 name="windscreenBenefit"
-                                disabled
                                 id="windscreen_benefit_basic_premium"
                                 class="input-space"
                               />
@@ -392,19 +381,31 @@
                               <label for="loss_of_use" class="check-box"
                                 >Loss of Use</label
                               >
+                            </div>
+                            <div class="check-box-holder-data">
                               <input
-                                type="checkbox"
-                                class="check-box"
-                                name=""
-                                id="loss_of_use"
+                                type="text"
+                                placeholder="Basic Premium(Kshs)"
+                                name="lossOfUse"
+                                id="loss_of_use_basic_premium"
+                                class="input-space"
                               />
+                            </div>
+                          </div>
+                          <div
+                            class="split-diplay other"
+                            style="align-items: center"
+                          >
+                            <div class="checkbox-holder">
+                              <label for="loss_of_use" class="check-box"
+                                >Other Charges</label
+                              >
                             </div>
                             <div class="check-box-holder-data">
                               <input
                                 type="number"
-                                placeholder="Basic Premium(Kshs)"
-                                name="lossOfUse"
-                                disabled
+                                placeholder="Other Charges(Kshs)"
+                                name="otherCharges"
                                 id="loss_of_use_basic_premium"
                                 class="input-space"
                               />
@@ -422,19 +423,12 @@
                           <label for="pll" class="check-box"
                             >Passanger Legal Liability (P.L.L)</label
                           >
-                          <input
-                            type="checkbox"
-                            class="check-box"
-                            name=""
-                            id="pll"
-                          />
                         </div>
                         <div class="check-box-holder-data">
                           <input
                             type="number"
                             placeholder="Basic Premium(Kshs)"
                             name="passangerLegalLiability"
-                            disabled
                             id="pll_benefit_basic_premium"
                             class="input-space"
                           />
@@ -448,19 +442,12 @@
                           <label for="rescue_benefit" class="check-box"
                             >Rescue Benefit</label
                           >
-                          <input
-                            type="checkbox"
-                            class="check-box"
-                            name=""
-                            id="rescue_benefit"
-                          />
                         </div>
                         <div class="check-box-holder-data">
                           <input
                             type="number"
                             placeholder="Basic Premium(Kshs)"
                             name="rescueBenefit"
-                            disabled
                             id="rescue_benefit_basic_premium"
                             class="input-space"
                           />
@@ -474,19 +461,12 @@
                           <label for="personal_accident" class="check-box"
                             >Personal Accident (P.A)</label
                           >
-                          <input
-                            type="checkbox"
-                            class="check-box"
-                            name=""
-                            id="personal_accident"
-                          />
                         </div>
                         <div class="check-box-holder-data">
                           <input
                             type="number"
                             placeholder="Basic Premium(Kshs)"
                             name="personalAccident"
-                            disabled
                             id="personal_accident_basic_premium"
                             class="input-space"
                           />

@@ -67,7 +67,7 @@ reporterContact:{
     allowNull:false
   },
   description:{
-    type: Sequelize.STRING,
+    type: Sequelize.TEXT,
     allowNull:false
   },
   signature:{
@@ -78,7 +78,15 @@ reporterContact:{
     type: Sequelize.STRING,
     allowNull:true
   },
- 
+  status_:{
+    type: Sequelize.STRING,
+    allowNull:true
+  },
+  delete:{
+    type: Sequelize.INTEGER,
+    allowNull:true,
+    defaultValue:'0'
+  },
   
 });
 

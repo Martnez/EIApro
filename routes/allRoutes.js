@@ -76,6 +76,12 @@ router.get('/reset-flag/:userId',isAuth,homeControllers.postResetFlag);
 //claims routes
 router.get('/claims',isAuth,claimsControllers.getClaims);
 
+router.get('/claim-action/:claimId',isAuth,claimsControllers.getClaimAction);
+
+router.post('/claim-action/:claimId',isAuth,claimsControllers.postClaimAction);
+
+router.get('/deleteAction/:claimActionId/:claimId',isAuth,claimsControllers.deleteAction);
+
 router.get('/new-claim',isAuth,claimsControllers.getNewClaim);
 
 router.get('/new-claim/:policyType',isAuth,claimsControllers.getNewClaim);
@@ -83,6 +89,10 @@ router.get('/new-claim/:policyType',isAuth,claimsControllers.getNewClaim);
 router.post('/new-claim',claimsControllers.postNewClaim);
 
 router.get('/claim-view/:claimId',isAuth,claimsControllers.getClaimView);
+
+router.get('/edit-claim/:claimId',isAuth,claimsControllers.getClaimEdit);
+
+router.post('/claim-edit/:claimId',isAuth,claimsControllers.postClaimEdit);
 
 // all edits
 router.get('/edit/:vehicleId',isAuth,editControllers.getVehicleEdit);
@@ -102,8 +112,8 @@ router.get('/motor-edit/:policyId',isAuth,editControllers.getMotorEdit);
 router.post('/motor-edit/:policyId',editControllers.postMotorEdit);
 // delete items
 router.get('/delete-client/:clientId',isAuth,clientsControllers.getdeleteClient);
-
-router.get('/delete-policy/:clientId',isAuth,underwritingControllers.getdeletePolicy)
+router.get('/delete-policy/:clientId',isAuth,underwritingControllers.getdeletePolicy);
+router.get('/delete-claim/:claimId',isAuth,claimsControllers.getdeleteClaim);
 // credit
 router.post('/credit/:policyId',isAuth,creditControllers.postCredit);
 
