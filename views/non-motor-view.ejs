@@ -107,12 +107,11 @@
                     <% const currency_GrandTotal = GrandTotal.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',') %>
                     <div class="client-details-display glows">
                       <div class="glowing-holder">
-                        <h4 class="main">Paiment Status:</h4>
-                      <% if(pending==0){%>
-                        
+                        <h4 class="main">Premium Status:</h4>
+                      <% if(pay_pending==0){%>
                         <h4>Paid</h4>
                         <div class="glow-box green"></div>
-                        <%}else if(pending==currency_GrandTotal) {%>
+                        <%}else if(pay_pending==currency_GrandTotal) {%>
                            
                         <h4>Not Paid</h4>
                         <div class="glow-box red"></div>
@@ -124,6 +123,26 @@
                     </div>
                     <div class="client-details-display">
                       <h4 class="main">Premium Due:</h4>
+                      <h4>Kshs <%= pay_pending %>  </h4>
+                    </div>
+                    <div class="client-details-display glows">
+                      <div class="glowing-holder">
+                        <h4 class="main">Credit Status</h4>
+                      <% if(pending==0){%>
+                        
+                        <h4>Paid</h4>
+                        <div class="glow-box green"></div>
+                        <%}else if(pending==currency_GrandTotal) {%> 
+                        <h4>Not Paid</h4>
+                        <div class="glow-box red"></div>
+                          <% } else{%>
+                        <h4>Pending</h4>
+                        <div class="glow-box yellow"></div>
+                        <%}  %>
+                      </div>
+                    </div>
+                    <div class="client-details-display">
+                      <h4 class="main">Credit Due:</h4>
                       <h4>Kshs <%=pending  %> </h4>
                     </div>
                   </div>
@@ -219,7 +238,7 @@
                     padding: 0 2rem 0 0;
                   "
                 >
-                <% if(name =="Kelvin"||name=="Stephen"){%>
+                <% if(1==1){%>
                   <a href="/delete-policy/<%= policy.id %> " class="btn add-new" style="margin: 1rem 1rem;background: rgb(146, 40, 40);">Delete</a>
                 <%}else{ %><% } %> 
                   <a href="/nonMotor-edit/<%= policy.id %> " class="btn add-new">Edit</a>

@@ -3,17 +3,21 @@ const Policies= require('../models/policy');
 const Clients =require('../models/Client');
 const Vehicles = require('../models/Vehicle');
 const insurancePayment = require('../models/insurancePayment');
-exports.getReports= (req,res,next) =>{
+const claims = require('../models/Claims');
+const Credits = require('../models/creditCollection');
+exports.getReports= async (req,res,next) =>{
     const user = req.user;
-    Policies.findAll({where:{delete:'0'},order: [ [ 'clientId', 'DESC' ]],include:[{model:Clients},{model:Vehicles},{model:insurancePayment}]})
-    .then(policies=>{
-      res.render('credit', {
+    try{
+   const policies= await Policies.findAll({where:{delete:'0'},
+   order: [ [ 'clientId', 'DESC' ]],
+   include:[{model:Clients},{model:Vehicles},{model:insurancePayment},{model:claims},{model:Credits}]});
+   res.render('credit', {
         user:user,
         policies:policies,
           pageTitle: 'credit',
           path: '/credit',
       })
-        }).catch(err=>console.log(err))
+    }catch{err=>console.log(err);}  
   
     };
     exports.getPaymentList= (req,res,next) =>{

@@ -7,11 +7,29 @@ const creditPayment = require('../models/creditPayment');
 const Logs =require('../models/Logs');
 const Policy = require('../models/policy');
 
+exports.getPayDelete= async (req,res,next)=>{
+const payId = req.params.payId;
+const policyId=req.params.policyId;
+const pay = await creditPayment.findOne({where:{id:payId}});
+ pay.destroy();
+
+res.redirect(`/insurancePay/${policyId}`)
+
+};
+exports.getCollectDelete= async (req,res,next)=>{
+const creditId = req.params.creditId;
+const policyId=req.params.policyId;
+const credit = await Credit.findOne({where:{id:creditId}});
+
+ credit.destroy();
+res.redirect(`/credit/${policyId}`)
+
+};
 exports.getCredit=(req,res,next)=>{
 const policyId=req.params.policyId;
 const user = req.user;
 Policies.findOne({where:{id:policyId},include:{model:Clients}}).then(policy=>{
-    Credit.findAll({include:{model:Policies,where:{id:policyId},include:{model:Clients}}}).then(credit=>{
+    Credit.findAll({where:{delete:'0'},include:{model:Policies,where:[{id:policyId},{delete:'0'}],include:{model:Clients}}}).then(credit=>{
         const firstName = policy.client.firstName;
         const lastName = policy.client.lastName;
         const GrandTotal = policy.GrandTotal+policy.otherCharges;
@@ -92,7 +110,7 @@ exports.getInsurancePay = async (req, res, next) => {
   const policyId = req.params.policyId;
   const user = req.user;
   try{
-  const xpolicy= await Policies.findOne({where: { id: policyId },include: { model: creditPayment },});
+  const xpolicy= await Policies.findOne({where: { id: policyId },include:{ model: creditPayment},});
   const creditPay = xpolicy.creditPayments;
   const policy= await Policies.findOne({ where: { id: policyId }, include: { model: Clients } });   
   const insurancePay =  await    insurancePayment.findAll({include: {model: Policies,where: { id: policyId }, include: { model: Clients },},});
@@ -139,7 +157,6 @@ exports.getInsurancePay = async (req, res, next) => {
               const PAL = policy.PAL;
               const TPL = policy.TPL;
               const stampDuty = policy.stampDuty;
-              console.log(basicPremium_b);
               res.render("insurancePayment", {
                 user: user,
                 policy: Policy,
@@ -173,7 +190,7 @@ exports.getInsurancePay = async (req, res, next) => {
                   .replace(/\B(?=(\d{3})+(?!\d))/g, ","),
                 stampDuty: stampDuty,
                 policyId: policyId,
-                pageTitle: "credit collection",
+                pageTitle: "Insurance Payment",
                 path: "/insurancePayment",
               });
             }catch{err=>{console.log(err)}

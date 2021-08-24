@@ -72,19 +72,30 @@ if (special_discount_poa == "") {
 if (net_premium_poa == "") {
   net_premium_poa = 0;
 }
-
+console.log("exPro" + exPro);
+console.log("poliTe" + poliTe);
+console.log("perAcc" + perAcc);
+console.log("pll" + pll);
+console.log("rescueBenefit" + rescueBenefit);
+console.log("windscreen" + windscreen);
+console.log("pvt" + pvt);
+console.log("mp" + mp);
+console.log("pal" + pal);
+console.log("tpl" + tpl);
 let total_benefits =
   parseFloat(exPro) +
   parseFloat(poliTe) +
   parseFloat(perAcc) +
-  parseFloat(lossOfUse) +
-  parseFloat(pll) +
+  parseFloat(lossOfUse + 0) +
+  parseFloat(pll + 0) +
   parseFloat(rescueBenefit) +
-  parseFloat(windscreen) +
+  parseFloat(windscreen + 0) +
   parseFloat(pvt) +
   parseFloat(mp) +
   parseFloat(pal) +
   parseFloat(tpl);
+
+console.log("total_benefits1" + total_benefits);
 
 let kshs_total_benefits = total_benefits
   .toString()
@@ -121,8 +132,14 @@ function noRateCalc() {
   let basic_prem_no_rate = x.replace(/,/g, "");
   let basic_prem_no_rate2 = basic_prem_no_rate.replace("Kshs ", "");
   basic_prem_val.value = 0;
-
-  let new_basic_prem = parseFloat(basic_prem_no_rate2);
+  let new_basic_prem = basic_prem_no_rate2;
+  if (
+    parseInt(basic_prem_no_rate2) == 0 ||
+    basic_prem_no_rate2 == "" ||
+    basic_prem_no_rate2 == " "
+  ) {
+    new_basic_prem = 0;
+  }
 
   let basic_total = Math.round(
     parseFloat(new_basic_prem) + parseFloat(total_benefits)
@@ -137,7 +154,7 @@ function noRateCalc() {
     .toString()
     .replace(/\B(?=(\d{3})+(?!\d))/g, ",");
 
-  if (parseInt(basic_prem_no_rate2) == 0 || basic_prem_no_rate2 == "") {
+  if (basic_prem_no_rate2 == 0 || basic_prem_no_rate2 == "") {
     basic_prem_amount.value = "";
   } else {
     basic_prem_amount.value = "Kshs " + kshs_new_basic_prem;
@@ -147,6 +164,7 @@ function noRateCalc() {
     basic_total_new_val.value = basic_total_newer;
   }
   /////////////////////////////////////////////////////////////////
+
   let sub_basic_prem = parseFloat(new_basic_prem) + parseFloat(total_benefits);
   let phcf_amount = parseFloat(sub_basic_prem) * 0.0025;
   let training_levy_amount = parseFloat(sub_basic_prem) * 0.002;
@@ -173,7 +191,7 @@ function noRateCalc() {
   ).toFixed(2);
 
   let total_basic_prem2 = (
-    parseFloat(basic_prem_no_rate2) +
+    parseFloat(new_basic_prem) +
     parseFloat(phcf_amount) +
     parseFloat(training_levy_amount) +
     parseFloat(total_benefits) +
@@ -200,7 +218,11 @@ function basicPremCalc() {
   let sum_insured_val = sum_insured.value;
   let basic_prem_rate_val = basic_prem_rate.value;
 
-  if (basic_prem_rate_val == "") {
+  if (
+    basic_prem_rate_val == "" ||
+    basic_prem_rate_val == " " ||
+    parseInt(basic_prem_rate_val) == 0
+  ) {
     basic_prem_rate_val = 0;
   }
 
@@ -227,6 +249,10 @@ function basicPremCalc() {
   /////////////////////////////////////////////////////////////////////////////
 
   let sub_basic_prem = parseFloat(new_basic_prem) + parseFloat(total_benefits);
+
+  console.log("total_benefits: " + total_benefits);
+  console.log("new_basic_prem: " + new_basic_prem);
+  console.log("basic_prem_rate_val: " + sub_basic_prem);
 
   let kshs_sub_basic_prem = sub_basic_prem
     .toString()
@@ -278,7 +304,7 @@ function basicPremCalc() {
 
   let kshs_basic_prem = better.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
 
-  console.log("Basic Prem Checkup" + new_basic_prem);
+  // console.log("Basic Prem Checkup" + new_basic_prem);
   if (new_basic_prem < 20000) {
     basic_prem_amount.disabled = false;
     basic_prem_amount.style.background = "#FFF";
@@ -357,9 +383,9 @@ function netPremiumCalc() {
     Math.round((net_prem + Number.EPSILON) * 100) / 100
   ).toFixed(2);
 
-  console.log("total prem is: " + total_prem_amount_val.value);
-  console.log("additions are: " + additions);
-  console.log("Deductions are: " + deductions);
+  // console.log("total prem is: " + total_prem_amount_val.value);
+  // console.log("additions are: " + additions);
+  // console.log("Deductions are: " + deductions);
 
   let kshs_net_prem = new_net_prem
     .toString()

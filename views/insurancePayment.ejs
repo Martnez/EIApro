@@ -644,6 +644,9 @@
                             <option value="Cash">Cash</option>
                             <option value="M-Pesa">M-Pesa</option>
                             <option value="Bank Trasfer">Bank Trasfer</option>
+                            <option value="Substitution">Substitution</option>
+                            <option value="CIL">CIL</option>
+                            <option value="Cheque">Cheque</option>
                           </select>
                         </div>
                         <div class="input-holder inside">
@@ -679,6 +682,7 @@
                             <th>Mode</th>
                             <th>Reference No.</th>
                             <th>Paiment Doc</th>
+                            <th>Option</th>
                           </tr>
                         </thead>
                         <tbody id="myTable">
@@ -690,6 +694,7 @@
                                       <td><%=singleCredit.p_mode  %> </td>
                                       <td><%=singleCredit.refNumber %> </td>
                                       <td><a href="http://192.168.0.34/EIApro/public/files/creditPay/<%=singleCredit.creditPayFile %>" download target="_blank"><%=singleCredit.creditPayFile %></a></td>
+                                      <td class="option"><a href="/pay_delete/<%=singleCredit.id%>/<%= policyId %>  " class="delete-action">Delete</a></td>
                                     </tr> 
                                      <% } %> 
                                 <% }else{%><% } %>      

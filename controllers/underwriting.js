@@ -5,6 +5,7 @@ const Logs = require('../models/Logs');
 const Clients =require('../models/Client');
 const Vehicles = require('../models/Vehicle');
 const Credit = require('../models/creditCollection');
+const CreditPay = require('../models/creditPayment');
 
 exports.getUnderwriting= (req,res,next) =>{
   const user = req.user;
@@ -23,7 +24,6 @@ exports.getUnderwriting= (req,res,next) =>{
   exports.getNewMotor= (req,res,next) =>{
     const user = req.user;
     Clients.findAll({include:{model:Vehicles}}).then(clients=>{
-      console.log(clients[0].vehicles[0])
       res.render('new-motor', {
         user:user,
         clients:clients,
@@ -190,10 +190,10 @@ exports.getUnderwriting= (req,res,next) =>{
     const policyNumber= req.body.policyNumber;
     const policyStart= req.body.policyStart;
     const policyEnd = req.body.policyEnd;
-    let sumInsuredBetter=req.body.sumInsuredPoa;
-    let basicSum=req.body.sumInsuredPoa
-    if(coverType=="Work Injury Benefit"|| coverType== "Personal Accident"  || coverType=="Group Personal Accident")
-    {sumInsuredBetter=req.body.sum_insured_better};
+    let basicSum=req.body.sumInsuredPoa;
+    let sumInsuredBetter=req.body.sum_insured_better
+    // if(coverType=="Work Injury Benefit"|| coverType== "Personal Accident"  || coverType=="Group Personal Accident")
+    // {sumInsuredBetter=req.body.sum_insured_better};
     const insurer =req.body.insurer;
     let PAL = req.body.PAL;
     let MP = req.body.MP;
@@ -207,8 +207,8 @@ exports.getUnderwriting= (req,res,next) =>{
     let newMP = (MP-0) || 0;
     let newPVT= (PVT-0) || 0;
     let newTPL= (TPL-0) || 0;
-    let basicPremium = (newSumInsured *(NewRate/100));
-    if(coverType=="Work Injury Benefit"|| coverType== "Personal Accident"  || coverType=="Group Personal Accident"){basicPremium=newBasicSum};
+    let basicPremium = newBasicSum;
+    //if(coverType=="Work Injury Benefit"|| coverType== "Personal Accident"  || coverType=="Group Personal Accident"){basicPremium=newBasicSum};
     
       let subBasic = (basicPremium +newPAL+newMP+newPVT+newTPL);
       let trainingLevy= (subBasic * 0.002);
@@ -243,13 +243,14 @@ exports.getUnderwriting= (req,res,next) =>{
     
     res.redirect("/underwriting")
     };
-  exports.getPolicyView=(req,res,next)=>{
+  exports.getPolicyView= async (req,res,next)=>{
     const policyId =req.params.policyId;
     const user = req.user;
    const name = user.firstName;
-   Credit.findAll({where:{policyId:policyId}}).then(credits=>{
-     Policies.findOne({where:{id:policyId},include:[{model:Clients},{model:Vehicles}]}).then(
-      policy=>{
+   try{
+    const creditpay= await CreditPay.findAll({where:{policyId:policyId}});
+    const credits= await Credit.findAll({where:{policyId:policyId}});
+    const policy= await Policies.findOne({where:{id:policyId},include:[{model:Clients},{model:Vehicles}]});
         const GrandTotal = policy.GrandTotal;
         const i =credits.length;
         let t_paid=0;
@@ -257,6 +258,13 @@ exports.getUnderwriting= (req,res,next) =>{
         for(x=0;x<i;x++){
              t_paid+=credits[x].p_paid;
         }
+        const j = creditpay.length;
+        let t_amount=0
+         let y =0
+         for(y=0;y<j;y++){
+           t_amount+=creditpay[y].p_paid;
+         }
+        const pay_pending=GrandTotal-t_amount;
         const pending=GrandTotal-t_paid;
         let otherCharges=policy.otherCharges;
         let  PVT=policy.PVT;
@@ -285,7 +293,6 @@ exports.getUnderwriting= (req,res,next) =>{
         exPro=(exPro-0)||0;
         if(policy.policytype == 'Motor vehicles'){
         const subBasic = (newbasicPremium +poliTe+perAcc+pll+Windscreen+rescueBenefit+lossOfUse+exPro);
-        
         res.render('motor-view',{
           user:user,
           poliTe:poliTe,
@@ -294,6 +301,7 @@ exports.getUnderwriting= (req,res,next) =>{
           subBasic:subBasic,
           pll:pll,
           pending:pending.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ','),
+          pay_pending:pay_pending.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ','),
           name:name,
           policy:policy,
           Windscreen: Windscreen,
@@ -303,7 +311,6 @@ exports.getUnderwriting= (req,res,next) =>{
             path:'/motor-view',
         });
         }else{
-          
         const subBasic = (newbasicPremium +PAL+MP+PVT+TPL);
           res.render('non-motor-view',{
             user:user,
@@ -313,6 +320,7 @@ exports.getUnderwriting= (req,res,next) =>{
             name:name,
             subBasic:subBasic,
             pending:pending.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ','),
+            pay_pending:pay_pending.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ','),
             TPL:TPL,
             user:user ,
             policy:policy,
@@ -321,12 +329,9 @@ exports.getUnderwriting= (req,res,next) =>{
           });
   
         }
+      }catch{err=>console.log(err);
       }
-    ).catch(err=>{
-      console.log(err);
-    })
-   
-   }).catch(err=>console.log(err))  
+     
   };
   exports.getdeletePolicy = (req, res, next) => {
     const policyId = req.params.clientId;

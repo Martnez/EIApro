@@ -14,7 +14,7 @@ const editControllers = require("../controllers/edits")
 const creditControllers = require("../controllers/credit")
 const reportsControllers = require("../controllers/reports")
 const isAuth = require('../middleware/auth');
-
+const adminAuth=require('../middleware/admin');
 const router = express.Router();
 // client routes
 router.get('/clients',isAuth,clientsControllers.getClients);
@@ -56,21 +56,21 @@ router. get('/dashboard',isAuth,homeControllers.getDashboard);
 
 router.post('/',homeControllers.postIndex);
 
-router. get('/new-user',isAuth,homeControllers.getNewUser);
+router. get('/new-user',isAuth,adminAuth,homeControllers.getNewUser);
 
 router. post('/new-user',homeControllers.postNewUser);
 
-router. get('/admin',isAuth,homeControllers.getAdmin);
+router. get('/admin',isAuth,adminAuth,homeControllers.getAdmin);
 
 router.get('/logout',isAuth,homeControllers.postLogout);
 
-router. get('/logs',isAuth,homeControllers.getLogs);
+router. get('/logs',isAuth,adminAuth,homeControllers.getLogs);
 
-router.get('/user-profile/:userId',isAuth,homeControllers.getUserProfile);
+router.get('/user-profile/:userId',isAuth,adminAuth,homeControllers.getUserProfile);
 
 router.post('/user-profile/:userId',isAuth,homeControllers.getUserProfileEdit);
 
-router.get('/delete-user/:userId',isAuth,homeControllers.postDeleteUser);
+router.get('/delete-user/:userId',isAuth,adminAuth,homeControllers.postDeleteUser);
 
 router.get('/reset-flag/:userId',isAuth,homeControllers.postResetFlag);
 //claims routes
@@ -128,6 +128,8 @@ router.get('/paymentlist',isAuth,reportsControllers.getPaymentList);
 router.post('/insurancePay/:policyId',isAuth,creditControllers.postInsurancePay);
 
 router.post('/creditPay/:policyId',isAuth,creditControllers.postCreditPay);
+router.get('/pay_delete/:payId/:policyId',isAuth,creditControllers.getPayDelete);
+router.get('/credit_delete/:creditId/:policyId',isAuth,creditControllers.getCollectDelete);
 
 
 

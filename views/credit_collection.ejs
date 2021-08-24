@@ -190,6 +190,7 @@
                             <th>Mode</th>
                             <th>Reference No.</th>
                             <th>Paiment Doc</th>
+                            <th>Option</th>
                           </tr>
                         </thead>
                         <tbody id="myTable">
@@ -201,6 +202,7 @@
                                       <td><%=singleCredit.p_mode  %> </td>
                                       <td><%=singleCredit.refNumber %> </td>
                                       <td><a href="http://192.168.0.34/EIApro/public/files/creditCollection/<%=singleCredit.crediCollectionFile %>" download target="_blank"><%=singleCredit.crediCollectionFile %></a></td>
+                                      <td class="option"><a href="/credit_delete/<%= singleCredit.id %>/<%= policyId %>  " class="delete-action">Delete</a></td>
                                     </tr> 
                                      <% } %> 
                                 <% }else{%><% } %>      

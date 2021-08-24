@@ -1,6 +1,9 @@
 //////////////////////////////////////////////////////////
 // CASH CONCUTINATION JS
 /////////////////////////////////////////////////////////
+
+cashConcut();
+cashConcut2();
 function cashConcut() {
   var sum_insured = document.getElementById("sum_insured_input");
   var sum_insured_poa = document.getElementById("sum_insured_poa");
@@ -24,10 +27,10 @@ function cashConcut() {
     sum_insured.value = "";
   } else {
     var no_Nans = clean_up2.replace("NaN", "");
-    var no_zeros = parseInt(no_Nans);
-    var new_cash = no_zeros.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+    // var no_zeros = parseInt(no_Nans);
+    var new_cash = no_Nans.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
     sum_insured.value = "Kshs " + new_cash;
-    sum_insured_poa.value = no_zeros;
+    sum_insured_poa.value = no_Nans;
   }
 }
 function cashConcut2() {
@@ -53,10 +56,10 @@ function cashConcut2() {
     sum_insured.value = "";
   } else {
     var no_Nans = clean_up2.replace("NaN", "");
-    var no_zeros = parseInt(no_Nans);
-    var new_cash = no_zeros.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+    // var no_zeros = parseInt(no_Nans);
+    var new_cash = no_Nans.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
     sum_insured.value = "Kshs " + new_cash;
-    sum_insured_better.value = no_zeros;
+    sum_insured_better.value = no_Nans;
   }
 }
 
@@ -136,21 +139,21 @@ if (mv_class.options[mv_class.selectedIndex].value == "Work Injury Benefit") {
   reg_number.required = false;
   policy_remarks.rows = "8";
   policy_remarks.style.maxHeight = "90px";
-  rate_holder.style.display = "flex";
-  sum_insured_better_holder.style.display = "none";
-  rate_holder.style.margin = "0.1rem 0";
-  stamp_duty_holder.classList.remove("inside");
-  stamp_duty_holder.classList.add("split");
-  sum_insured_yake.placeholder = "Sum Insured (Kshs)";
+  rate_holder.style.display = "none";
+  rate_holder.style.margin = "0";
+
+  sum_insured_better_holder.style.display = "flex";
+  sum_insured_better_holder.style.margin = "0.1rem 0";
+  sum_insured_holders.classList.add("split");
+  sum_insured_holders.classList.remove("inside");
+
+  stamp_duty_holder.classList.remove("split");
+  stamp_duty_holder.classList.add("inside");
+  sum_insured_yake.placeholder = "Basic Premium (Kshs)";
 
   if (sum_insured_label != null) {
-    sum_insured_label.innerHTML = "Sum Insured(Kshs)";
+    sum_insured_label.innerHTML = "Basic Premium(Kshs)";
   }
-
-  sum_insured_better_holder.style.display = "none";
-  sum_insured_better_holder.style.margin = "0";
-  sum_insured_holders.classList.add("inside");
-  sum_insured_holders.classList.remove("split");
 
   pal_holder.style.display = "none";
   mp_holder.style.display = "flex";
@@ -174,7 +177,7 @@ if (mv_class.options[mv_class.selectedIndex].value == "Work Injury Benefit") {
   sum_insured_yake.placeholder = "Sum Insured (Kshs)";
 
   if (sum_insured_label != null) {
-    sum_insured_label.innerHTML = "Sum Insured (Kshs)";
+    sum_insured_label.innerHTML = "Basic Premium(Kshs)";
   }
 
   sum_insured_better_holder.style.display = "none";
@@ -386,7 +389,7 @@ mv_class.addEventListener("change", function () {
     sum_insured_yake.placeholder = "Basic Premium (Kshs)";
 
     if (sum_insured_label != null) {
-      sum_insured_label.innerHTML = "Sum Insured (Kshs)";
+      sum_insured_label.innerHTML = "Basic Premium(Kshs)";
     }
 
     pal_holder.style.display = "none";
@@ -417,7 +420,7 @@ mv_class.addEventListener("change", function () {
     sum_insured_yake.placeholder = "Basic Premium (Kshs)";
 
     if (sum_insured_label != null) {
-      sum_insured_label.innerHTML = "Sum Insured (Kshs)";
+      sum_insured_label.innerHTML = "Basic Premium(Kshs)";
     }
 
     pal_holder.style.display = "flex";
@@ -444,7 +447,7 @@ mv_class.addEventListener("change", function () {
     sum_insured_yake.placeholder = "Basic Premium (Kshs)";
 
     if (sum_insured_label != null) {
-      sum_insured_label.innerHTML = "Basic Premium (Kshs)";
+      sum_insured_label.innerHTML = "Basic Premium(Kshs)";
     }
 
     benefits_list.style.display = "none";

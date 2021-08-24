@@ -35,7 +35,7 @@ exports.getDashboard= async (req,res,next)=>{
  const policies= await  Policy.findAll({where:{delete:'0'}, limit:3,order: [ [ 'createdAt', 'DESC' ]],include:[{model:Clients},{model:Vehicles}]});
  const claims_= await Claims.findAll({where:{delete:'0'},limit:3,order: [ [ 'createdAt', 'DESC']],include:{model:Policy,include:[{model:Clients},{model:Vehicles}]}});
  const allUsers =await User.findAll({where:{email:{[Op.ne]:['amohdkaranja@gmail.com']}},include:{model:Logs,where:{}}});
- console.log(allUsers[0].logs.length);
+ 
  const totalClaims =claims.length;
  const totalPolicies =Policies_.length;
  const totalVehicles =Vehicles_.length;

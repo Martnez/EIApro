@@ -212,15 +212,17 @@ exports.postVehicleEdit=(req,res,next)=>{
     const policyNumber= req.body.policyNumber;
     const policyStart= req.body.policyStart;
     const policyEnd = req.body.policyEnd;
-    let sumInsuredBetter=req.body.sumInsuredPoa;
-    let basicSum=req.body.sumInsuredPoa
-    if(coverType=="Work Injury Benefit"|| coverType== "Personal Accident"  || coverType=="Group Personal Accident")
-    {sumInsuredBetter=req.body.sum_insured_better};
+    let basicSum=req.body.sumInsuredPoa;
+    let sumInsuredBetter=req.body.sum_insured_better
+    console.log(sumInsuredBetter);
+    console.log(basicSum);
+    // if(coverType=="Work Injury Benefit"|| coverType== "Personal Accident"  || coverType=="Group Personal Accident")
+    // {sumInsuredBetter=req.body.sum_insured_better};
     const insurer =req.body.insurer;
     let PAL = req.body.PAL;
     let MP = req.body.MP;
     let PVT= req.body.PVT;
-    let TPL=req.body.TPL;
+    let TPL=req.body.TPL; 
     let newStampDuty = (stampDuty-0) || 0;
     let NewRate = (rate-0) || 1;
     let newSumInsured=(sumInsuredBetter-0) || 0;
@@ -229,16 +231,16 @@ exports.postVehicleEdit=(req,res,next)=>{
     let newMP = (MP-0) || 0;
     let newPVT= (PVT-0) || 0;
     let newTPL= (TPL-0) || 0;
-    let basicPremium = (newSumInsured *(NewRate/100));
-    if(coverType=="Work Injury Benefit"|| coverType== "Personal Accident"  || coverType=="Group Personal Accident"){basicPremium=newBasicSum};
-    console.log(coverType);
+    let basicPremium = newBasicSum;
+   // if(coverType=="Work Injury Benefit"|| coverType== "Personal Accident"  || coverType=="Group Personal Accident"){basicPremium=newBasicSum};
+   // console.log(coverType);
       let subBasic = (basicPremium +newPAL+newMP+newPVT+newTPL);
       let trainingLevy= (subBasic * 0.002);
       let PHCF = (subBasic * 0.0025);
       const GrandTotal = (newStampDuty + trainingLevy + PHCF + subBasic);
       Policies.findOne({where:{id:policyId}}).then(policy=>{
        
-          policy.basicPremium=basicPremium,
+          policy.basicPremium=basicSum,
           policy.regN=regN,
           policy.chassis=chassisN,
           policy.levy=trainingLevy,

@@ -9,8 +9,6 @@ var policy_remarks = document.getElementById("policy_remarks");
 var benefits_list = document.getElementById("benefits_list");
 var sum_insured_label = document.getElementById("sum_insured_label");
 
-
-
 if (
   cover.options[cover.selectedIndex].value == "" ||
   cover.options[cover.selectedIndex].value == "Comprehensive" ||
@@ -22,7 +20,7 @@ if (
   policy_remarks.rows = "20";
   policy_remarks.style.maxHeight = "190px";
 
-  if(sum_insured_label!=null){
+  if (sum_insured_label != null) {
     sum_insured_label.innerHTML = "Sum Insured";
   }
 } else {
@@ -31,8 +29,8 @@ if (
   sum_insured.placeholder = "Basic Premium";
   policy_remarks.rows = "12";
   policy_remarks.style.maxHeight = "180px";
-  
-  if(sum_insured_label!=null){
+
+  if (sum_insured_label != null) {
     sum_insured_label.innerHTML = "Basic Premium";
   }
 }
@@ -48,8 +46,8 @@ cover.addEventListener("change", function () {
     sum_insured.placeholder = "Sum Insured";
     policy_remarks.rows = "20";
     policy_remarks.style.maxHeight = "190px";
-  
-    if(sum_insured_label!=null){
+
+    if (sum_insured_label != null) {
       sum_insured_label.innerHTML = "Sum Insured";
     }
   } else {
@@ -58,8 +56,8 @@ cover.addEventListener("change", function () {
     sum_insured.placeholder = "Basic Premium";
     policy_remarks.rows = "12";
     policy_remarks.style.maxHeight = "180px";
-  
-    if(sum_insured_label!=null){
+
+    if (sum_insured_label != null) {
       sum_insured_label.innerHTML = "Basic Premium";
     }
   }
@@ -108,10 +106,10 @@ function cashConcut() {
     sum_insured.value = "";
   } else {
     var no_Nans = clean_up2.replace("NaN", "");
-    var no_zeros = parseInt(no_Nans);
-    var new_cash = no_zeros.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+    // var no_zeros = parseInt(no_Nans);
+    var new_cash = no_Nans.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
     sum_insured.value = "Kshs " + new_cash;
-    sum_insured_poa.value = no_zeros;
+    sum_insured_poa.value = no_Nans;
   }
 }
 

@@ -397,8 +397,6 @@
                         />
                       </div>
                       <%  var item_disp = policy.sumInsured %> 
-                      <% if(policy.coverType=="Work Injury Benefit"||policy.coverType=="Group Personal Accident" ||policy.coverType=="Personal Accident"){%> 
-                      <% item_disp= policy.basicPremium %> <% } %> 
                       <div class="input-holder split" id="sum_insured_holders" style="flex-wrap: wrap">
                         <h4
                           style="
@@ -418,7 +416,7 @@
                           onload="cashConcut()"
                           onkeyup="cashConcut()"
                           onblur="cashConcut()"
-                          value="<%= item_disp %>"
+                          value="<%= policy.basicPremium %>"
                           id="sum_insured_input"
                           name="sumInsured"
                           class="input-space"

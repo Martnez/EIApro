@@ -126,6 +126,7 @@
                     <th>Levy(B)</th>
                     <th>PHCF(B)</th>
                     <th>Stamp Duty</th>
+                    <th>Credit Status</th>
                   </tr>
                 </thead>
                 <tbody id="myTable">
@@ -159,6 +160,21 @@
                     <% if(policy.insurancePayment!=undefined){ phcfB=policy.insurancePayment.basicPremium%> <%}%>
                     <td><%= phcfB %> </td>
                     <td><%= policy.stampDuty %></td>
+                    <% var i =policy.creditCollections.length; t_paid=0; x=0; %> 
+                    <% var credit= policy.creditCollections%>
+                          <% for(x=0;x<i;x++){%> 
+                             <% t_paid+=credit[x].p_paid;%> 
+                            <%} %> 
+                    <% var pending =policy.GrandTotal-t_paid %>
+                    <% var GrandTotal =policy.GrandTotal%>
+                    <% if(pending==0){%>
+                      <td><h4>Paid</h4></td>
+                      <%}else if(pending==GrandTotal) {%>
+                        <td><h4>Not Paid</h4></td>
+                        <% } else{%>
+                      <td><h4>Pending</h4></td>
+                      <%}  %>
+                    
                   </tr>
                   <% } %> 
                   <% }%>
