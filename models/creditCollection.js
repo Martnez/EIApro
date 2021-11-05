@@ -31,11 +31,6 @@ const creditCollection = sequelize.define('creditCollection', {
     type: Sequelize.STRING,
     allowNull:true
   },
-  delete:{
-    type: Sequelize.INTEGER,
-    allowNull:true,
-    defaultValue:'0'
-  },
   
   
  

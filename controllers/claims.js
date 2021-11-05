@@ -12,10 +12,27 @@ const claimAction= require('../models/claimAction');
 const Vehicles = require('../models/Vehicle');
 
 exports.deleteAction= async (req,res,next)=>{
+  const user =req.user;
+  let today = new Date()
+    let month = today.getMonth() + 1;
+    let date= today.getDate();
+    let year = today.getFullYear();
+    let hour = today.getHours();
+    let min = today.getMinutes();
+    let secs = today.getSeconds();
+    const current_date = `${month}/${date}/${year}`;
+    const current_time = `${hour}:${min}:${secs}`;
   const claimActionId = req.params.claimActionId;
   const claimId=req.params.claimId;
   try{
   const claimAction_ = await claimAction.findOne({where:{id:claimActionId}});
+  const log= new Logs({
+task: `deleted a  claim id:${claimId}`,
+userId: user.id,
+time: current_time,
+date:current_date
+});
+  log.save();
   claimAction_.destroy();
   res.redirect(`/claim-action/${claimId}`)
   }catch{error=>console.log(error)}
@@ -156,9 +173,26 @@ exports.getClaimEdit= (req,res,next) =>{
   })
   };
   exports.getdeleteClaim = (req, res, next) => {
+    const user =req.user;
+    let today = new Date()
+    let month = today.getMonth() + 1;
+    let date= today.getDate();
+    let year = today.getFullYear();
+    let hour = today.getHours();
+    let min = today.getMinutes();
+    let secs = today.getSeconds();
+    const current_date = `${month}/${date}/${year}`;
+    const current_time = `${hour}:${min}:${secs}`;
     const claimId = req.params.claimId;
     Claim.findByPk(claimId)
       .then(claim => {
+        const log= new Logs({
+          task: `Deleted a claim id:${claimId}`,
+          userId: user.id,
+          time: current_time,
+          date:current_date
+          });
+            log.save();
         claim.delete="1";
         claim.save()
       })

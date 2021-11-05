@@ -316,6 +316,7 @@ exports.postVehicleEdit=(req,res,next)=>{
   const policyNumber= req.body.policyN;
   const mvClass = req.body.mvClass;
   const policyStart= req.body.policyStart;
+  const basic_premium=req.body.basicPremium;
   const policyEnd = req.body.policyEnd;
   const sumInsured= req.body.sumInsuredPoa;
   const insurer =req.body.insurer;
@@ -365,7 +366,7 @@ exports.postVehicleEdit=(req,res,next)=>{
               policy.levy=trainingLevy,
               policy.PHCF=PHCF,
               policy.remarks=remarks,
-              policy.basicPremium=basicPremium,
+              policy.basicPremium=basic_prem,
               policy.rate=rate,
               policy.stampDuty= stampDuty,
               policy.netProfit=GrandTotal,

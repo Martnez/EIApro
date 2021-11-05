@@ -250,7 +250,7 @@
                         />
                       </div>
                     </div>
-                    <div class="input-holder inside">
+                    <div class="input-holder inside" id="rate_holder">
                       <input
                         type=""
                         placeholder="Rate"
@@ -260,7 +260,7 @@
                       />
                     </div>
                     <div class="split-diplay">
-                      <div class="input-holder split">
+                      <div class="input-holder split" id="sum_insured_holder">
                         <input
                         type="text"
                         placeholder="Sum Insured (Kshs)"
@@ -292,16 +292,35 @@
                         class="input-space"
                       />
                     </div>
+                    
+                    <div class="input-holder inside">
+                      <input
+                        type="text"
+                        placeholder="Basic Premium (Kshs)"
+                        onkeyup="basicPremConcut()"
+                        id="basic_prem"
+                        class="input-space"
+                      />
+                      <input
+                        type="number"
+                        placeholder="Basic Premium poa "
+                        required
+                        id="basic_prem_poa"
+                        name="basicPremium"
+                        class="input-space"
+                        style="display: none;"
+                      />
+                    </div>
                     <div class="input-holder">
                       <textarea
                         style="
                           height: auto;
                           padding: 1rem 0 0 1rem;
-                          max-height: 190px;
+                          max-height: 100px;
                         "
                         type="text"
                         id="policy_remarks"
-                        rows="20"
+                        rows="5"
                         required
                         class="input-space"
                         placeholder="Policy Remarks"

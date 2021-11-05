@@ -72,16 +72,16 @@ if (special_discount_poa == "") {
 if (net_premium_poa == "") {
   net_premium_poa = 0;
 }
-console.log("exPro" + exPro);
-console.log("poliTe" + poliTe);
-console.log("perAcc" + perAcc);
-console.log("pll" + pll);
-console.log("rescueBenefit" + rescueBenefit);
-console.log("windscreen" + windscreen);
-console.log("pvt" + pvt);
-console.log("mp" + mp);
-console.log("pal" + pal);
-console.log("tpl" + tpl);
+// console.log("exPro" + exPro);
+// console.log("poliTe" + poliTe);
+// console.log("perAcc" + perAcc);
+// console.log("pll" + pll);
+// console.log("rescueBenefit" + rescueBenefit);
+// console.log("windscreen" + windscreen);
+// console.log("pvt" + pvt);
+// console.log("mp" + mp);
+// console.log("pal" + pal);
+// console.log("tpl" + tpl);
 let total_benefits =
   parseFloat(exPro) +
   parseFloat(poliTe) +
@@ -95,7 +95,7 @@ let total_benefits =
   parseFloat(pal) +
   parseFloat(tpl);
 
-console.log("total_benefits1" + total_benefits);
+// console.log("total_benefits1" + total_benefits);
 
 let kshs_total_benefits = total_benefits
   .toString()
@@ -121,11 +121,49 @@ if (
 }
 
 // ON WINDOW LOAD FUNCTION CALLING
-basicPremCalc();
-special_disc();
+// basicPremCalc();
+// special_disc();
+BasicTotal();
 ///////////////////////////////////////
 //Functions Begin here-----
 //////////////////////////////////////
+
+function BasicTotal() {
+  let basic_prem_no_rate2 = basic_prem_poa.replace("Kshs ", "");
+  let new_basic_prem = basic_prem_no_rate2;
+  let basic_total = Math.round(
+    parseFloat(new_basic_prem) + parseFloat(total_benefits)
+  ).toFixed(2);
+
+  let basic_total_newer = basic_total;
+
+  let kshs_basic_total = basic_total_newer
+    .toString()
+    .replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+  basic_total_new.value = "Kshs " + kshs_basic_total;
+  basic_total_new_val.value = basic_total_newer;
+
+  //////////////////////////////////////////
+
+  let sub_basic_prem = parseFloat(new_basic_prem) + parseFloat(total_benefits);
+  let phcf_amount = parseFloat(sub_basic_prem) * 0.0025;
+  let training_levy_amount = parseFloat(sub_basic_prem) * 0.002;
+
+  let total_basic_prem2 = (
+    parseFloat(new_basic_prem) +
+    parseFloat(phcf_amount) +
+    parseFloat(training_levy_amount) +
+    parseFloat(total_benefits) +
+    parseFloat(stamp_duty_val.value)
+  ).toFixed(2);
+
+  let kshs_total_basic_prem = total_basic_prem2
+    .toString()
+    .replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+
+  total_prem_amount.value = "Kshs " + kshs_total_basic_prem;
+  total_prem_amount_val.value = total_basic_prem2;
+}
 
 function noRateCalc() {
   let x = basic_prem_amount.value;

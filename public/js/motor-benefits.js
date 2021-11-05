@@ -9,6 +9,11 @@ var policy_remarks = document.getElementById("policy_remarks");
 var benefits_list = document.getElementById("benefits_list");
 var sum_insured_label = document.getElementById("sum_insured_label");
 
+var basic_prem = document.getElementById("basic_prem");
+var basic_prem_poa = document.getElementById("basic_prem_poa");
+var sum_insured_holder = document.getElementById("sum_insured_holder");
+var rate_holder = document.getElementById("rate_holder");
+
 if (
   cover.options[cover.selectedIndex].value == "" ||
   cover.options[cover.selectedIndex].value == "Comprehensive" ||
@@ -16,23 +21,25 @@ if (
 ) {
   rate.style.display = "initial";
   rate.required = true;
-  sum_insured.placeholder = "Sum Insured";
-  policy_remarks.rows = "20";
-  policy_remarks.style.maxHeight = "190px";
-
-  if (sum_insured_label != null) {
-    sum_insured_label.innerHTML = "Sum Insured";
-  }
+  rate_holder.style.display = "flex";
+  policy_remarks.rows = "10";
+  policy_remarks.style.maxHeight = "140px";
+  sum_insured_holder.style.display = "flex";
+  sum_insured.required = true;
+  sum_insured_poa.required = true;
 } else {
   rate.style.display = "none";
+  rate_holder.style.display = "none";
   rate.required = false;
-  sum_insured.placeholder = "Basic Premium";
-  policy_remarks.rows = "12";
-  policy_remarks.style.maxHeight = "180px";
+  policy_remarks.rows = "8";
+  policy_remarks.style.maxHeight = "175px";
+  sum_insured_holder.style.display = "none";
+  sum_insured.required = false;
+  sum_insured_poa.required = false;
 
-  if (sum_insured_label != null) {
-    sum_insured_label.innerHTML = "Basic Premium";
-  }
+  // if (sum_insured_label != null) {
+  //   sum_insured_label.innerHTML = "Basic Premium";
+  // }
 }
 
 cover.addEventListener("change", function () {
@@ -43,23 +50,21 @@ cover.addEventListener("change", function () {
   ) {
     rate.style.display = "initial";
     rate.required = true;
-    sum_insured.placeholder = "Sum Insured";
+    rate_holder.style.display = "flex";
     policy_remarks.rows = "20";
-    policy_remarks.style.maxHeight = "190px";
-
-    if (sum_insured_label != null) {
-      sum_insured_label.innerHTML = "Sum Insured";
-    }
+    policy_remarks.style.maxHeight = "140px";
+    sum_insured_holder.style.display = "flex";
+    sum_insured.required = true;
+    sum_insured_poa.required = true;
   } else {
     rate.style.display = "none";
+    rate_holder.style.display = "none";
     rate.required = false;
-    sum_insured.placeholder = "Basic Premium";
     policy_remarks.rows = "12";
-    policy_remarks.style.maxHeight = "180px";
-
-    if (sum_insured_label != null) {
-      sum_insured_label.innerHTML = "Basic Premium";
-    }
+    policy_remarks.style.maxHeight = "175px";
+    sum_insured_holder.style.display = "none";
+    sum_insured.required = false;
+    sum_insured_poa.required = false;
   }
 });
 
@@ -104,12 +109,41 @@ function cashConcut() {
 
   if (clean_up2 == "") {
     sum_insured.value = "";
+    sum_insured_poa.value = 0;
   } else {
     var no_Nans = clean_up2.replace("NaN", "");
     // var no_zeros = parseInt(no_Nans);
     var new_cash = no_Nans.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
     sum_insured.value = "Kshs " + new_cash;
     sum_insured_poa.value = no_Nans;
+  }
+}
+
+basicPremConcut();
+function basicPremConcut() {
+  var cash = basic_prem.value;
+  var clean_up = cash.replace("Kshs ", "");
+  var clean_up2 = clean_up
+    .replace(/,/g, "")
+    .replace("N", "")
+    .replace("NaN", "")
+    .replace("n", "")
+    .replace("E", "")
+    .replace("e", "")
+    .replace("A", "")
+    .replace("a", "")
+    .replace("Q", "")
+    .replace("q", "");
+
+  if (clean_up2 == "") {
+    basic_prem.value = "";
+    basic_prem_poa.value = 0;
+  } else {
+    var no_Nans = clean_up2.replace("NaN", "");
+    // var no_zeros = parseInt(no_Nans);
+    var new_cash = no_Nans.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+    basic_prem.value = "Kshs " + new_cash;
+    basic_prem_poa.value = no_Nans;
   }
 }
 
@@ -169,121 +203,121 @@ var loss_of_use_basic_premium = document.getElementById(
   "loss_of_use_basic_premium"
 );
 
-if (ep.checked) {
-  ep_basic_premium.disabled = false;
-  ep_basic_premium.required = true;
-} else {
-  ep_basic_premium.disabled = true;
-  ep_basic_premium.required = true;
-}
-ep.addEventListener("change", function () {
-  if (ep.checked) {
-    ep_basic_premium.disabled = false;
-    ep_basic_premium.required = true;
-  } else {
-    ep_basic_premium.disabled = true;
-    ep_basic_premium.required = true;
-  }
-});
+// if (ep.checked) {
+//   ep_basic_premium.disabled = false;
+//   ep_basic_premium.required = true;
+// } else {
+//   ep_basic_premium.disabled = true;
+//   ep_basic_premium.required = true;
+// }
+// ep.addEventListener("change", function () {
+//   if (ep.checked) {
+//     ep_basic_premium.disabled = false;
+//     ep_basic_premium.required = true;
+//   } else {
+//     ep_basic_premium.disabled = true;
+//     ep_basic_premium.required = true;
+//   }
+// });
 //////////////////////////////////////////
-if (windscreen_benefit.checked) {
-  windscreen_benefit_basic_premium.disabled = false;
-  windscreen_benefit_basic_premium.required = true;
-} else {
-  windscreen_benefit_basic_premium.disabled = true;
-  windscreen_benefit_basic_premium.required = false;
-}
-windscreen_benefit.addEventListener("change", function () {
-  if (windscreen_benefit.checked) {
-    windscreen_benefit_basic_premium.disabled = false;
-    windscreen_benefit_basic_premium.required = true;
-  } else {
-    windscreen_benefit_basic_premium.disabled = true;
-    windscreen_benefit_basic_premium.required = false;
-  }
-});
-///////////////////////////////////////////////
-if (pvt.checked) {
-  pvt_basic_premium.disabled = false;
-  pvt_basic_premium.required = true;
-} else {
-  pvt_basic_premium.disabled = true;
-  pvt_basic_premium.required = false;
-}
-pvt.addEventListener("change", function () {
-  if (pvt.checked) {
-    pvt_basic_premium.disabled = false;
-    pvt_basic_premium.required = true;
-  } else {
-    pvt_basic_premium.disabled = true;
-    pvt_basic_premium.required = false;
-  }
-});
-///////////////////////////////////////////////////
-if (rescue_benefit.checked) {
-  rescue_benefit_basic_premium.disabled = false;
-  rescue_benefit_basic_premium.required = true;
-} else {
-  rescue_benefit_basic_premium.disabled = true;
-  rescue_benefit_basic_premium.required = false;
-}
-rescue_benefit.addEventListener("change", function () {
-  if (rescue_benefit.checked) {
-    rescue_benefit_basic_premium.disabled = false;
-    rescue_benefit_basic_premium.required = true;
-  } else {
-    rescue_benefit_basic_premium.disabled = true;
-    rescue_benefit_basic_premium.required = false;
-  }
-});
-///////////////////////////////////////////////////
-if (pll.checked) {
-  pll_benefit_basic_premium.disabled = false;
-  pll_benefit_basic_premium.required = true;
-} else {
-  pll_benefit_basic_premium.disabled = true;
-  pll_benefit_basic_premium.required = false;
-}
-pll.addEventListener("change", function () {
-  if (pll.checked) {
-    pll_benefit_basic_premium.disabled = false;
-    pll_benefit_basic_premium.required = true;
-  } else {
-    pll_benefit_basic_premium.disabled = true;
-    pll_benefit_basic_premium.required = false;
-  }
-});
-//////////////////////////////////////////////////////
-if (personal_accident.checked) {
-  personal_accident_basic_premium.disabled = false;
-  personal_accident_basic_premium.required = true;
-} else {
-  personal_accident_basic_premium.disabled = true;
-  personal_accident_basic_premium.required = false;
-}
-personal_accident.addEventListener("change", function () {
-  if (personal_accident.checked) {
-    personal_accident_basic_premium.disabled = false;
-    personal_accident_basic_premium.required = true;
-  } else {
-    personal_accident_basic_premium.disabled = true;
-    personal_accident_basic_premium.required = false;
-  }
-});
-/////////////////////////////////////////////////////
-if (loss_of_use.checked) {
-  loss_of_use_basic_premium.disabled = false;
-  loss_of_use_basic_premium.required = true;
-} else {
-  loss_of_use_basic_premium.disabled = true;
-  loss_of_use_basic_premium.required = false;
-}
-loss_of_use.addEventListener("change", function () {
-  if (loss_of_use.checked) {
-    loss_of_use_basic_premium.disabled = false;
-    loss_of_use_basic_premium.required = true;
-  } else {
-    loss_of_use_basic_premium.disabled = true;
-    loss_of_use_basic_premium.required = false;
-  }
-});
+// if (windscreen_benefit.checked) {
+//   windscreen_benefit_basic_premium.disabled = false;
+//   windscreen_benefit_basic_premium.required = true;
+// } else {
+//   windscreen_benefit_basic_premium.disabled = true;
+//   windscreen_benefit_basic_premium.required = false;
+// }
+// windscreen_benefit.addEventListener("change", function () {
+//   if (windscreen_benefit.checked) {
+//     windscreen_benefit_basic_premium.disabled = false;
+//     windscreen_benefit_basic_premium.required = true;
+//   } else {
+//     windscreen_benefit_basic_premium.disabled = true;
+//     windscreen_benefit_basic_premium.required = false;
+//   }
+// });
+// ///////////////////////////////////////////////
+// if (pvt.checked) {
+//   pvt_basic_premium.disabled = false;
+//   pvt_basic_premium.required = true;
+// } else {
+//   pvt_basic_premium.disabled = true;
+//   pvt_basic_premium.required = false;
+// }
+// pvt.addEventListener("change", function () {
+//   if (pvt.checked) {
+//     pvt_basic_premium.disabled = false;
+//     pvt_basic_premium.required = true;
+//   } else {
+//     pvt_basic_premium.disabled = true;
+//     pvt_basic_premium.required = false;
+//   }
+// });
+// ///////////////////////////////////////////////////
+// if (rescue_benefit.checked) {
+//   rescue_benefit_basic_premium.disabled = false;
+//   rescue_benefit_basic_premium.required = true;
+// } else {
+//   rescue_benefit_basic_premium.disabled = true;
+//   rescue_benefit_basic_premium.required = false;
+// }
+// rescue_benefit.addEventListener("change", function () {
+//   if (rescue_benefit.checked) {
+//     rescue_benefit_basic_premium.disabled = false;
+//     rescue_benefit_basic_premium.required = true;
+//   } else {
+//     rescue_benefit_basic_premium.disabled = true;
+//     rescue_benefit_basic_premium.required = false;
+//   }
+// });
+// ///////////////////////////////////////////////////
+// if (pll.checked) {
+//   pll_benefit_basic_premium.disabled = false;
+//   pll_benefit_basic_premium.required = true;
+// } else {
+//   pll_benefit_basic_premium.disabled = true;
+//   pll_benefit_basic_premium.required = false;
+// }
+// pll.addEventListener("change", function () {
+//   if (pll.checked) {
+//     pll_benefit_basic_premium.disabled = false;
+//     pll_benefit_basic_premium.required = true;
+//   } else {
+//     pll_benefit_basic_premium.disabled = true;
+//     pll_benefit_basic_premium.required = false;
+//   }
+// });
+// //////////////////////////////////////////////////////
+// if (personal_accident.checked) {
+//   personal_accident_basic_premium.disabled = false;
+//   personal_accident_basic_premium.required = true;
+// } else {
+//   personal_accident_basic_premium.disabled = true;
+//   personal_accident_basic_premium.required = false;
+// }
+// personal_accident.addEventListener("change", function () {
+//   if (personal_accident.checked) {
+//     personal_accident_basic_premium.disabled = false;
+//     personal_accident_basic_premium.required = true;
+//   } else {
+//     personal_accident_basic_premium.disabled = true;
+//     personal_accident_basic_premium.required = false;
+//   }
+// });
+// /////////////////////////////////////////////////////
+// if (loss_of_use.checked) {
+//   loss_of_use_basic_premium.disabled = false;
+//   loss_of_use_basic_premium.required = true;
+// } else {
+//   loss_of_use_basic_premium.disabled = true;
+//   loss_of_use_basic_premium.required = false;
+// }
+// loss_of_use.addEventListener("change", function () {
+//   if (loss_of_use.checked) {
+//     loss_of_use_basic_premium.disabled = false;
+//     loss_of_use_basic_premium.required = true;
+//   } else {
+//     loss_of_use_basic_premium.disabled = true;
+//     loss_of_use_basic_premium.required = false;
+//   }
+// });

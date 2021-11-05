@@ -131,9 +131,26 @@ exports.getClients=(req,res,next)=>{
 
   }
   exports.getdeleteClient = (req, res, next) => {
+    const user= req.user;
+    let today = new Date()
+    let month = today.getMonth() + 1;
+    let date= today.getDate();
+    let year = today.getFullYear();
+    let hour = today.getHours();
+    let min = today.getMinutes();
+    let secs = today.getSeconds();
+    const current_date = `${month}/${date}/${year}`;
+    const current_time = `${hour}:${min}:${secs}`;
     const clientId = req.params.clientId;
     Clients.findByPk(clientId)
       .then(client => {
+        const log= new Logs({
+          task: `Deleted Client Id: ${clientId}`,
+          userId: user.id,
+          time: current_time,
+          date:current_date
+          });
+            log.save();
         client.delete="1"
         client.save()
       })

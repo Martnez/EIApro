@@ -31,11 +31,6 @@ const creditPayment = sequelize.define('creditPayment', {
     type: Sequelize.STRING,
     allowNull:true
   },
-  delete:{
-    type: Sequelize.INTEGER,
-    allowNull:true,
-    defaultValue:'0'
-  },
   
   
  

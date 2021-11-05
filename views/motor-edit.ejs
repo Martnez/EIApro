@@ -315,7 +315,7 @@
                       </div>
                     </div>
                     <div class="split-diplay">
-                      <div class="input-holder split" style="flex-wrap: wrap">
+                      <div id="sum_insured_holder" class="input-holder split" style="flex-wrap: wrap">
                         <h4
                           style="
                             width: 100%;
@@ -370,7 +370,7 @@
                         />
                       </div>
                     </div>
-                    <div class="input-holder inside" style="flex-wrap: wrap">
+                    <div class="input-holder inside" id="rate_holder" style="flex-wrap: wrap">
                       <h4
                         style="
                           width: 100%;
@@ -388,6 +388,34 @@
                         value="<%= policy.rate %>"
                         id="rate_input"
                         class="input-space"
+                      />
+                    </div>
+                    
+                    <div class="input-holder inside" style="flex-wrap: wrap">
+                      <h4
+                        style="
+                          width: 100%;
+                          margin: 0.5rem 0;
+                          font-weight: 400;
+                          font-size: 15px;
+                        ">
+                      Basic Premium
+                      </h4>
+                      <input
+                        type="text"
+                        placeholder="Basic Premium (Kshs)"
+                        onkeyup="basicPremConcut()"
+                        id="basic_prem"
+                        class="input-space"
+                      />
+                      <input
+                        type="number"
+                        placeholder="Basic Premium Poa"
+                        name=""
+                        id="basic_prem_poa"
+                        name="basicPremium"
+                        class="input-space"
+                        style="display: none;"
                       />
                     </div>
                     <div class="input-holder" style="flex-wrap: wrap">
