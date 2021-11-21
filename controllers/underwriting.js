@@ -7,23 +7,47 @@ const Vehicles = require("../models/Vehicle");
 const Credit = require("../models/creditCollection");
 const CreditPay = require("../models/creditPayment");
 
-exports.getUnderwriting = (req, res, next) => {
+const { Op } = require("sequelize");
+
+exports.getUnderwriting = async (req, res, next) => {
   const user = req.user;
-  Policies.findAll({
+  const searchterm = "Amos";
+  const option = {
     where: { delete: "0" },
     order: [["createdAt", "DESC"]],
     include: [{ model: Clients }, { model: Vehicles }],
-  })
-    .then((policies) => {
-      res.render("underwriting", {
-        user: user,
-        policies: policies,
-        pageTitle: "underwriting",
-        path: "/underwriting",
-        //   errorMessage: req.flash('emailError')
-      });
-    })
-    .catch((err) => console.log(err));
+  };
+  const options2 = {
+    where: {
+      delete: "0",
+      [Op.or]: [
+        { policyNumber: { [Op.like]: "%" + searchterm + "%" } },
+        { coverType: { [Op.like]: "%" + searchterm + "%" } },
+        { sumInsured: { [Op.like]: "%" + searchterm + "%" } },
+        // { "$Clients.firstName$": { [Op.like]: "%" + searchterm + "%" } },
+        // { "$Vehicle.RegN$": { [Op.like]: "%" + searchterm + "%" } },
+      ],
+    },
+    order: [["createdAt", "DESC"]],
+    include: [
+      {
+        model: Clients,
+      },
+      { model: Vehicles },
+    ],
+    // getClient : await Clients.findOne({id:1});
+    // console.log(getClient.firstName);
+  };
+  
+  const policies = await Policies.findAll(options2);
+  console.log(policies);
+  res.render("underwriting", {
+    user: user,
+    policies: policies,
+    pageTitle: "underwriting",
+    path: "/underwriting",
+    //   errorMessage: req.flash('emailError')
+  });
 };
 exports.getNewMotor = (req, res, next) => {
   const user = req.user;
